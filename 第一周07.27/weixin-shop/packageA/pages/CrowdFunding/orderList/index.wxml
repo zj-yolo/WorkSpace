@@ -1,0 +1,79 @@
+<view class='all'>
+<loading wx:if="{{loading}}"></loading>
+  <scroll-view scroll-x="true" class="sidebar sidebar4" style="width:100%;">
+    <text data-status="0" bindtap='clickTop' class="{{status == 0? 'bord': ''}}">全部
+</text>
+    <text data-status="1" bindtap='clickTop' class="{{status == 1? 'bord': ''}}">已支付
+</text>
+    <text data-status="-1" bindtap='clickTop' class="{{status == -1? 'bord': ''}}">未支付
+</text>
+  </scroll-view>
+</view>
+<view style='height:15px;background-color:#f7f7f7;width:100%;'></view>
+
+<scroll-view scroll-y="true" bindscrolltolower='bottom' style='height:{{heightt-57}}px;'>
+  <block wx:for='{{orderList}}' wx:key='index' wx:if='{{orderList}}'>
+    <view class='list-one' data-orderid='{{item.id}}' bindtap='intoOrderDetail'>
+      <view class='top-one'>
+        <view>订单编号:{{item.orderno}}</view>
+        <view wx:if='{{item.status == -1}}'>已关闭</view>
+        <view wx:if='{{item.status == 0}}'>未支付</view>
+        <view wx:if='{{item.status == 1}}'>已支付</view>
+        <view wx:if='{{item.status == 2}}'>代发货</view>
+        <view wx:if='{{item.status == 3}}'>待收货</view>
+        <view wx:if='{{item.status == 4}}'>完成</view>
+
+      </view>
+      <view style='width:100%;height:2rpx;background-color:#f2f2f2;'></view>
+      <view class='list-two'>
+        <view class='two_left'>
+          <image src='{{item.thumb}}'></image>
+        </view>
+        <view class='two_rig'>
+          <view style='width:100%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;'>{{item.title}}</view>
+          <view class='color_ys'>{{item.crowstatus}}</view>
+          <view class='price'>
+            <view style='color:red;'>￥{{item.goodsprice}}</view>
+            <view>X1</view>
+          </view>
+          <view class='color_ys'>共计{{item.total}}件商品 实付￥{{item.oprice}}(含运费{{item.freight}}元)</view>
+        </view>
+      </view>
+      <view class='have_two'>
+        <buttom class='list-three' style='margin-left:50%;' catchtap='orderPay' data-orderid='{{item.id}}' wx:if='{{item.status == 0 && item.crowd == 2}}'>立即支付</buttom>
+        <buttom class='list-three' data-orderid='{{item.id}}' catchtap='quxiaoOrder' style='margin-left:30rpx;background-color:#100f0f;' wx:if='{{item.status == 0 && item.crowd == 2}}'>取消订单</buttom>
+      </view>
+      <view class='list-three' wx:if='{{item.status == 1 && item.crowd == 2}}' catchtap='intoJd' data-goodid='{{item.goodid}}'>查看进度</view>
+      <view class='list-three' wx:if='{{item.status == -1 && item.crowd == 2}}' catchtap='delete' data-orderid='{{item.id}}'>删除</view>
+      <view class='list-three' wx:if='{{item.status == -1 && item.crowd == -1}}' catchtap='delete' data-orderid='{{item.id}}'>删除</view>
+      <view class='list-three' wx:if='{{item.status == 2 && item.crowd == 1}}' catchtap='gencui'>跟催发货</view>
+      <view class='have_two'>
+        <buttom class='list-three' style='margin-left:50%;' wx:if='{{item.status == 3 && item.crowd == 1}}' data-orderid='{{item.id}}' catchtap='lookWl'>查看物流</buttom>
+        <buttom class='list-three' data-orderid='{{item.id}}' catchtap='querensh' style='margin-left:30rpx;background-color:#100f0f;' wx:if='{{item.status == 3 && item.crowd == 1}}'>确认收货</buttom>
+      </view>
+      <view class='list-three' wx:if='{{item.status == 0 && item.crowd == 1}}' catchtap='delete' data-orderid='{{item.id}}'>删除</view>
+    </view>
+    <view style='width:100%;height:20rpx;background-color:#f2f2f2;'></view>
+  </block>
+  <!-- <view wx:if='{{showLine}}' style='text-align:center;'>我是有底线的</view>
+  <view wx:if='{{!showLine}}' style='text-align:center'>加载中</view>  -->
+  <block wx:if="{{orderList.length==0}}">
+    <view class='noData'>
+      <image src='https://tws.cnweisou.com/images/noOrderList_icon.png'></image>
+      <view>暂时没有相关的订单哟~~</view>
+    </view>
+  </block>
+</scroll-view>
+
+<view class="point" wx:if="{{scshow}}">
+  <view class="pop">
+    <view class='popA'>
+      <view>跟催成功</view>
+    </view>
+  </view>
+</view>
+
+
+<!-- <view class="scrollTop" bindtap='toTop' wx:if="{{scrollTopMy}}">
+  <image src="http://tws.cnweisou.com/images/toTopList.png"></image>
+</view> -->

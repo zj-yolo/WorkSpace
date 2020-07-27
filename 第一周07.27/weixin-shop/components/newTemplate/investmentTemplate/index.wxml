@@ -1,0 +1,72 @@
+<view class="container">
+	<view class="banner1">
+		<image src="{{pageData.set.banner[0]}}"></image>
+	</view>
+	<view class="search">
+		<image wx:if="{{showsearchIcon}}" class="searchIcon" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-search.png"></image>
+		<input placeholder="|  输入关键词查询" placeholder-style="color:#8a8a8a;font-size:26rpx" bindconfirm="handleconfirm" bindinput="handleinput"></input>
+	</view>
+	<view class="brand">
+		<view class="brandTile">品牌企业</view>
+		<view class="wordArt">BRAND</view>
+		<view class="brandList" >
+			<view class="brandItem" wx:for="{{pageData.set.brand_enterprise}}" wx:key="index" style="border: solid 1rpx #f6f6f6;" data-type="companyActicle" data-id="{{item.id}}" bindtap="toacticle">
+				<image src="{{item.logo}}" mode="aspectFit"></image>
+			</view>
+		</view>
+	</view>
+	<view class="banner2">
+		<image src="{{pageData.set.picture[0]}}"></image>
+	</view>
+	<view class="brand">
+		<view class="brandTile">普通企业</view>
+		<view class="wordArt">ORDINARY</view>
+		<view class="greybgbox">
+			<view class="brandList " style="min-height: 260rpx">
+				<view class="brandItem" wx:for="{{pageData.set.excellent_enterprise}}" wx:key="index" data-type="companyActicle" data-id="{{item.id}}" bindtap="toacticle">
+					<image src="{{item.logo}}" mode="aspectFit"></image>
+				</view>
+			</view>
+			<view class="greybg"></view>
+		</view>
+	</view>
+	<view class="region">
+		<view class="brandTile">区域招商</view>
+		<view class="wordArt" style="top:0">REGION</view>
+		<view class="regionList ">
+			<view class="regionItem" wx:for="{{maplist}}" wx:key="index" bindtap="toareaList" data-type="{{item.id}}">
+				<image src="{{item.url}}"></image>
+				<view class="regionName">{{item.name}}</view>
+			</view>
+		</view>
+		<block wx:if="{{mapshowmany.length > 6}}">
+			<view class="seemore" bindtap="handleshowmore" wx:if="{{showmap}}">
+				<text>查看更多</text>
+				<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-Back.png"></image>
+			</view>
+			<view class="seemore" bindtap="handlehidemore" wx:else>
+				<text>收起列表</text>
+				<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-Back.png" style="transform:rotate(180deg)"></image>
+			</view>
+		</block>
+	</view>
+	<view class="article">
+		<view class="brandTile">前沿资讯</view>
+		<view class="wordArt" style="width:60%;top:80rpx">INFORMATION</view>
+		<view class="articleContent">
+			<view class="articleImg">
+				<image src="{{pageData.shopinfo.information[0].resp_img}}"></image>
+				<view class="articleTime">
+					<text>{{imformationMouth}}</text>
+					<text>{{imformationDay}}</text>
+				</view>
+			</view>
+			<view class="articleList">
+				<view class="articleItem" wx:for="{{pageData.shopinfo.information}}" bindtap="toacticle" data-from="grabArticle" data-id="{{item.id}}" wx:key="index">
+					<view class="articletitle {{index == 0? 'currenttitle':''}}">{{item.article_title}}</view>
+					<view wx:if="{{index != 0}}">{{item.article_date_v}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

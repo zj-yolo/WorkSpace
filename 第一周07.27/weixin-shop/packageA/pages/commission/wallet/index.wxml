@@ -1,0 +1,58 @@
+<wxs module="filterTime" src="./filterTime.wxs" />
+<view class="wallet">
+  <view class="figure">
+    <view class="earnings">
+      <view class="label">总收益(元)</view>
+      <view class="earnings__num">{{totalMoney}}</view>
+    </view>
+    <view class="withDraw">
+      <view class="label">可提现金额：{{withDrawMoney}}(元)</view>
+      <view class="btn" bindtap="handleWithDraw">申请提现</view>
+    </view>
+  </view>
+  <view class="option">
+    <view class="option__item {{optionType==item.type?'itemActive':''}}" wx:for="{{optionList}}" wx:key="{{index}}" bindtap="handleOptionClick" data-type="{{item.type}}">{{item.name}}</view>
+  </view>
+  <view class="menu {{optionType=='withDraw'?'menu__item-w':''}}">
+    <view class="menu__item {{statusType==item.type?'itemActive':''}}" wx:for="{{statusList}}"  wx:key="{{index}}" bindtap="handleStatusClick" data-type="{{item.type}}">{{item.name}}</view>
+  </view>
+  <view class="list" wx:if="{{optionType=='returnMoney'}}">
+    <view class="list__item" wx:for="{{walletList}}" wx:key="{{item.id}}">
+      <view class="order">
+        <view class="ordersn">订单：{{item.ordersn}}</view>
+        <view class="order__status" bindtap="handleWithDraw">{{item.order_type}}</view>
+      </view>
+      <view class="order">
+        <view class="time">{{filterTime.formatTime(item.createtime)}}</view>
+        <view class="order__status">+{{item.money}}</view>
+      </view>
+      <view class="order">
+        <image class="goods__image" src="{{item.thumb}}"></image>
+        <image class="avatar" src="{{item.avatar}}"></image>
+      </view>
+    </view>
+    <view class="noContent" wx:if="{{!hasContent}}">
+      <image class="noContent__image" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/icon-no-return.png"></image>
+      <view class="noContent__text">暂无返现明细</view>
+    </view>
+  </view>
+  <view class="list" wx:if="{{optionType=='withDraw'}}">
+    <view class="list__item-withDraw" wx:for="{{withDrawList}}" wx:key="{{item.id}}">
+      <view class="order">
+        <view class="ordersn">单号：{{item.ordersn}}</view>
+        <view class="order__status">{{item.status_type}}</view>
+      </view>
+      <view class="time__container">
+        <view class="time">申请时间：{{filterTime.formatTime(item.created_at)}}</view>
+        <view class="remarks" wx:if="{{item.status==-1&&item.remarks}}">驳回原因：{{item.remarks}}</view>
+      </view>
+      <view class="figure__withDraw">
+        <view class="money__withDraw">+{{item.money}}</view>
+      </view>
+    </view>
+    <view class="noContent" wx:if="{{!hasContent}}">
+      <image class="noContent__image" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/icon-no-withDraw.png"></image>
+      <view class="noContent__text">暂无提现记录</view>
+    </view>
+  </view>
+</view>

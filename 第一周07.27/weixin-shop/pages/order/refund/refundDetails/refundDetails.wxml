@@ -1,0 +1,89 @@
+<view class="interval"></view>
+<view class="process">
+    <view class="processTop">
+        <view class="mapicon">
+            <image src="http://tws.cnweisou.com/images/refundInfo.png" mode="aspectFit"></image>
+        </view>
+        <view class="formValue">
+            {{statemsg}}
+        </view>
+        <view class="mapicon">
+            <image bindtap="moreSelectArrow" src="http://tws.cnweisou.com/images/rightArrow.png" mode="aspectFit" class="{{ClassNum==0?'':'rotateBottom'}}"></image>
+        </view>
+    </view>
+    <view wx:if='{{ClassNum==1}}' class="processCont">
+        <view class="processTitle">退款申请流程:</view>
+        <view class="processDetail1">1.发起退款申请</view>
+        <view class="processDetail2">2.商家确认后退款到您的账户，如果商家未处理，请及时与商家联系。</view>
+    </view>
+</view>
+<view class="interval money">
+    协商详情
+</view>
+<form class="formMode" bindsubmit="formSubmit" bindreset="formReset">
+    <view class="listMode">
+        <view class="title">处理方式</view>
+        <view class="formValue">
+            {{rtype}}
+        </view>
+    </view>
+    <view class="listMode">
+        <view class="title">退款原因</view>
+        <view class="formValue">
+            {{reason}}
+        </view>
+    </view>
+    <view class="listMode1" wx:if="{{content}}">
+        <view class="titleR">退款说明</view>
+        <view class="formValueR">
+            {{content}}
+        </view>
+        <view class="clear"></view>
+    </view>
+    <view class="listMode">
+        <view class="title">退款金额</view>
+        <view class="formValue">
+            {{applyprice}}元
+        </view>
+    </view>
+    <view class="listMode">
+        <view class="title">申请时间</view>
+        <view class="formValue">
+            {{createtime}}
+        </view>
+    </view>
+    <view class="voucher" wx:if="{{isimages!='N'}}">
+        <view class="title">上传凭证</view>
+        <scroll-view scroll-x="true" style=" white-space: nowrap;" class="couponNum">
+            <block wx:for="{{images}}">
+                <image class="channelImage" src="{{item.url}}" mode="aspectFit" />
+            </block>
+        </scroll-view>
+    </view>
+    <view class="interval2">
+        <view class="title"></view>
+    </view>
+    <view class="bottom">
+        <view class="buttomTow">
+            <button class="apply" formType="submit">取消申请</button>
+        </view>
+    </view>
+</form>
+<view class="bgtypeList" wx:if="{{Treatmentmode}}">
+    <view class="cardAgainType">
+        <radio-group class="radio-group" bindchange="radioChange1">
+            <label class="radio" wx:for="{{Treatmentmodeitems}}">
+                <radio value="{{item.name}}" checked="{{item.checked}}" color="#5998FD" />{{item.value}}
+            </label>
+        </radio-group>
+    </view>
+</view>
+<view class="bgtypeList" wx:if="{{Refundreason}}">
+    <view class="cardAgainType">
+        <radio-group class="radio-group" bindchange="radioChange2">
+            <label class="radio" wx:for="{{Refundreasonitems}}">
+                <radio value="{{item.name}}" checked="{{item.checked}}" color="#5998FD" />{{item.value}}
+            </label>
+        </radio-group>
+    </view>
+</view>

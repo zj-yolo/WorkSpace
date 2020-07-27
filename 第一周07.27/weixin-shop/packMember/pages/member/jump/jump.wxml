@@ -1,0 +1,21 @@
+<block wx:if="{{data.length>0}}">
+  <!-- bindtap="jump" -->
+    <view  class="tableviewcell" wx:for="{{data}}" data-id="{{item.id}}">
+        <!-- <block  wx:for="{{data}}"> -->
+        <navigator class="tableviewcell" target="miniProgram" open-type="navigate" app-id="{{item.appid}}" path="{{item.link}}" extra-data="" version="release">
+        <image src="{{item.thumb}}" style="width: 92rpx;height: 92rpx;border-radius: 50%;margin: 24rpx 36rpx;line-height: 143rpx;flex-shrink:0;" />
+        <view class="pair">{{item.name}}</view>
+        </navigator>
+        <!-- </block> -->
+    </view>
+</block>
+<block wx:else>
+    <view class="wrap" style="height:{{height*2}}rpx;line-height: {{height*2}}rpx;">
+        <view style="overflow: hidden;line-height: 0;margin-top: {{height-200}}rpx;">
+            <image src="../../../images/jump.png" style="width: 160rpx;height: 160rpx;" />
+            <view style="line-height: 50rpx;" wx:if="{{!hasId}}">
+                目前还没有关联小程序哟
+            </view>
+        </view>
+    </view>
+</block>

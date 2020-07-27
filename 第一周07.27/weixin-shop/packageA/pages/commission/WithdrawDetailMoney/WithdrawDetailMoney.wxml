@@ -1,0 +1,44 @@
+<view class="container">
+   <view class="top">申请提现</view>
+   <view class="tixian">
+       <view class="title">我的可提现佣金</view>
+       <view class="money">￥{{commission_ok}}</view>
+       <view class="way">
+       <text class="TXway">提现方式</text>
+
+       <view class=" bracket " >
+          <picker  range="{{tixianMethod}}" mode ="selector" bindchange="bindPickerChange" value="{{index}}" data-name="{{tixianMethod[index]}}">
+            <view class="picker">
+              <text class="remain">{{tixianMethod[index]}}</text>
+              <image src="https://tws.cnweisou.com/images/right.png" style="width: 50rpx;height: 50rpx;margin-top: 4rpx;"></image>
+            </view>
+          </picker>
+        </view>
+      </view>
+   </view>
+  <view class="main" wx:if="{{showAddCard}}">
+    <view class="titleTip">请绑定持卡人本人的银行卡</view>
+    <form class="myform">
+        <view>
+          <text>持卡人姓名</text>
+          <input type='text' value="{{name}}" bindinput='getpersonname' placeholder='输入姓名' />
+       </view>
+       <view>
+         <text>银行卡类别</text>
+         <picker bindchange="pickedBankCard" value="{{index}}" range="{{bankArray}}">
+          <view class="picker">{{bankName}}</view>
+        </picker>
+       </view>
+       <view>
+          <text>卡号</text>
+          <input type='number' value="{{cardNumber}}" bindinput='getCard' placeholder='请输入卡号' />
+       </view>
+       <view>
+          <text>确定卡号</text>
+          <input type='number' value="{{cardNumber1}}" bindinput='getCardSecond' placeholder='再次确认卡号' />
+       </view>
+       <!-- <button type="primary" form-type="submit">下一步</button> -->
+    </form>
+  </view>
+<button disabled="{{disabled}}" type="primary" class="btn" bindtap="clickNav">下一步</button>
+</view>

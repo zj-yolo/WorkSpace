@@ -1,0 +1,93 @@
+<form bindsubmit="formSubmitAll">
+    <view class="typeTitle">
+        <block wx:for="{{list}}" wx:key=''>
+            <view data-index="{{index}}" class="newTitle {{sub == index ?'active':''}}" bindtap="clickTitle" data-id="{{item.id}}">{{item}}
+            </view>
+        </block>
+    </view>
+    <view class="contain">
+        <view class="mylist">
+            <view class="imageD">
+                <image class="name" src="https://tws.cnweisou.com/images/sdName.png"></image>
+            </view>
+            <text class="title">姓名</text>
+            <view class="myinput">
+                <input placeholder="请填写姓名" placeholder-style="color:#ccc;z-index:0;" bindblur="pname" value="{{pname}}" maxlength="20" />
+            </view>
+            <view class="must">*</view>
+        </view>
+        <view class="mylist">
+            <view class="imageD">
+                <image src="https://tws.cnweisou.com/images/sdPhone.png"></image>
+            </view>
+            <text class="title">手机号</text>
+            <view class="myinput">
+                <input placeholder="请填写您的手机号" placeholder-style="color:#ccc;z-index:0;" type="number" bindblur="phone" value="{{phone}}" maxlength="11" />
+            </view>
+            <view class="must">*</view>
+        </view>
+        <view class="mylist">
+            <view class="imageD">
+                <image class="type" src="https://tws.cnweisou.com/images/sdType.png"></image>
+            </view>
+            <text class="title">类型</text>
+            <view class="myinput">
+                <input placeholder="请选择发布类型" placeholder-style="color:#ccc;z-index:0;" bindfocus="type" value="{{currtype}}" />
+            </view>
+            <view class="must">*</view>
+        </view>
+        <view class="mylist">
+            <view class="imageD">
+                <image class="position" src="https://tws.cnweisou.com/images/sdPosition.png"></image>
+            </view>
+            <text class="title">选择位置</text>
+            <view class="myinput">
+                <input placeholder="请选择位置" placeholder-style="color:#ccc;z-index:0;" bindtap="position" value="{{positionAll}}" />
+            </view>
+        </view>
+        <view class="mylist">
+            <view class="imageD">
+                <image class="info" src="https://tws.cnweisou.com/images/sdInfo.png"></image>
+            </view>
+            <text class="title">发布内容</text>
+            <view class="must">*</view>
+        </view>
+        <view class="cont">
+            <textarea value="{{cont}}" bindblur="areaCont" placeholder-style="text-indent:30rpx;font-size:28rpx;" maxlength="300" />
+            </view>
+    </view>
+    <view class="listMode">
+        <view class="imageD">
+            <image src="https://tws.cnweisou.com/images/supdemImages.png"></image>
+        </view>
+        <view class="title">图片</view>
+        <view class="formValue">
+            <view class="item" wx:for="{{images}}" wx:key="">
+                <image style="width:80rpx; height:80rpx;" src=" {{item}}" bindtap="previewImage" mode="aspectFill" />
+                <!-- 删除按钮 -->
+                <view class="delete" bindtap="delete" data-index="{{index}}">
+                    <image style="left: {{imageWidth / 2 - 10}}px;" src="http://tws.cnweisou.com/images/icon_delete.png" />
+                </view>
+            </view>
+            <view class="item">
+                <image style="width:80rpx; height:80rpx;" src="http://tws.cnweisou.com/images/icon_add.png" class="button-upload" bindtap="chooseImage" />
+            </view>
+        </view>
+    </view>
+    <button class="createSubmit" type="primary" form-type="submit" disabled="{{!pname||!phone||!currtype||!cont}}">发布</button>
+</form>
+<view class="bgtypeList" wx:if="{{cardAgain}}">
+    <view class="cardAgainType">
+        您输入有误，请重新输入
+        <view bindtap="returnIndex" class="determineAgin">
+            确定
+        </view>
+    </view>
+</view>
+<view class="bgtypeList1" wx:if="{{showType}}">
+    <scroll-view scroll-y class="typebg">
+        <view class="typeList" wx:for="{{listType}}" wx:key=''>
+            <view bindtap="chooseType" data-index="{{index}}" class="yearAndMonth">{{item}}</view>
+        </view>
+    </scroll-view>
+</view>

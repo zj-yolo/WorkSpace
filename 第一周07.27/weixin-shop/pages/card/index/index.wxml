@@ -1,0 +1,93 @@
+<form class="cardIndex" bindsubmit="handleFormSubmit" report-submit="true">
+  <button form-type="submit" hover-class="none">
+    <view class="top">
+      <view class="cardContainer">
+        <view class="card">
+          <view class="userInfo">
+            <image class="avatar" src="{{cardInfo.avatar?cardInfo.avatar:'http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-default-avatar.png'}}"></image>
+            <view class="roleInfo">
+              <view class="username">{{cardInfo.name}}</view>
+              <view class="role">{{cardInfo.position}}</view>
+            </view>
+          </view>
+          <view class="contactItem">
+            <image class="itemImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-phone.png"></image>
+            <view class="num">{{userCardPhone}}</view>
+            <view class="operateBtn" bindtap="handleMakeCall">拨打</view>
+          </view>
+          <view class="contactItem">
+            <image class="itemImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-wechat.png"></image>
+            <view class="num">{{cardInfo.wxnumber}}</view>
+            <view class="operateBtn" bindtap="handleAdd">加我</view>
+          </view>
+        </view>
+        <image wx:if="{{!isNoCard}}" bindtap="handleShare" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-qrcode.png" class="cardQrcode"></image>
+      </view>
+      <view class="btns" wx:if="{{!isNoCard}}">
+        <view class="btnItem cardBtn" bindtap="shareCard">分享名片</view>
+        <button open-type="getPhoneNumber" wx:if="{{cardInfo.ischange==0}}" class="btnItem changeBtn" bindgetphonenumber="handleChangePhone">交换手机号码</button>
+        <view class="btnItem changeBtn" wx:else bindtap="handleClickChange">交换手机号码</view>
+      </view>
+      <view class="visitBox" wx:if="{{!isNoCard}}">
+        <view class="visitUser">
+          <image wx:for="{{visitList}}" wx:key="{{index}}" class="visitAvatar" src="{{item.avatar}}"></image>
+          <view class="promptText">{{cardInfo.view_count}}人浏览</view>
+        </view>
+        <view class="hot" bindtap="handleClickLike">
+          <view class="hotNum">靠谱  {{cardInfo.star_count}}</view>
+          <image wx:if="{{cardInfo.is_star==0}}" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-index_like_no.png" class="likeImg"></image>
+          <image wx:else src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-index_like.png" class="likeImg"></image>
+        </view>
+      </view>
+    </view>
+    <view class="bottom">
+      <view class="item" wx:if="{{cardInfo.content}}">
+        <view class="itemTitle">
+          <image class="titleImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-introduce.png"></image>
+          <view class="title">我的个人简介</view>
+        </view>
+        <view class="itemContent">
+          <view class="introduce">{{cardInfo.content}}</view>
+          <view class="comment" wx:if="{{count>0}}">
+            <view class="commentItem">
+              <view class="nickname">{{list.nickname}}：</view>
+              <view class="commentContent">{{list.content}}</view>
+            </view>
+            <view class="commentItem timeInfo">
+              <view class="loadMore" bindtap="loadComment">查看{{count}}条评论</view>
+              <view class="time">{{time}}</view>
+            </view>
+          </view>
+          <view class="newComment">
+            <open-data class="commentAvatar" type="userAvatarUrl"></open-data>
+            <input class="addComment" value="{{commentContent}}" bindtap="handleComment" bindconfirm="handleConfirm" placeholder="添加评论..."></input>
+          </view>
+        </view>
+      </view>
+      <view class="item" wx:if="{{cardInfo.videos}}">
+        <view class="itemTitle">
+          <image class="titleImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-video.png"></image>
+          <view class="title">我的视频</view>
+        </view>
+        <view class="videoContainer">
+          <view class="videoBox">
+            <video class="myVideo" id="myVideo" bindplay="handleVideoPlay" bindended="handleVideoEnd" poster="{{cardInfo.videos_img}}" src="{{cardInfo.videos}}"></video>
+          </view>
+        </view>
+      </view>
+      <view class="item" wx:if="{{bottomPicture.length>0}}">
+        <view class="itemTitle">
+          <image class="titleImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/card5g-picture.png"></image>
+          <view class="title">图片展示</view>
+        </view>
+        <view class="imageContainer">
+          <image bindtap="handlePreview" data-url="{{item}}" src="{{item}}" wx:for="{{bottomPicture}}" wx:key="{{index}}" mode="widthFix" class="bottomPicture"></image>
+        </view>
+      </view>
+    </view>
+  </button>
+</form>
+<view class="chat" bindtap="handleChat" wx:if="{{cardInfo.is_chart==1}}">
+  <image class="chatImg" src="{{cardInfo.avatar}}"></image>
+  <view class="chatText">咨询</view>
+</view>

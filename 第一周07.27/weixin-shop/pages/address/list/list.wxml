@@ -1,0 +1,58 @@
+<view class="addressList">
+  <block wx:if="{{addressList.length > 0}}">
+      <view class="addressItem" wx:for="{{addressList}}" wx:key="{{index}}" bindtap="editAddress" data-id="{{item.id}}">
+        <view class="itemContainer">
+          <view class="username">
+            <view class="labelName">收货人:</view>
+            <view class="rightInfo">
+              <text>{{item.realname}}</text>
+              <text>{{item.mobile}}</text>
+            </view>
+          </view>
+          <view class="address">
+            <view class="a_labelName">收货地址:</view>
+            <view class="addressContent">{{item.province+item.city+item.area+item.address}}</view>
+          </view>
+        </view>
+        <view class="addressOperate">
+          <view class="setDefault" catchtap="setdefault" data-id='{{item.id}}' data-isdefalt='{{item.isdefault}}'>
+            <view class="circle {{item.isdefault == 1?'circleActive':''}}">
+              <view wx:if="{{item.isdefault ==1}}" class="dot"></view>
+            </view>
+            <text>默认地址</text>
+          </view>
+          <view class="rightEdit">
+            <view class="edit" catchtap="editAddress" data-id="{{item.id}}">
+              <image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/xinyouxuan/edit.png"></image>
+              <view>编辑</view>
+            </view>
+            <view class="edit" data-id="{{item.id}}" catchtap="deleteAddress">
+              <image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/xinyouxuan/delete_address.png"></image>
+              <view>删除</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    <view class='pading-kong'></view>
+  </block>
+  <view class="noAddress" wx:else>
+    <view class='centerAddr'>
+      <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/address5g-no.png' mode='widthFix'></image>
+    </view>
+  </view>
+  <!-- <view class="addAddress" hover-class='addHover' hover-start-time='60' hover-stay-time='60' catchtap="add">添加新地址</view> -->
+  	<view class="addAddress">
+					<view class='weixinaddress'  hover-class='addHovers'  hover-start-time='60' hover-stay-time='60' bindtap='toAddress'><image style="width: 40rpx;height: 40rpx;margin-right: 16rpx;" src='/images/wechat1.png' />微信导入</view>
+					<view class='weixinaddress newaddress'  hover-class='addHover' hover-start-time='60' hover-stay-time='60' bindtap="add">新增收货地址</view>
+				</view>
+</view>
+
+<!-- <del-hint visible="{{showInt}}" bind:ok="deleteAddress" bind:cancel="closeInt">
+  <view>确认删除地址？</view>
+</del-hint>
+
+<my-model visible="{{myshow}}" bind:ok="setdefault" bind:cancel="closeMy">
+  <view>是否修改默认地址？</view>
+</my-model> -->
+
+<i-message id="message" />

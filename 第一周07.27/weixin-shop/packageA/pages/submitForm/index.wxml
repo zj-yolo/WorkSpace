@@ -1,0 +1,33 @@
+<view class="formbox">
+  <view class="banner">
+    <image src="{{banner}}" mode=""></image>
+  </view>
+  <view class="formInput">
+    <view class="column">
+      <view class="label">
+        <text style="color:#d60808;">*</text>姓名</view>
+      <input type="text" value="" bindinput="handleInupt" data-name="name" placeholder="请填写姓名" placeholder-style="color: #c0c0c0" />
+    </view>
+    <view class="column">
+      <view class="label">
+        <text style="color:#d60808;">*</text>地区</view>
+      <picker mode="region" bindchange="bindRegionChange">
+        <view class="changeplace">
+          <view class="details">{{address?address:'请选择所在城市'}}</view>
+          <image class="arrowRight" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/boweisou/yy/images/right.png"></image>
+        </view>
+      </picker>
+    </view>
+    <view class="column">
+      <view class="label">
+        <text style="color:#d60808;">*</text>联系方式</view>
+      <input type="number" value="" bindinput="handleInupt" data-name="phone" placeholder="请填写号码" placeholder-style="color: #c0c0c0" />
+    </view>
+    <view class="column">
+      <view class="label">备注</view>
+      <textarea value="" bindinput="handleInupt" data-name="remark" placeholder="请填写备注" placeholder-style="color: #c0c0c0"></textarea>
+    </view>
+    <view class="sumbitBtn" bindtap="sumbit">提交</view>
+
+  </view>
+</view>

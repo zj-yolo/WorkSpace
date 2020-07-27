@@ -1,0 +1,71 @@
+<view class='top'>
+<loading wx:if="{{loading}}"></loading>
+  <view>
+    <view wx:if='{{order.crowd==1}}'>众筹成功</view>
+    <view wx:elif='{{order.crowd==2}}'>众筹进行中</view>
+    <view wx:elif='{{order.crowd==-1}}'>众筹失败</view>
+    <view>众筹结束时间：{{order.endtime}}</view>
+  </view>
+  <view class='have_two' style='margin-left:40rpx;'>
+    <buttom class='list-three' style='' bindtap='orderPay' data-orderid='{{order.id}}' wx:if='{{order.status == 0 && order.crowd == 2}}'>立即支付</buttom>
+    <buttom class='list-three' data-orderid='{{order.id}}' bindtap='quxiaoOrder' style='margin-left:30rpx;background-color:#100f0f;' wx:if='{{order.status == 0 && order.crowd == 2}}'>取消订单</buttom>
+  </view>
+  <view class='list-three' wx:if='{{order.status == 1 && order.crowd == 2}}' bindtap='intoJd' data-goodid='{{order.goodid}}'>查看进度</view>
+  <view class='list-three' wx:if='{{order.status == -1 && order.crowd == 2}}' bindtap='delete' data-orderid='{{order.id}}'>删除</view>
+  <view class='list-three' wx:if='{{order.status == -1 && order.crowd == -1}}' bindtap='delete' data-orderid='{{order.id}}'>删除</view>
+  <view class='list-three' wx:if='{{order.status == 2 && order.crowd == 1}}' bindtap='gencui'>跟催发货</view>
+  <view class='have_two'>
+    <buttom class='list-three' wx:if='{{order.status == 3 && order.crowd == 1}}' bindtap='lookWl'>查看物流</buttom>
+    <buttom class='list-three' data-orderid='{{order.id}}' bindtap='querensh' style='margin-left:30rpx;background-color:#100f0f;' wx:if='{{order.status == 3 && order.crowd == 1}}'>确认收货</buttom>
+  </view>
+  <view class='list-three' wx:if='{{order.status == 0 && order.crowd == 1}}' bindtap='delete' data-orderid='{{order.id}}'>删除</view>
+</view>
+<view class='wrap'>
+  <view class='w_item'>
+    <view class='w_left'>收货人：</view>
+    <view class='w_right'>{{address.realname}} {{address.mobile}}</view>
+  </view>
+  <view class='w_item'>
+    <view class='w_left'>收货地址：</view>
+    <view class='w_right'>{{address.province}} {{address.city}} {{address.area}} {{address.address}}</view>
+  </view>
+</view>
+<view class='wrap'>
+  <view class='w_item'>
+    <view class='w_left'>订单号</view>
+    <view class='w_right'>{{order.orderno}}</view>
+  </view>
+  <view class='w_item'>
+    <view class='w_left'>下单时间</view>
+    <view class='w_right'>{{order.createtime}}</view>
+  </view>
+  <view class='w_item'>
+    <view class='w_left'>总价</view>
+    <view class='w_right'>￥{{order.oprice}}</view>
+  </view>
+</view>
+<view class='store'>
+  <view class='st_item'>
+    <image class='img' src='{{order.thumb}}' />
+    <view class='view_td'>
+      <view class='title'>{{order.title}}</view>
+      <view class='title' wx:if="{{order.description}}">{{order.description}}</view>
+      <view class='view_ps'>
+        <view class='price'>￥{{order.goodsprice}}</view>
+        <view class='sum'>*{{order.total}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='bottom'>
+  <view>回报内容</view>
+  <view wx:if="{{order.optiontitle}}" style='line-height: 40rpx;'>{{order.optiontitle}}</view>
+</view>
+
+<view class="point" wx:if="{{scshow}}">
+  <view class="pop">
+    <view class='popA'>
+      <view>跟催成功</view>
+    </view>
+  </view>
+</view>

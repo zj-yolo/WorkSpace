@@ -1,0 +1,88 @@
+<scroll-view wx:if="hasTabs" scroll-y='true' style="height:{{windowHeight}}px;width:100%;overflow: hidden;" bindscrolltolower="returnArrive">
+<view class="line"></view>
+<form bindsubmit="getSearch">
+<view class="search">
+<view class="searchLeft">
+<image src="https://tws.cnweisou.com/images/find_img.png" />
+  <input placeholder-style="color:#8a8a8a" name="keywords" bindconfirm="getSearch" value="{{searchCurr}}" placeholder="请输入商品名称" />
+</view>
+<button class="searchRight" hover-class="none" formType='submit'>搜索</button>
+</view>
+</form>
+<!--
+<view class="searchHot" >
+<view class="searchHottitle">热门搜索</view>
+<view class="searchHotCont">
+<span class="searchHotItem" wx:for="{{item in getHotWord}}">
+</span>
+</view>
+</view>
+-->
+<view class="searchHistory" wx:if="{{hashistory && GoodListData.length==0}}">
+<view class="searchHistorytitle">历史记录</view>
+<view class="searchHistoryCont">
+<span class="searchHistoryItem" wx:for="{{historyWords}}" data-index="{{index}}" data-keyswords="{{item}}" bindtap="clickhistory">
+{{item}}
+</span>
+</view>
+<form bindreset="emptyHistory">
+<view class="emptyHistory">
+<view class="emptyCont">
+ <image src="https://tws.cnweisou.com/images/find_delete.png"></image>
+<button class="emptyHistoryRight" hover-class="none" formType="reset">清空历史记录</button>
+</view>
+</view>
+</form>
+</view>
+
+<view class="goodsRecommend">
+<!--
+<view class="goodsRecommendtitle">推荐商品</view>
+-->
+<view class="goodsRecommendCont">  
+<view wx:if="{{GoodListData.length>0}}" wx:for="{{GoodListData}}" wx:key="objectId" class="carts-item" data-object-id="{{item.id}}" bindtap="tapGoods">
+		<view>
+		  <image class="carts-image" src="{{item.thumb}}" mode="aspectFill"/>
+		</view>
+      <view class="carts-text">
+        <text class="carts-title">{{item.title}}</text>
+        <view class="carts-center">
+          <text class="carts-price" style="color:{{activecolor}}">￥{{item.marketprice}}元</text>
+          <div class="carts-img" style="background:{{activecolor}}">
+               <image src="https://tws.cnweisou.com/images/tabbar_shop.png"></image>
+          </div>
+	 </view>
+  	<view class="goods-score">
+			<text>已售{{item.sales}}件</text>
+			<text>库存:{{item.total}}</text>
+		</view>
+      </view>
+		</view>
+</view>
+<view wx:if="{{GoodListData.length==0}}" class="carts-noGoods" style="color:{{activecolor}}">
+   <image src="http://tws.cnweisou.com/images/noInfo.png"></image>
+   	<text>还没有商品喔</text>
+ </view> 
+</view>
+</scroll-view>
+
+<view wx:else>
+<view class="parent">
+<text class="text-title">宝贝</text>
+<view class="view_search">
+<view class="view_searchbg">
+<input bindchange="bindChange" placeholder-style="color:#999999" class="input_search" placeholder="请输入关键词"/>
+<view class="view1">
+<image bindtap="search" src="http://tws.cnweisou.com/images/search.png"></image>
+</view>
+</view>
+</view>
+<view class="view-hint">
+<image src="http://tws.cnweisou.com/images/fire.png"></image>
+<text class="text-prop">热门搜索</text>
+</view>
+<view  class="view-btns">
+      <text bindtap="click" wx:for="{{keywords1}}" data-word="{{item}}" class="view-btns-text-normal">{{item}}</text>
+    </view>
+</view>
+</view>

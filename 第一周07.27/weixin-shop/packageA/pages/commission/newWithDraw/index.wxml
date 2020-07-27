@@ -1,0 +1,36 @@
+<view class="withDraw">
+  <view class="content">
+    <view class="option">
+      <view class="item">
+        <view class="label">银行卡</view>
+        <view class="figure">
+          <view class="noCard" bindtap="handleAddCard">
+            <view class="cardNum" wx:if="{{bankInfo.card}}">{{bankInfo.card}}</view>
+            <view class="noCard__text" wx:else>暂无银行卡，请添加银行卡</view>
+            <view class="arrow__container">
+              <view class="arrow"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="item">
+        <view class="label">可提佣金</view>
+        <view class="figure">
+          <text class="unit">￥</text>
+          <text class="money">{{money}}</text>
+        </view>
+      </view>
+      <view class="item">
+        <view class="label">提现金额：</view>
+        <view class="inputBox">
+          <text class="unit">￥</text>
+          <input class="input" value="{{withDrawMoney}}" bindinput="handleInput"></input>
+        </view>
+      </view>
+    </view>
+    <view class="promptText">可提现金额不超过{{money}}元，预计3个工作日打款到银行卡。</view>
+    <view class="btn">
+      <view class="btn__withDraw" bindtap="handleConfirm">立即提现</view>
+    </view>
+  </view>
+</view>

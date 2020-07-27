@@ -1,0 +1,50 @@
+<!--orderForm.wxml-->
+<view class="container">
+  <view class="Commission">
+    <text class="left">累计佣金</text>
+    <text class="right">+{{totalprice}}元</text>
+  </view>
+  <view class="tabClass">
+    <text bindtap="tabClick" data-index="0" class="normalClass {{index==0?'selectClass':''}}">所有</text>
+    <text bindtap="tabClick" data-index="1" class="normalClass {{index==1?'selectClass':''}}">已付款</text>
+    <text bindtap="tabClick" data-index="2" class="normalClass {{index==2?'selectClass':''}}">待收货</text>
+    <text bindtap="tabClick" data-index="3" class="normalClass {{index==3?'selectClass':''}}">已完成</text>
+  </view>
+  <block wx:if='{{data1.length != 0}}'>
+    <view class="list" wx:for="{{data1}}" wx:key="index" data-mydata="{{item}}" bindtap='showDetail'>
+      <view class="listLeft">
+        <text>{{item.ordersn}}</text>
+        <text class="time">{{item.createtime}}</text>
+      </view>
+      <view class="listRight">
+        <text>+{{item.commission}}</text>
+        <text>{{item.status}}</text>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="containerImages">
+      <image src="/images/noorder.png" mode="widthFix"></image>
+    </view>
+  </block>
+</view>
+
+
+<view class="bgtypeList" wx:if="{{whoOrder}}">
+
+  <view class="cardAgainType">
+    <image src="{{nowavatar}}"></image>
+    <view class="nickName">
+      由
+      <text>{{nownickname}}</text> 所购买
+    </view>
+
+    <view bindtap="isCard" class="determineAgin">
+      确定
+    </view>
+
+  </view>
+</view>
+
+
+<loading wx:if="{{loading}}"></loading>

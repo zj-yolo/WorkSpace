@@ -1,0 +1,96 @@
+<view class="search">
+  <view class="search-content">
+    <image catchtap='search' src="http://tws.cnweisou.com/images/search1.png"></image>
+    <input bindinput="bindChange" value="{{keywords}}" placeholder-style="color:#999" bindconfirm="search" class="input_search" placeholder="搜索关键字" />
+  </view>
+  <text bindtap="search">搜索</text>
+</view>
+<dl class="menu">
+
+  <dt data-index="0" bindtap="selectSalePri" class="{{saleIndex == '0'? 'light':''}}">默认</dt>
+
+
+  <dt data-index="1" bindtap="selectSalePri" class="{{saleIndex == '1'? 'light':''}} tabTitle">
+    <view>销量</view>
+    <block wx:if="{{saleArrowTop == ''}}">
+      <view class="titleRight">
+        <view class="arrowTop"></view>
+        <view class="arrowBottom"></view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="titleRight">
+        <view class="arrowTopLight" wx:if="{{saleArrowTop == 'false'}}"></view>
+        <view class="arrowBottomLight" wx:if="{{saleArrowTop == 'true'}}"></view>
+      </view>
+    </block>
+  </dt>
+  <dt data-index="2" bindtap="selectSalePri" class="{{saleIndex == '2'? 'light':''}}">最新</dt>
+  <dt data-index="3" bindtap="selectSalePri" class="{{saleIndex == '3'? 'light':''}} tabTitle">
+    <view>价格</view>
+    <block wx:if="{{priceArrowTop == ''}}">
+      <view class="titleRight">
+        <view class="arrowTop"></view>
+        <view class="arrowBottom"></view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="titleRight">
+        <view class="arrowTopLight" wx:if="{{priceArrowTop == 'false'}}"></view>
+        <view class="arrowBottomLight" wx:if="{{priceArrowTop == 'true'}}"></view>
+      </view>
+    </block>
+  </dt>
+  <dt data-index="4" bindtap="styleSelect" class="{{!style?'highlight2 ':'highlight1'}}">排列</dt>
+</dl>
+<view wx:if="{{!empty&&style}}" class="goodsList carts-list">
+  <view wx:for="{{goods}}" wx:key="objectId" class="carts-item" data-object-id="{{item.id}}" bindtap="tapGoods">
+    <image class="carts-image" src="{{item.thumb}}" mode="aspectFill" />
+    <view class="carts-text">
+      <text class="carts-title">{{item.title}}</text>
+      <view style="display:flex;flex-direction:row;align-items:center;">
+        <block wx:if="{{is_mianyi == 1}}">
+          <text class="carts-price">面议</text>
+        </block>
+        <block wx:else>
+          <text class="carts-price">￥{{item.marketprice}}元</text>
+        </block>
+        <image class="carts-img2" src="https://tws.cnweisou.com/images/myCart1.png" />
+      </view>
+      <view class="goods-score">
+        <text>已售{{item.sales}}{{item.unit}}</text>
+        <text wx:if="{{item.showtotal==1}}">库存:{{item.total}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='noMoreData' wx:if="{{noMoreData && goods.length > 6}}">没有更多数据了！</view>
+</view>
+<view wx:if="{{!empty&&!style}}" class="goodsList1 carts-list1">
+  <view wx:for="{{goods}}" wx:key="objectId" class="carts-item1" data-object-id="{{item.id}}" bindtap="tapGoods">
+    <view class="imgView">
+      <image class="carts-image1" src="{{item.thumb}}" mode="aspectFill" />
+    </view>
+
+    <view class="carts-text1">
+      <text class="carts-title1">{{item.title}}</text>
+      <!-- 价格 -->
+      <text class="carts-price1">￥{{item.marketprice}}元</text>
+      <image class="carts-img1" src="https://tws.cnweisou.com/images/myCart1.png"></image>
+      <view class="goods-score1">
+        <text>已售{{item.sales}}{{item.unit}}</text>
+        <text wx:if="{{item.showtotal==1}}">库存:{{item.total}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='noMoreData' wx:if="{{noMoreData && goods.length > 6}}">没有更多数据了！</view>
+</view>
+
+
+<view wx:if="{{empty}}" class="view-empty">
+  <image mode="widthFix" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/baiduapp/smartlist.gif" />
+  <text>抱歉亲，没有找到相关的宝贝</text>
+</view>
+<view class="scrollTop" bindtap='goToTop' wx:if="{{showScrollTop}}">
+  <image src="http://tws.cnweisou.com/images/toTopList.png"></image>
+</view>
+<loading wx:if="{{loading}}"></loading>

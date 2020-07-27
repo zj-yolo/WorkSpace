@@ -1,0 +1,41 @@
+<scroll-view scroll-x="true" class="couponNum">
+    <block wx:for="{{list}}">
+        <view data-index="{{index}}" class="newTitle" bindtap="clickTitle" data-id="{{item.id}}">
+          <text class="{{sub == index ?'active':''}}">{{item}}</text>
+        </view>
+    </block>
+</scroll-view>
+<block wx:for="{{orders}}" wx:key="{{item.id}}">
+  <view class="listItem">
+    <view class="orderStatus">{{item.refund?item.refund:''}}</view>
+    <view class="commodity" bindtap="details" data-index="{{index}}">
+      <block wx:for="{{item.goods}}" wx:for-item="mapping" wx:for-index="ind">
+        <image class="commodityImg" src="{{mapping.thumb}}"></image>
+        <view class="info">
+          <view class="titleContainer">
+            <view class="title">{{mapping.title}}</view>
+            <view class="figure">x{{mapping.total}}</view>
+          </view>
+          <view class="priceInfo">
+            <view class="standard">{{mapping.optiontitle}}</view>
+            <view class="price">￥{{mapping.price}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="operateContainer">
+      <block wx:if="{{item.status == 1}}">
+        <view class="operateItem buy" bindtap="details" data-index="{{index}}">查看订单</view>       
+      </block>
+      <block wx:elif="{{item.status == 2}}">
+        <view class="operateItem buy" bindtap="details" data-index="{{index}}">查看订单</view>
+      </block>
+    </view>
+  </view>
+</block>
+
+<view class="noInfo" wx:if="{{orders.length==0}}">
+    <!-- <image src="https://tws.cnweisou.com/images/becomeRegister.png"></image> -->
+    <image src='../../../images/noorder.png' mode='widthFix'></image>
+    <!-- <text>您还没有退换货申请喔</text> -->
+</view>

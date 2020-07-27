@@ -1,0 +1,79 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<view wx:if="{{rewardList}}" class="wheelBg" style="background:url(https://tws.cnweisou.com/images/wheel.jpg) no-repeat center center;background-size:100% 100%;">
+    <view class="wheelTop">
+    </view>
+    <view class="wrapper">
+        <view class="main">
+            <view class="canvas-container" id="canvas-container">
+                <view animation="{{animationData}}" class="canvas-content">
+                    <view class="canvas-contentbg">
+                        <image wx:if="{{rewardLen==5}}" src="http://tws.cnweisou.com/images/wheelBg5.png" style="width:100%;height:100%;transform:rotate(22deg);"></image>
+                        <image wx:elif="{{rewardLen==6}}" src="http://tws.cnweisou.com/images/wheelBg6.png" style="width:100%;height:100%;"></image>
+                        <image wx:elif="{{rewardLen==7}}" src="http://tws.cnweisou.com/images/wheelBg7.png" style="width:100%;height:100%;transform:rotate(35deg);"></image>
+                        <image wx:elif="{{rewardLen==8}}" src="http://tws.cnweisou.com/images/wheelBg8.png" style="width:100%;height:100%;transform:rotate(20deg);"></image>
+                    </view>
+                    <view class="canvas-list" wx:for="{{rewardList}}" wx:key="unique" data-index="{{index}}">
+                        <view class="canvas-item" style="">
+                            <view class="canvas-item-text" style="-webkit-transform: rotate({{item.turn}});transform: rotate({{item.turn}});">
+                                <image wx:if="{{rewardLen==5}}" src="{{item.icon}}" mode='widthFix' style="width:140rpx;max-height:110rpx;"></image>
+                                <image wx:elif="{{rewardLen==6}}" src="{{item.icon}}" mode='widthFix' style="width:130rpx;max-height:100rpx;"></image>
+                                <image wx:elif="{{rewardLen==7}}" src="{{item.icon}}" mode='widthFix' style="width:110rpx;max-height:90rpx;"></image>
+                                <image wx:else="{{rewardLen==8}}" src="{{item.icon}}" mode='widthFix' style="width:100rpx;max-height:80rpx;"></image>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view bindtap="getLottery" class="canvas-btn {{btnDisabled}}">
+                </view>
+            </view>
+            <view class="countPrize">抽奖次数：
+                <text>{{rewardResult.chance}}</text>次</view>
+        </view>
+    </view>
+    <view class="rule" wx:if="{{rewardResult.lottery.lotteryinfo}}">
+        <view class="ruleTop" style="background:url(https://tws.cnweisou.com/images/wheelRule.png) no-repeat center center;background-size:contain;"></view>
+        <view class="ruleCont">
+            <button style='margin-top:40rpx;width:218rpx;font-size:20rpx;background-color:#feed9b;' bindtap='lookdetail'>点击查看活动详情</button>
+        </view>
+    </view>
+</view>
+<view class="priceDetail" bindtap='priceDetail'>
+    <image src="http://tws.cnweisou.com/images/game_detail.png"></image>
+</view>
+<view class="bgtypeList" wx:if='{{cover}}'>
+    <view class="prizeCont">
+        <text class="close" bindtap='prizeOk'>X</text>
+        <view class="pirzeIcon">
+            <image src="{{prizeResult.icon}}" mode="widthFix" data-type="{{prizeResult.type}}" data-logid="{{prizeResult.logid}}" bindtap="joinPrice"></image>
+        </view>
+        <view class="prizeDetail">{{prizeResult.info}}</view>
+        <view class="prizeOk" bindtap='prizeOk'>确定</view>
+    </view>
+</view>
+<view class="bgtypeListDetail" wx:if='{{ispriceDetail}}'>
+    <scroll-view scroll-y class="detailCont" bindscrolltolower="detailBottom">
+        <view class="priceDetailTitle">
+            获奖详情
+            <image class="detailClose" bindtap='priceDetailClose' src="http://tws.cnweisou.com/images/detail_close.png"></image>
+        </view>
+        <view class="detailItem" wx:for="{{priceDetailList}}" wx:if="{{priceDetailList.length>0}}">
+            <view class="detailItemTop">
+                <span>抽奖时间：{{item.addtime}}</span>
+            </view>
+            <view class="detailItemBottom">
+                <span>{{item.desc}}</span>
+                <span wx:if="{{item.title!='other' && item.title!='joinCoupon'}}" data-id="{{item.id}}" data-log_id="{{item.log_id}}" bindtap='joingoodsDetail'>{{item.title}}</span>
+                <span wx:if="{{item.title=='joinCoupon'}}" data-id="{{item.title}}" bindtap='joincoupon'>查看优惠券</span>
+            </view>
+        </view>
+        <view wx:if="{{priceDetailList.length==0}}" class="detailItemNo">
+            暂时没有获奖信息
+        </view>
+    </scroll-view>
+</view>
+<view class='tankuang' wx:if='{{tkshow}}'>
+ <view class='tankuang_top'><view>活动详情</view><image class='tkimg' bindtap='closeclose' style='width:40rpx;height:40rpx;' src='http://tws.cnweisou.com/images/detail_close.png'></image></view>
+  <view style='width:96%;margin-left:2%;'>
+ <template is='wxParse' data='{{wxParseData:article.nodes}}'></template>
+ </view>
+</view>

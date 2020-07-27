@@ -1,0 +1,6 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "backToHome": "/components/backToHome/index"
+  }
+}

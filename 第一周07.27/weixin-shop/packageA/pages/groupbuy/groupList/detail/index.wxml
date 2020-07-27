@@ -1,0 +1,109 @@
+<import src="../../../../../wxParse/wxParse.wxml" />
+<view class='haha' bindtap='backToIndex' wx:if="{{shareIcon}}">
+	<image src='../../../../../images/ret.png'></image>
+</view>
+<view class="i_store">
+	<view class="is_left">
+		<image class="i_img" src="{{data.goods.thumb}}"></image>
+		<view class="mt20">
+			<view class="i_dataTitle">{{data.goods.title}}</view>
+			<view class="groupnum">
+				<image class="groupImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/team.png"></image>
+				<view class="i_group">{{data.order.groupnum}}人团</view>
+			</view>
+			<view class="i_price">
+				<view style="display:flex;align-items:flex-end">
+					<text class="red">￥{{data.goods.groupsprice}}</text>
+					<view class="oldprice">￥{{data.goods.price}}</view>
+				</view>
+			</view>
+		</view>
+		<!-- <view style=' font-size:28rpx;float:rigth;margin-top:50rpx;margin-left:200rpx;'>{{optiontitle}}</view> -->
+	</view>
+</view>
+<view class="wrap">
+	<view class="w_time">
+		<block wx:if="{{key==0}}">
+			<text>拼团时间 {{time}} ，
+                <block wx:if='{{data.n}}'>还差{{data.n}}人</block>
+                <block wx:else>拼团成功</block>
+            </text>
+		</block>
+		<block wx:elif='{{key==2}}'>
+		</block>
+	</view>
+	<view class="w_touxiang">
+		<block wx:for="{{data.orders}}" wx:key="{{index}}">
+			<view class="w_touxiang_team">
+				<image src="{{item.avatar}}"></image>
+				<text wx:if="{{index == 0}}" class="tuanzhang">团长</text>
+			</view>
+		</block>
+	</view>
+	<block wx:if="{{key==0}}">
+		<view class="w_tip">快邀请好友一起来拼团吧！</view>
+	</block>
+	<block wx:elif='{{key==-1}}'>
+		<view class="w_tip">参团失败！</view>
+	</block>
+	<block wx:if="{{data.n=='0'}}">
+		<view class='cantuan'>拼团成功</view>
+	</block>
+</view>
+<view class="moregoodswrap">
+	<view wx:if="{{data.n!=0&&data.isheads!=1}}" class="seemoreGoods" bindtap="toopen">立即参团</view>
+	<view wx:else class="seemoreGoods" bindtap="seemoregroupGoods">查看更多拼团商品</view>
+</view>
+<view class="group_explain">
+	<text>邀请好友参团 </text>
+	<image class="arrowImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-arrow-right.png"></image>
+	<text>拉团成功分别发货</text>
+	<image class="arrowImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-arrow-right.png"></image>
+	<text>人数不足自动退款</text>
+</view>
+
+<view class="line"></view>
+<!-- <view class="top">
+	<block wx:for="{{arr}}" wx:key="{{index}}">
+		<view class="t_item {{select==index ?'b_bottom':''}}" data-index='{{index}}' bindtap="select">{{item}}</view>
+	</block>
+</view> -->
+<!-- <block wx:if="{{select=='0'}}">
+	<block wx:for='{{data.orders}}' wx:key="{{index}}">
+		<view class="s_item">
+			<view class="si_top">
+				<image class="si_img" src="{{item.avatar}}"></image>
+				<view>{{item.nickname}}</view>
+			</view>
+			<view>
+				<text>{{time_arr[index]}} {{item.heads==1?'开团':'参团'}}</text>
+			</view>
+		</view>
+	</block>
+	</view>
+</block> -->
+<view class="richtext">
+	<template is="wxParse" data="{{wxParseData:contain.nodes}}"></template>
+</view>
+<view class="groupBottom">
+	<view style="width:50%;text-align:center" bindtap="tomoregroup">看看其他团</view>
+	<button wx:if="{{key==0 || key==1}}" style="font-size:27rpx;border-radius:0;" class="bottomItem" open-type="share">立即邀请好友</button>
+	<view wx:else class="bottomItem" bindtap="togoodsdetail">再次购买</view>
+</view>
+<!-- <view class="f_bottom">
+	<block wx:if="{{key==0 || key==1}}">
+		<button class="f_left" open-type="share">快邀请好友参团吧</button>
+		<view class="f_right" bindtap="toIndex">
+			<image style="width: 60rpx;height: 60rpx;" src="https://tws.cnweisou.com/images/icon_home.png"></image>
+			<text>首页</text>
+		</view>
+	</block>
+	<block wx:elif='{{key==2}}'>
+		<view class="f_left">本次团已过期</view>
+		<view class="f_right">
+			<image style="width: 60rpx;height: 60rpx;margin-bottom: 5rpx;" src="https://tws.cnweisou.com/images/icon_home.png"></image>
+			<text>首页</text>
+		</view>
+	</block>
+</view> -->
+<loading wx:if="{{loading}}"></loading>

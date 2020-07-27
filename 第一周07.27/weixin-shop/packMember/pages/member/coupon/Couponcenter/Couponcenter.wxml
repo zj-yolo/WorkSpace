@@ -1,0 +1,79 @@
+<view class="container">
+  <scroll-view scroll-x="true" style=" white-space: nowrap; " class="couponNum">
+    <text style="padding:0 30rpx;height: 78rpx; line-height: 78rpx; display: inline-block;text-align: center;" class=" {{sub == 0 ?'active':''}}" data-index='0' bindtap="clickName" data-id='0'>全部优惠券</text>
+    <block wx:if="{{category}}" wx:for="{{category}}">
+      <view style=" padding:0 30rpx;height:76rpx;  line-height: 78rpx;display: inline-block;text-align: center;" class="{{sub == item.id ?'active':''}}" bindtap="clickName" data-id="{{item.id}}" data-index="{{index+1}}">{{item.name}}</view>
+    </block>
+  </scroll-view>
+  <block wx:if="{{data}}" wx:for="{{data}}">
+    <view class="coupon" bindtap="goDetail" data-id="{{item.id}}">
+      <image class="myImg" src="{{item.thumb}}"></image>
+      <view class="left">
+        <text>{{item.couponname}}</text>
+        <text class="leftTime">
+          <block wx:if="{{item.timestr==0}}">
+            永久有效
+          </block>
+          <block wx:else>
+            <block wx:if="{{item.timestr==1}}">
+              即{{item.gettypestr}}日内{{item.timedays}}天有效
+            </block>
+            <block wx:else>
+              有效期{{item.timestr}}
+            </block>
+          </block>
+        </text>
+        <view class="leftBottom">
+          <block wx:if="{{item.getstatus==0}}">
+            {{item.credit}}积分+{{item.money}}元购买
+          </block>
+          <block wx:if="{{item.getstatus==1}}">
+            {{item.money}}元购买
+          </block>
+          <block wx:if="{{item.getstatus==2}}">
+            {{item.credit}}积分兑换
+          </block>
+          <block wx:if="{{item.getstatus==3}}">
+            免费领取
+          </block>
+          <block wx:if="{{item.getmax!=-1&&item.getmax!='0'}}">
+            每人限领{{item.getmax}}张
+          </block>
+        </view>
+      </view>
+      <view class="right">
+        <view class="money">￥
+          <text class="price">{{item._backmoney}}</text>
+        </view>
+        <text>{{item.backstr}}</text>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{!data}}">
+    <view class="none" wx:if="{{!data}}">
+      <image class="status1" src="https://tws.cnweisou.com/images/new_noCoupon.png"></image>
+      <view class="warn">
+        <text>抱歉，暂时没有优惠券可领哦</text>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class="getCoupon" bindtap="conversion">
+  <text>兑换优惠券</text>
+</view>
+
+<view class='duihuanModal' catchtap='closeDHModal' wx:if="{{showDHModal}}" catchtouchmove='noCloseDHModal'>
+  <view class='duihuaBox' catchtap='noCloseDHModal'>
+    <view class='top'>
+      <view class='title'>兑换优惠券</view>
+      <view class='text'>请输入兑换码</view>
+      <input type='text' bindinput='inputCode'></input>
+    </view>
+    <view class='bottom'>
+      <view class='quxiao' catchtap='closeDHModal'>取消</view>
+      <view class='queding' catchtap='getCoupon'>确定</view>
+    </view>
+  </view>
+</view>
+<loading wx:if="{{loading}}"></loading>

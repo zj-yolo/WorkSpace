@@ -1,0 +1,146 @@
+<view class="become2" wx:if="{{become == 0}}">
+  <view class="becomeIndex" wx:if="{{!disabled}}">
+    <image src="https://tws.cnweisou.com/images/registerIndex.png" bindtap="toindex"></image>
+  </view>
+  <view class="examinebecome" wx:if="{{!disabled}}">
+    <image src="https://tws.cnweisou.com/images/becomeRegister.png"></image>
+    <text>商家审核中，请耐心等待……</text>
+  </view>
+  <view class="agreement" bindtap="toAgreement">查看分销协议</view>
+</view>
+<view class="become1" wx:if="{{become == 1}}">
+  <view class="container">
+    <view class="topImg">
+      <image src="https://tws.cnweisou.com/images/fly.png"></image>
+    </view>
+    <view class="content">
+      <view class="examine" wx:if="{{disabled}}">
+        商家审核中，请耐心等待……
+      </view>
+      <form bindsubmit="formSubmit">
+        <view class="list">
+          <text>姓名</text>
+          <input name="name" type="text" class="name" value="{{realname}}" placeholder="请输入姓名" placeholder-style="font-size:30rpx;text-indent:20rpx;" />
+        </view>
+        <view class="list">
+          <text>电话</text>
+          <input name="phone" type="number" maxlength='11' class="name" value="{{mobile}}" placeholder="请输入电话" placeholder-style="font-size:30rpx;text-indent:20rpx;" />
+        </view>
+        <view class="list">
+          <text>微信号</text>
+          <input name="weChat" type="text" class="name" value="{{weixin}}" placeholder="请输入微信号" placeholder-style="font-size:30rpx;text-indent:20rpx;" />
+        </view>
+        <button class="btn" formType="submit" type="warn" bindtap="submitClick" disabled='{{disabled}}'>{{distributor}}</button>
+      </form>
+    </view>
+    <view class="btn" bindtap="toindex">返回首页</view>
+  </view>
+  <view class="agreement" bindtap="toAgreement">查看分销协议</view>
+</view>
+
+<view class="become2" wx:if="{{become == 2}}">
+  <image src="https://tws.cnweisou.com/images/becomeRegister.png" wx:if="{{!disabled}}"></image>
+  <view wx:if="{{!disabled}}">消费满
+    <text>{{set.become_ordercount}}</text>次才能成为分销商喔</view>
+  <button bindtap='toindex' wx:if="{{!disabled}}">去购物</button>
+  <view class="becomeIndex">
+    <image src="https://tws.cnweisou.com/images/registerIndex.png" bindtap="toindex"></image>
+  </view>
+  <view class="examinebecome" wx:if="{{disabled}}">
+    <image src="https://tws.cnweisou.com/images/becomeRegister.png"></image>
+    <text>商家审核中，请耐心等待……</text>
+  </view>
+  <view class="agreement" bindtap="toAgreement">查看分销协议</view>
+</view>
+
+<view class="become3" wx:if="{{become == 3}}">
+  <image src="https://tws.cnweisou.com/images/becomeRegister.png" wx:if="{{!disabled}}"></image>
+  <view wx:if="{{!disabled}}">消费满
+    <text>{{set.become_moneycount}}</text>元才能成为分销商喔</view>
+  <button bindtap='toindex' wx:if="{{!disabled}}">去购物</button>
+  <view class="becomeIndex">
+    <image src="https://tws.cnweisou.com/images/registerIndex.png" bindtap="toindex"></image>
+  </view>
+  <view class="examinebecome" wx:if="{{disabled}}">
+    <image src="https://tws.cnweisou.com/images/becomeRegister.png"></image>
+    <text>商家审核中，请耐心等待……</text>
+  </view>
+  <view class="agreement" bindtap="toAgreement">查看分销协议</view>
+</view>
+
+<view class="become4" wx:if="{{become == 4}}">
+  <image src="{{set.goods.thumb}}" mode="widthFix" wx:if="{{!disabled}}"></image>
+  <view wx:if="{{!disabled}}">{{set.goods.title}}</view>
+  <view wx:if="{{!disabled}}">需要购买该商品才能成为分销商喔</view>
+  <button bindtap='joingoodDetail' wx:if="{{!disabled}}">去购买</button>
+  <view class="becomeIndex">
+    <image src="https://tws.cnweisou.com/images/registerIndex.png" bindtap="toindex"></image>
+  </view>
+  <view class="examinebecome" wx:if="{{disabled}}">
+    <image src="https://tws.cnweisou.com/images/becomeRegister.png"></image>
+    <text>商家审核中，请耐心等待……</text>
+  </view>
+  <view class="agreement" bindtap="toAgreement">查看分销协议</view>
+</view>
+
+<view class="containerX" wx:if="{{isdistributor}}">
+  <view class="shopInfo">
+    <image src="{{data.avatar}}"></image>
+    <view class="message">
+      <text>{{shop}}</text>
+      <text>推荐人：{{person}}</text>
+      <text style="padding:0 15rpx;">等级：{{rank}}</text>
+    </view>
+    <image class="goIndex" src="http://tws.cnweisou.com/images/goIndex.png" bindtap="toindex"></image>
+  </view>
+  <view class="money">
+    <view class="price">
+      <text>{{data.commission_pay}}</text>
+    </view>
+    <view class="title">
+      <text>成功提现佣金(元)</text>
+    </view>
+    <view class="price1">
+      <text>{{data.commission_ok}}</text>
+    </view>
+    <view class="title1">
+      <text>可提现佣金(元)</text>
+    </view>
+    <view class="btnX" bindtap="distribution">佣金提现</view>
+  </view>
+  <view class="operate">
+    <view class="box" bindtap="distribution">
+      <image src="https://tws.cnweisou.com/images/imoney.png"></image>
+      <text>{{sets.commission1}}</text>
+      <view class="num">
+        <text>{{data.commission_total}}</text>元</view>
+    </view>
+    <view class="box" bindtap="order">
+      <image src="https://tws.cnweisou.com/images/iorder.png"></image>
+      <text>分销订单</text>
+      <view class="num">
+        <text>{{data.ordercount}}</text>笔</view>
+    </view>
+    <view class="box box3" bindtap="Withdraw">
+      <image src="https://tws.cnweisou.com/images/iprice.png"></image>
+      <text>提现明细</text>
+      <view class="num">
+        <text>{{data.applycount}}</text>笔</view>
+    </view>
+    <view class="box" bindtap="team">
+      <image src="https://tws.cnweisou.com/images/iteam.png"></image>
+      <text>我的团队</text>
+      <view class="num">
+        <text>{{data.downcount}}</text>人</view>
+    </view>
+    <view class="box" bindtap="QRcode">
+      <image src="https://tws.cnweisou.com/images/iQR.png"></image>
+      <text>推广二维码</text>
+    </view>
+    <view class="box" bindtap="QStroe">
+      <image src="https://tws.cnweisou.com/images/myShop1.png"></image>
+      <text>{{sets.myshop}}</text>
+    </view>
+  </view>
+</view>
+<loading wx:if="{{loading}}"></loading>

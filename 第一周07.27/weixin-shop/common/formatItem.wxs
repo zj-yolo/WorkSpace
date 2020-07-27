@@ -1,0 +1,20 @@
+var filtertime = function (value) {
+  var date = getDate(value * 1000);
+  var Month = date.getMonth() + 1;
+  var Day = date.getDate();
+  var hours = date.getHours(); //计算剩余的小时
+  var minutes = date.getMinutes(); //计算剩余的分钟
+  var Y = date.getFullYear() + '.';
+  var M = Month < 10 ? '0' + Month + '-' : Month + '.';
+  var D = Day + 1 < 10 ? '0' + Day + '' : Day + '';
+  var H = hours < 10 ? '0' + hours + ':' : hours + ':'
+  var m = minutes < 10 ? '0' + minutes : minutes;
+  return Y + M + D
+}
+var parseIntPrice = function (value) {
+  return parseInt(value)
+}
+module.exports = {
+  filtertime: filtertime,
+  parseIntPrice: parseIntPrice
+}

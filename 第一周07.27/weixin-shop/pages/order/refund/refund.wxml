@@ -1,0 +1,74 @@
+<view class="interval"></view>
+<form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="listMode">
+        <view class="title">处理方式</view>
+        <view class="formValue">
+            <picker bindchange="TreatmentmodeSelect" value="{{index}}" range="{{Treatmentmodeitems}}">
+                <view class="picker">
+                    当前选择：{{TreatmentmodeValue}}
+                </view>
+            </picker>
+        </view>
+        <view class="mapicon">
+            <image src="http://tws.cnweisou.com/images/rightArrow.png" mode="aspectFit"></image>
+        </view>
+    </view>
+    <view class="listMode">
+        <view class="title">退款原因</view>
+        <view class="formValue">
+            <picker bindchange="RefundreasonSelect" value="{{index}}" range="{{Refundreasonitems}}">
+                <view class="picker">
+                    当前选择：{{RefundreasonValue}}
+                </view>
+            </picker>
+        </view>
+        <view class="mapicon">
+            <image src="http://tws.cnweisou.com/images/rightArrow.png" mode="aspectFit"></image>
+        </view>
+    </view>
+    <view class="listMode">
+        <view class="title">退款说明</view>
+        <view class="formValue">
+            <input type="text" name="Refunddescription" value="{{RefunddescriptionValue}}" maxlength='40' placeholder="（选填）" placeholder-style="color: #ccc;" bindinput="Refunddescription" />
+        </view>
+    </view>
+    <view class="listMode">
+        <view class="title">退款金额</view>
+        <view class="formValue">
+            <input name="refundamount" value="{{refundamountValue}}" placeholder="请输入需要退的金额(必填)" name="refundamountName" placeholder-style="color: #ccc;" bindinput="refundamount" />
+        </view>
+    </view>
+    <view class="listMode">
+        <view class="title">上传凭证</view>
+        <view class="formValue">
+            <view class="item" wx:for="{{images}}" wx:key="">
+                <image style="width:80rpx; height:80rpx;" src=" {{item}}" bindtap="previewImage" mode="aspectFill" />
+                <!-- 删除按钮 -->
+                <view class="delete" bindtap="delete" data-index="{{index}}">
+                    <image style="left: {{imageWidth / 2 - 10}}px;" src="http://tws.cnweisou.com/images/icon_delete.png" />
+                </view>
+            </view>
+            <view class="item">
+                <image style="width:80rpx; height:80rpx;" src="http://tws.cnweisou.com/images/icon_add.png" class="button-upload" bindtap="chooseImage" />
+            </view>
+        </view>
+    </view>
+    <view class="interval money">
+        <view> 提示：您可退款的最大金额为
+            <text>￥{{maxMoney}}</text>
+        </view>
+        <view wx:if="{{vipCard!=0.00}}">其中会员卡金额为
+            <text>￥{{vipCard}}</text>
+        </view>
+        <view>若同时使用会员卡和现金支付，将优先退会员卡金额。</view>
+    </view>
+    <view class="bottom">
+        <view class="buttomTow">
+            <!-- <button class="apply" type="primary" formType="submit" disabled="{{!TreatmentmodeValue||!RefundreasonValue ||!refundamountValue }}"> -->
+            <button class="apply" type="primary" formType="submit">
+                提交申请
+            </button>
+            <button class="cancel" formType="reset">取消</button>
+        </view>
+    </view>
+</form>

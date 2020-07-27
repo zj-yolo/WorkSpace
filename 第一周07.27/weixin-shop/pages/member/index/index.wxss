@@ -1,0 +1,154 @@
+.top {
+  width: 100%;
+  height: 260rpx;
+  display: flex;
+}
+
+.head {
+  margin: 75rpx 30rpx 45rpx 30rpx;
+}
+
+.headimg {
+  width: 145rpx;
+  height: 145rpx;
+  border-radius: 50%;
+}
+
+.top_name {
+  margin-top: 100rpx;
+}
+
+.vipimg {
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.name {
+  margin-bottom: 8rpx;
+  color: #fff;
+  font-size: 35rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 500rpx;
+  text-overflow: ellipsis;
+}
+
+.order {
+  padding: 0 25rpx 0 30rpx;
+}
+
+.order_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #d7d7d7;
+  padding: 35rpx 0;
+  box-sizing: border-box;
+}
+
+.order_left {
+  font-size: 28rpx;
+}
+
+.order_right image {
+  width: 25rpx;
+  height: 25rpx;
+}
+
+.orderlist {
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  padding-left: 10rpx;
+}
+
+.orderitem {
+  text-align: center;
+  margin-right: 70rpx;
+  position: relative;
+}
+
+.label {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  background-color: #e50b0b;
+  color: #fff;
+  font-size: 17rpx;
+  line-height: 30rpx;
+  text-align: center;
+  position: absolute;
+  right: -10rpx;
+  top: -13rpx;
+}
+
+.lastlabel {
+  position: absolute;
+  right: 10rpx;
+  top: -13rpx;
+}
+
+.orderitem:last-child {
+  margin-right: 0;
+}
+
+.orderimg {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.ordertext {
+  font-size: 25rpx;
+}
+
+.toolList {
+  border-top: 20rpx solid #f4f4f4;
+  padding: 0 20rpx 0 30rpx;
+}
+
+.tool {
+  height: 105rpx;
+  border-bottom: 1rpx solid #d7d7d7;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.toolimg {
+  width: 48rpx;
+  height: 48rpx;
+  margin: 0 15rpx 0 5rpx;
+}
+
+.tool text {
+  font-size: 27rpx;
+}
+
+button {
+  font-size: 27rpx;
+  background-color: #fff;
+  border-radius: 0rpx;
+  padding: 0rpx;
+  margin: 0rpx;
+  display: inline-block;
+  line-height: 1;
+}
+
+button::after {
+  /*button的边框样式是通过::after方式实现的*/
+  border: none;
+}
+
+.button-hover {
+  /*点击后样式*/
+  color: #000;
+  background-color: rgb(247, 247, 247);
+}
+
+.orderitem1{
+  margin:48rpx;
+}
+.icon__deliver{
+  margin: 40rpx 0 60rpx;
+  width: 100%;
+}

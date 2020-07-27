@@ -1,0 +1,8 @@
+<view class="top"></view>
+<view class="section">
+    <view wx:if="{{activityTip}}" bindtap="activityTip" class="activityTip">请填写活动介绍</view>
+    <form bindsubmit="bindFormSubmit">
+        <textarea placeholder="活动介绍（选填）" value="{{cont}}" placeholder-style="text-indent:30rpx;font-size:26rpx;" name="textarea" bindfocus="getFocus" />
+        <button form-type="submit"> 确定 </button>
+    </form>
+</view>

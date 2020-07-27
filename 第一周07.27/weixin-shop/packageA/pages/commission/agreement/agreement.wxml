@@ -1,0 +1,9 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<view class="container">
+<block wx:if="{{applycontent != ''}}">
+  <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+</block>
+<block wx:else>
+  <view style="text-align:center;margin:500rpx auto;font-size:26rpx;">暂时没有相关的内容噢~~</view>
+</block>
+</view>

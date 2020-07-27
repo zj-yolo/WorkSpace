@@ -1,0 +1,43 @@
+<view class="search">
+     <view class="search-content">
+		 <image src="http://tws.cnweisou.com/images/search1.png"></image>
+		 <input bindchange="bindChange" placeholder-style="color:#999" class="input_search" placeholder="搜索关键字"/>
+		 </view>
+		 <text bindtap="search" >筛选</text>
+</view>
+
+<dl class="menu">
+	<dt data-menu_type="0" bindtap="tapMainMenu" class="{{parm.menu_type == 0 ? 'highlight' : '' }}">全部</dt>
+	<dt data-menu_type="1" bindtap="tapMainMenu" class="{{parm.menu_type == 1 ? 'highlight' : '' }}">分类</dt>
+	<dd class="{{menu_subtype == 1 ? 'show' : 'hidden' }}">
+		<ul>
+    	<block wx:for="{{getCategorys}}" wx:key="{{index}}">
+			<li class="{{parm.menu_id == item.id ? 'highlight' : '' }}" data-menu_id="{{item.id}}" bindtap="tapSubMenu">{{item.category_name}}</li>
+      </block>
+		</ul>
+	</dd>
+	<dt></dt>
+	<dt></dt>
+</dl>
+
+<view wx:if="{{lists.length}}" class="goodsList carts-list">
+	<view wx:for="{{lists}}" wx:key="objectId" class="carts-item" data-object-id="{{item.id}}" bindtap="tapLists">
+		<view>
+		<!-- 缩略图 -->
+		  <image class="carts-image" src="{{item.resp_img}}" mode="aspectFill"/>
+		</view>
+      <view class="carts-text">
+      	<!-- 商品标题 -->
+        <text class="carts-title">{{item.article_title}}</text>
+		<!-- 销量与评价 -->
+		<view class="goods-score">
+      <text>分类:{{item.category_name}}</text>
+			<text>日期:{{item.article_date_v}}</text>
+
+		</view>
+      </view>
+    </view>
+</view>
+<view wx:else class="view-empty">
+<text>抱歉暂时没有相关结果,换个筛选条试试吧!</text>
+</view>

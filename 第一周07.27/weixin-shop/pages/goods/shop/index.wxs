@@ -1,0 +1,7 @@
+var localData = function(value, value2) {
+
+  return parseInt(value) + parseInt(value2)
+}
+module.exports = {
+  localData: localData
+}

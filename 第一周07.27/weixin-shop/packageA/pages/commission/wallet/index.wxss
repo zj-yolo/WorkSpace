@@ -1,0 +1,149 @@
+.wallet{
+  font-size: 28rpx;
+}
+.figure{
+  display: flex;
+  padding: 30rpx 26rpx 40rpx;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  color: #fff;
+  background: #e50b0b;
+}
+.label{
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, .8);
+}
+.earnings__num{
+  margin: 30rpx 0;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.withDraw{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn{
+  padding: 0 14rpx;
+  height: 46rpx;
+  line-height: 46rpx;
+  border-radius: 26rpx;
+  background: #ffd675;
+  color: #000;
+}
+.option, .menu{
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+}
+.option{
+  padding: 0 30rpx;
+  height: 104rpx;
+  border-bottom: 1px solid #e5e5e5;
+}
+.menu{
+  padding: 0 20rpx;
+  height: 80rpx;
+  background: #f5f5f5;
+}
+.option__item, .menu__item{
+  position: relative;
+  height: 100%;
+}
+.option__item{
+  margin-right: 70rpx;
+  line-height: 104rpx;
+}
+.menu__item{
+  padding: 0 18rpx;
+  line-height: 80rpx;
+}
+.menu__item-w{
+  justify-content: space-between;
+}
+.option__item:last-child, .menu__item:last-child{
+  margin: 0;
+}
+.itemActive::after{
+  position: absolute;
+  display: block;
+  content: '';
+  width: 50rpx;
+  height:6rpx;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #e50b0b;
+}
+.list{
+  padding-bottom: 20rpx;
+}
+.list__item{
+  padding: 30rpx 30rpx 38rpx;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e5e5e5;
+}
+.order{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.order:nth-child(2) {
+  margin: 16rpx 0 30rpx;
+}
+.time{
+  font-size: 25rpx;
+  color: #9d9d9d;
+}
+.remarks{
+  margin-top: 14rpx;
+  font-size: 25rpx;
+}
+.goods__image{
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 8rpx;
+}
+.avatar{
+  width: 66rpx;
+  height: 66rpx;
+  border-radius: 50%;
+}
+.list__item-red{
+  display: flex;
+  padding: 36rpx 30rpx;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+}
+.list__item-withDraw{
+  padding: 30rpx;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e5e5e5;
+}
+.time__container{
+  margin: 4rpx 0 10rpx;
+}
+.figure__withDraw{
+  display: flex;
+  justify-content: flex-end;
+}
+.noContent{
+  margin-top: 200rpx;
+  text-align: center;
+}
+.noContent__image{
+  width: 120rpx;
+  height: 120rpx;
+  vertical-align: middle;
+}
+.noContent__text{
+  margin-top: 20rpx;
+  color: #aaa;
+}

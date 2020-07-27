@@ -1,0 +1,49 @@
+<view class="page">
+    <view class="rec">
+        <view class="section_tp">
+            <view class="border" style="width: 100%">全部纪录</view>
+        </view>
+    </view>
+    <block wx:if='{{data.list.length>0}}'>
+        <block wx:for="{{data.list}}">
+        <view class="list" bindtap="toreceived" data-id="{{item.id}}">
+            <view class="title">
+                <view>
+                    <text>订单号：{{item.logno}}</text>
+                </view>
+                <view style="margin-right: 20rpx;">
+                    <!--  <block wx:if='{{item.paystatus=="0"}}'>未支付</block>
+                    <block wx:elif='{{item.paystatus=="1"}}'>待发货</block>
+                     <block wx:elif='{{item.paystatus=="-1"}}'>已取消</block><block wx:elif='{{item.paystatus=="2"}}'>已完成</block> -->
+                   <!--  <block wx:if='{{item.creditpay=="1"}}'>
+                        <block wx:if='{{item.status=="2"}}'>兑换成功</block>
+                        <block wx:else>兑换失败</block>
+                    </block>
+                    <block wx:elif='{{item.creditpay=="0"}}'> -->
+                        <block wx:if='{{item.status=="1"&&item.paystatus=="0"}}'>待支付</block>
+                        <block wx:elif='{{item.status=="2"}}'>待发货</block>
+                        <block wx:elif='{{item.status=="2"&&item.paystatus=="2"}}'>已完成</block>
+                    <!-- </block> -->
+                </view>
+            </view>
+            <view class="item">
+                <view style="display: flex;flex-direction: row;">
+                    <image class="left" src="{{item.thumb}}"></image>
+                    <view class="center">
+                        <view style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;display: flex;flex-direction: row;">
+                            <view class="tip">商品</view>{{item.title}}</view>
+                    </view>
+                </view>
+                <view class="right">
+                    <view style="">{{item.credit}}积分</view>
+                </view>
+            </view>
+        </view>
+    </block>
+    </block>
+    <block wx:else>
+           <view style='width:100%;display: flex;align-items: center;'>
+        <image class='noData' src='../../../../images/jf.png' mode='widthFix'></image>
+    </view>
+    </block>
+</view>

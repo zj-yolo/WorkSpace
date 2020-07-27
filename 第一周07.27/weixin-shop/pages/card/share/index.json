@@ -1,0 +1,6 @@
+{
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "i-spin": "/components/loading/index"
+  }
+}

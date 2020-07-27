@@ -1,0 +1,12 @@
+<view class="sharelunbo" style="height: {{heightall}}px">
+  <view class="imgshare">
+    <view class="poster">
+      <image mode="widthFix" bindtap="preview" wx:if="{{poster}}" src="{{poster}}"></image>
+      <i-spin fix wx:else></i-spin>
+    </view>
+    <view class="dibu">
+      <button class="common share" open-type="share">{{poster==null?'海报生成中':'发给朋友'}}</button>
+      <button class="common saveshare" bindtap="saveImg">{{poster==null?'海报生成中':'保存海报'}}</button>
+    </view>
+  </view>
+</view>

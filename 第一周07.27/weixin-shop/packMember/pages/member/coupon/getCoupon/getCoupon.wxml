@@ -1,0 +1,7 @@
+<view class="container">
+<!--https://tws.cnweisou.com/images/check.png  -->
+ <image class="img" src="https://tws.cnweisou.com/images/veryhappy.png"></image>
+ <view class="content"><text>恭喜你，优惠券到手了，你想现在就去选择商品使用优惠券吗？</text> </view>
+ <button type="warn" class="yes" bindtap="success">现在就去选择</button>
+ <button type="default" class="cancle" bindtap="clickIndex">取消</button>
+</view>

@@ -1,0 +1,67 @@
+<loading wx:if="{{loading}}"></loading>
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper">
+  <block wx:for="{{advs}}" wx:if="{{isAdvs}}">
+    <swiper-item class="swiperitem">
+      <image src="{{item.thumb}}" />
+    </swiper-item>
+  </block>
+
+  <block wx:for="{{imgUrls}}" wx:if="{{isAdvs==false}}">
+    <swiper-item class="swiperitem">
+      <image src="{{item}}" />
+    </swiper-item>
+  </block>
+  <view class="cover"></view>
+
+</swiper>
+<view class="logoImg">
+  <image src='{{shopinfo.logo}}' />
+</view>
+
+<view class="logo">
+  <view class="logoTitle">{{shopinfo.merchname}}</view>
+  <view class="logoMap">
+    <view class="map" bindtap="map">
+      <image src="http://tws.cnweisou.com/images/shopPosition.png"></image>
+      <text>查看位置</text>
+    </view>
+  </view>
+</view>
+<view class="list" wx:if="{{shopinfo.desc}}">
+  <view class="introduce">
+    <text class="title">商家简介：</text>
+    <text class="cont">{{shopinfo.desc}}</text>
+  </view>
+</view>
+<view class="list">
+  <view class="introduce">
+    <text class="title phoneTitle">联系电话：</text>
+    <text class="contphone">{{shopinfo.mobile}}</text>
+    <image src="http://tws.cnweisou.com/images/shopPhone.png" bindtap="dialPhone"></image>
+  </view>
+</view>
+<view class="list listBottom" wx:if="{{shopinfo.address}}">
+  <view class="introduce">
+    <text class="title">联系地址：</text>
+    <text class="cont">{{shopinfo.address}}</text>
+  </view>
+</view>
+<view class="shopphoto" wx:if="{{isPhoto}}">
+  <view class="title">
+    <image src="http://tws.cnweisou.com/images/shopPhoto.png"></image>
+    <text>企业相册</text>
+  </view>
+  <view class="photo">
+
+    <view class="photoDetial" wx:for='{{banners}}' data-index="{{index}}" bindtap="joinImage">
+      <image src="{{item.thumb}}" mode="widthFix"></image>
+    </view>
+  </view>
+</view>
+<view class="interval"></view>
+<view class="bgtypeList" wx:if="{{showImage}}" bindtap="showImages">
+  <view class="slideImgs">
+    <image src="{{nowImg}}" class="slide-image" mode="widthFix" />
+  </view>
+
+</view>

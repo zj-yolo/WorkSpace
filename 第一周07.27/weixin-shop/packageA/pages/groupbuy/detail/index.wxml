@@ -1,0 +1,166 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<!-- 轮播图 -->
+<view class="swiperView">
+	<swiper class="images" bindchange="handleBannerChange" autoplay="true" interval="5000" duration="1000" circular="true" style="height:{{galleryHeight}}px;">
+		<block wx:for="{{data.goods.thumb_url}}" wx:for-index="index" wx:key="index">
+			<swiper-item style="height:700rpx;">
+				<image src="{{item}}" mode="aspectFill" class="swiper-image" data-current="{{index}}" />
+			</swiper-item>
+		</block>
+	</swiper>
+	<view class="dots">{{bannerIndex+1}}/{{data.goods.thumb_url.length}}</view>
+</view>
+<!-- 商品价格 -->
+<view class="priceWrap">
+	<text class="groupNum">{{data.goods.groupnum}}人团</text>
+	<view class="goodsprice">
+		<view class="allprice">
+			<text style="font-size:22rpx">￥</text><text class="groupprice" style="font-size:44rpx;font-weight:700;">{{groupPrice}}</text>
+			<text class="oldsprice" style="margin-left:25rpx;font-size:27rpx;text-decoration:line-through;color:#eea8a6;">￥{{data.goods.price}}</text>
+		</view>
+		<view class="hasGroup" style="font-size:28rpx">已拼{{data.goods.sales}}件</view>
+	</view>
+</view>
+<view class="titlewrap">
+	<view class="goodstitle">{{data.goods.title}}</view>
+	<button class="goodshare" open-type="share">
+		<image class="shareImgs" src="../../../images/share.png"></image>
+	</button>
+</view>
+<block wx:if="{{data.goods_spec_list}}">
+	<view class="rline"></view>
+	<!-- 请选择规格 -->
+	<view class="handletype" bindtap="move">
+		<text class="handleText">请选择规格</text>
+		<image class="arrow" src="https://tws.cnweisou.com/images/rightArrow.png"></image>
+	</view>
+</block>
+
+<view class="rline"></view>
+<!-- 参与拼团 -->
+<block wx:if="{{groupData.teams.length > 0}}">
+	<view class="group">
+		<view class="groupTitle">{{groupData.goods.fightnum}}人正在开团,可直接参与</view>
+		<view class="groupList">
+			<block wx:for="{{groupData.teams}}" wx:key="index">
+				<view class="groupItem">
+					<view class="groupLeft">
+						<image class="userIcon" src="{{item.avatar? item.avatar :'https://tws.cnweisou.com/images/person.jpg'}}"></image>
+						<view style="margin-left:10rpx">{{item.nickname}}</view>
+					</view>
+					<view class="groupRight">
+						<view class="groupneed">
+							<view style="font-size:30rpx">还差<text style="color:#ea1414">{{item.num}}人</text>成团</view>
+							<view style="font-size:20rpx;color:#919191">剩余{{arr[index]}}</view>
+						</view>
+						<view class="groupButton" bindtap="handletocorder" data-id="{{item.id}}">去参团</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</view>
+	<view class="rline"></view>
+</block>
+<view style="padding: 20rpx 20rpx 40rpx;display: flex;flex-direction: row;justify-content: center;background-color: #fff;">
+	<view style="border-bottom: 4rpx solid #FEAAAA;padding:0 12rpx 6rpx;font-size: 32rpx;font-weight: bolder;">图文详情</view>
+</view>
+<block wx:if="{{data.goods.content!=''}}">
+	<view style="width: 100%;overflow: hidden;text-align: center;">
+		<template is="wxParse" data="{{wxParseData:contain.nodes}}"></template>
+	</view>
+</block>
+<view style="height:150rpx;width:100%;"></view>
+<view class="footer">
+	<view class="left">
+		<button open-type="contact" class="towechat" style="z-index:auto">
+			<image class="leftIcon" style="width: 45rpx;height: 45rpx;" src="/images/detail-kefu.png"></image>
+		</button>
+		<view class="towechat wechatBorder" bindtap="toback">
+			<image class="leftIcon" style="width: 45rpx;height: 45rpx;" src="/images/detail-shop.png"></image>
+		</view>
+	</view>
+	<block wx:if="{{isOrNoSing == 0}}">
+		<view class="item" bindtap="{{data.goods_spec_list?'move':'toopen'}}" data-id="{{data.goods.id}}" style="background-color: #FD5454;width:74%;">
+			<text>¥ <text style="font-size: 36rpx;">{{groupPrice}}</text></text>
+			<text style="font-size:22rpx">一键开团</text>
+		</view>
+	</block>
+	<block wx:else>
+		<view class="item" bindtap="{{data.goods_spec_list?'move':'tocorder'}}" data-id="{{data.goods.id}}" style="background-color: #fff; color:#000000">
+			<text>¥ <text  style="font-size: 36rpx;">{{singCost}}</text></text>
+			<text style="font-size:22rpx">单独购买</text>
+		</view>
+		<view class="item" bindtap="{{data.goods_spec_list?'move':'toopen'}}" data-id="{{data.goods.id}}" style="background-color: #ea1414;">
+			<text>¥ <text style="font-size: 36rpx;">{{groupPrice}}</text></text>
+			<text style="font-size:22rpx">一键开团</text>
+		</view>
+	</block>
+</view>
+<loading wx:if="{{loading}}"></loading>
+<!-- 规格选择框 -->
+<view animation='{{animationData}}' class="box" style="z-index:1000;" catchtouchmove='noMove'>
+	<view class="top">
+		<block wx:if="{{arr_img}}">
+			<image class="t_logo" src="{{arr_img}}"></image>
+		</block>
+		<block wx:else>
+			<image class="t_logo" src="{{data.goods.thumb}}"></image>
+		</block>
+		<view class='desc' catchtouchmove='noMove'>
+			<view style="font-size:27rpx;width:80%;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{data.goods.title}}</view>
+			<block wx:if="{{isOrNoSing == 0}}">
+				<view class="red mb10">{{groupPrice}}</view>
+			</block>
+			<block wx:else>
+				<view class="red" style="margin-top:20rpx;margin-bottom:10rpx">价格:￥{{groupPrice}}</view>
+			</block>
+			<!-- <view class=" mb10" wx:if="{{store_count}}">库存：{{store_count}}</view> -->
+			<view class="select_F"> 选择：
+				<block wx:if="{{name_arr}}" wx:for="{{name_arr}}" wx:key="index">
+					<block wx:if="{{name_arr[index]}}">
+						<text> {{name_arr[index]}} </text>
+					</block>
+				</block>
+			</view>
+		</view>
+		<image class="t_sc" src='http://tws.cnweisou.com/images/sc1.png' bindtap="none"></image>
+	</view>
+	<scroll-view class="bd" scroll-y="{{true}}">
+		<view class="list" wx:for="{{data.goods_spec_list}}" wx:for-index="pos" wx:key="pos">
+			<view class="category">{{item[0].spec_name}}</view>
+			<view class="type">
+				<block wx:for="{{item}}" wx:key="index">
+					<view class="item_F {{textStates[item.isClick]}}" bindtap="propClick" data-index="{{pos}}" data-pos="{{index}}" id="{{item.item_id}}" data-name='{{item.item}}'>{{item.item}}</view>
+				</block>
+			</view>
+		</view>
+	</scroll-view>
+
+	<view class="footerB" >
+		<view class="left" style="border-top:1rpx solid #e5e5e5">
+			<button open-type="contact" class="towechat" style="z-index:auto">
+				<image class="leftIcon" style="width: 45rpx;height: 45rpx;" src="/images/detail-kefu.png"></image>
+			</button>
+			<view class="towechat wechatBorder" bindtap="toback">
+				<image class="leftIcon" style="width: 45rpx;height: 45rpx;" src="/images/detail-shop.png"></image>
+			</view>
+		</view>
+		<block wx:if="{{isOrNoSing == 0}}">
+			<view class="item" bindtap="toopen" data-id="{{data.goods.id}}" style="background-color: #FD5454;width:74%;">
+				<text>¥ <text style="font-size: 36rpx;">{{groupPrice}}</text></text>
+				<text style="font-size:22rpx">一键开团</text>
+			</view>
+		</block>
+		<block wx:else>
+			<view class="item" bindtap="tocorder" data-id="{{data.goods.id}}" style="background-color: #fff; color:#000000;border-top:1rpx solid #e5e5e5">
+				<text>¥ <text  style="font-size: 36rpx;">{{singCost}}</text></text>
+				<text style="font-size:22rpx">单独购买</text>
+			</view>
+			<view class="item" bindtap="toopen" data-id="{{data.goods.id}}" style="background-color: #ea1414;">
+				<text>¥ <text style="font-size: 36rpx;">{{groupPrice}}</text></text>
+				<text style="font-size:22rpx">一键开团</text>
+			</view>
+		</block>
+	</view>
+
+</view>

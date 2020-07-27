@@ -1,0 +1,140 @@
+<view class="c_page">
+	<view class="c_banner" style="background:url({{pageData.set.background[0]}})" bindtap="tourl">
+		<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/images/VR.png" class="c_icon"></image>
+	</view>
+	<!-- 优惠券组件 -->
+	<couponcomponents my-class="userCompont"/>
+	<!-- 优惠券组件 -->
+	<view class="c_introduce">{{pageData.shopinfo.base.introduce}}</view>
+	<view class="c_labelList" wx:if="{{pageData.shopinfo.base.label}}">
+		<block wx:for="{{pageData.shopinfo.base.label}}" wx:key="{{index}}">
+			<view class="c_labelItem" style="background:{{randomColorArr[index]}}">{{item}}</view>
+		</block>
+	</view>
+	<view class="c_poster" wx:if="{{pageData.set.banner[0]}}">
+		<image class="c_posterImg" src="{{pageData.set.banner[0]}}"></image>
+	</view>
+	<!-- 直播组件 -->
+	<block wx:if="{{pageData.set.live}}">
+		<view class="liveStreaming">
+			<image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+		</view>
+	</block>
+	<!-- 直播组件 -->
+	<view class="c_broadcast" wx:if="{{pageData.shopinfo.information.length > 0 }}">
+		<view class="broadcast__title">
+			<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/images/hotTtile.png" mode="widthFix" class="hotTitle"></image>
+		</view>
+		<view class="broadcast__swiper-container">
+			<swiper class="broadcast__swiper" vertical circular autoplay>
+				<swiper-item wx:for="{{pageData.shopinfo.information}}" wx:key="{{item.id}}">
+					<view class="swiper__title" data-id="{{item.id}}" bindtap="toacticle">{{item.article_title}}</view>
+				</swiper-item>
+			</swiper>
+		</view>
+	</view>
+	<!-- 秒杀入口组件 -->
+	<skillcomponents my-class="userGroup"/>
+	<!-- 秒杀入口组件 -->
+	<view class="c_brand" wx:if="{{pageData.shopinfo.brand && pageData.shopinfo.brand.length > 0}}">
+		<view class="storeTitle">推荐品牌</view>
+		<view class="c_tabcontent" wx:for="{{pageData.shopinfo.brand}}" wx:key="{{index}}" bindtap="skipStore" data-id="{{item.id}}">
+			<image src="{{item.logo}}" mode="widthFix" class="logoImg"></image>
+			<view class="c_tabcontentRight">
+				<view class="c_content">
+					<view class="storeName">{{item.storename}}</view>
+					<view class="hasadd">
+						<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/images/eye.png" class="eye"></image>
+						<view class="c_hasadd">{{dataArr[index]}}%的人关注</view>
+					</view>
+					<view class="desc" wx:if="{{item.desc}}">{{item.desc}}</view>
+				</view>
+				<view class="contentRight">
+					<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index-arrow.png" class="arrowImage" mode="widthFix"></image>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!-- 拼团入口组件 -->
+	<groupcomponents my-class="userGroup" />
+	<!-- 拼团入口组件 -->
+	<view class="c_store" wx:if="{{pageData.shopinfo.merch.length > 0}}">
+		<view class="goodslist">
+			<view class="goodslist_subtitle">优秀商家</view>
+			<scroll-view scroll-x="true" class="storegoods">
+				<view wx:for="{{pageData.shopinfo.merch}}" wx:key="{{index}}" class="c_goods" bindtap="skipStore" data-id="{{item.id}}">
+					<image src="{{item.logo}}" class="goodsStoreIMG"></image>
+					<view class="goodsname">{{item.storename}}</view>
+				</view>
+			</scroll-view>
+		</view>
+	</view>
+	<view class="c_poster" wx:if="{{pageData.set.banner[1]}}">
+		<image class="c_posterImg" src="{{pageData.set.banner[1]}}"></image>
+	</view>
+
+	<view class="c_goodsList">
+		<view class="allgoods">
+			<scroll-view scroll-x="true" scroll-into-view="{{'c_'+tabindex}}" scroll-with-animation="true">
+				<view class="goodsTab">
+					<block wx:for="{{cateList}}" wx:key="{{index}}">
+						<view class="{{tabindex == item.id ?'itemtab itemtabActive':'itemtab'}}" bindtap="handleTab" data-cateID="{{item.id}}" id="{{'c_'+item.id}}">{{item.name}}</view>
+					</block>
+				</view>
+			</scroll-view>
+			<view class="goodsTabcontent">
+				<block wx:if="{{allgoodsList.length > 0}}">
+					<view class="tabcontent" wx:for="{{allgoodsList}}" wx:key="{{index}}" bindtap="skipgoodsDetail" data-goodsid="{{item.goodsid}}">
+						<image src="{{item.image}}" mode="widthFix" class="logoImg"></image>
+						<view class="tabcontentRight">
+							<view class="content">{{item.title}}</view>
+							<view class="money">
+								<block wx:if="{{is_mianyi == 1}}">
+									<view class="present">面议</view>
+								</block>
+								<block wx:else>
+									<view class="present">￥{{item.price}}</view>
+								</block>
+							</view>
+						</view>
+					</view>
+				</block>
+				<block wx:else>
+					<view class="nostates">
+						<image class="nostatesImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/hotgoods.png" mode="widthFix"></image>
+						<text>商品上架中</text>
+					</view>
+				</block>
+			</view>
+		</view>
+	</view>
+	<view class="c_article" wx:if="{{pageData.shopinfo.base.is_articles == 1}}">
+		<view class="article">
+			<view class="article_title">资讯信息</view>
+			<view class="articleList">
+				<view class="artcle_content" wx:for="{{allArticle}}" wx:key="{{index}}" data-from="grabArticle" data-id="{{item.id}}" bindtap="toacticle">
+					<block wx:if="{{item.image}}">
+						<image class="article_img" src="{{item.image}}"></image>
+						<view class="article_right">
+							<view class="title">{{item.title}}</view>
+							<view class="article_time">
+								<image class="timeIcon" src="https://tws.oss.cnweisou.com/images/0/2019/11/NSkgkTkZTSf9a9974AtVKaFKtTt2kf.png" mode="widthFix"></image>{{item.updated_at}}
+								<text style="margin-left: 10upx;">转载自网络</text>
+							</view>
+						</view>
+					</block>
+					<block wx:else>
+						<view class="article_right">
+							<view class="title">{{item.title}}</view>
+							<view class="article_time" style="margin-top: 20upx;">
+								<image class="timeIcon" src="https://tws.oss.cnweisou.com/images/0/2019/11/NSkgkTkZTSf9a9974AtVKaFKtTt2kf.png" mode="widthFix"></image>{{item.updated_at}}
+								<text style="margin-left: 10upx;">转载自网络</text>
+							</view>
+						</view>
+					</block>
+
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

@@ -1,0 +1,52 @@
+<view class="view-title">
+  <text style="color:rgb(255, 106, 106);">订单已经提交成功</text>
+  <image bindtap="toStart" style="margin-right: 30rpx;" src="/images/icon_home_selected.png"></image>
+</view>
+<view class="subtotal">
+  <view class="fsp bb">
+    <view>订单编号</view>
+    <view>{{orderno}}</view>
+  </view>
+  <view class="fsp">
+    <view>订单金额</view>
+    <view>¥ {{money}}</view>
+  </view>
+</view>
+
+<block wx:if="{{order.creditpay=='1'}}">
+  <form bindsubmit="toweixin" report-submit='true' data-id="{{order.id}}">
+    <view style="{{order.price !=0 ? 'border-top:1rpx solid #f3f3f3;border-bottom:1rpx solid #f3f3f3;width:100%;font-size: 30rpx;': ''}}" bindtap="toweixin" data-id="{{order.id}}">
+      <!--bindtap="toweixin"  -->
+      <block wx:if="{{order.price !=0}}">
+        <view style="width:94%;margin:0 3%;display:flex;flex-direction:row;justify-content: space-between;" data-id="{{order.id}}">
+          <view style="display: flex;flex-direction: row;">
+            <image class="img" src="https://tws.cnweisou.com/images/weixin.png"></image>
+            <view style="margin-top: 20rpx;line-height: 50rpx;margin-left: 20rpx;" class="submitMy">
+              <button form-type="submit" data-id="{{order.id}}">余额支付</button>
+              <button form-type="submit" data-id="{{order.id}}">使用余额安全支付</button>
+            </view>
+          </view>
+          <view style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
+            <view style="margin-right: 20rpx;">{{order.creditinfo}}</view>
+            <image src="https://tws.cnweisou.com/images/rightArrow.png" style="width: 30rpx;height: 40rpx;"></image>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view style="width:95%;margin:100rpx auto 0;">
+          <button form-type="submit" data-id="{{order.id}}" style="width:100%;background:#ff4242;color:#fff">会员卡支付</button>
+        </view>
+      </block>
+    </view>
+  </form>
+</block>
+
+
+<view class="goods">
+  <block wx:if="{{wxpay}}">
+    <button type="primary" bindtap="pay">微信支付</button>
+  </block>
+  <block wx:else>
+    <image src="{{data.weixin_app_payimg}}" class="weixin_app_payimg"></image>
+  </block>
+</view>

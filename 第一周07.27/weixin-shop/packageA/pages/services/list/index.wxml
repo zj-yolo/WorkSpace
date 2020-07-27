@@ -1,0 +1,88 @@
+<view class='slide'>
+    <view class='{{tab_index == -2 ? "slide_item slide_item_select" : "slide_item"}}' bindtap='tab' data-index='-2'>全部</view>
+    <view class='{{tab_index == 0 ? "slide_item slide_item_select" : "slide_item"}}' bindtap='tab' data-index='0'>待支付</view>
+    <view class='{{tab_index == 1 ? "slide_item slide_item_select" : "slide_item"}}' bindtap='tab' data-index='1'>待服务</view>
+    <view class='{{tab_index == 3 ? "slide_item slide_item_select" : "slide_item"}}' bindtap='tab' data-index='3'>待评价</view>
+    <view class='{{tab_index == -1 ? "slide_item slide_item_select" : "slide_item"}}' bindtap='tab' data-index='-1'>已取消</view>
+</view>
+<block wx:if="{{total != '0'}}">
+    <view class="order-item" wx:for="{{list}}" wx:key="">
+        <view class="view-title">
+            <!--   <image src="http://tws.cnweisou.com/images/order_icon.png"></image>
+        <text>订单号:{{item.logno}} </text> -->
+            <view class='store'>{{item.store_name}}</view>
+            <view class='pay_status'>
+        <!--         <block wx:if='{{item.status==0}}'>待支付</block>
+                <block wx:if='{{item.status==2}}'>待服务</block>
+                <block wx:if='{{item.status==3}}'>待评价</block>
+                <block wx:if='{{item.status==-1}}'>已取消</block> -->
+                {{item.statusstr}}
+            </view>
+        </view>
+        <view bindtap="test" id="{{item.orderid}}">
+            <view class="carts-item" data-index="{{index}}">
+                <view style="overflow:hidden;">
+                    <image class="carts-image" src="{{item.thumb}}" />
+                </view>
+                <view class="carts-text">
+                    <text class="carts-title">{{item.title}}</text>
+                    <!--      <view class="carts-subtitle">
+                        <text>{{item.optiontitle}}</text>
+                    </view> -->
+                    <view class="carts-right">
+                        <text class="carts-price">￥{{item.price}}</text>
+                        <text class="carts-num">x{{item.number}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class='time'>
+                <text>预约到店时间：{{item.ordertime}}</text>
+                <!-- <text>{{item.statusstr}} 实付款：</text>
+                <text style="color:red">￥{{item.price*item.number}}元</text> -->
+            </view>
+        </view>
+        <view wx:if="{{item.status == 0}}" class="order-footer">
+            <text class="btn-cancel" bindtap="cancel" data-index="{{index}}">取消预约</text>
+            <text wx:if="{{item.pay_code != 'cod'}}" class="btn-pay" data-index="{{index}}" bindtap="pay">立即支付</text>
+        </view>
+        <view wx:elif="{{item.status == 1}}" class="order-footer">
+            <text class="btn-pay" bindtap="test" id="{{item.orderid}}" data-index="{{index}}">查看订单</text>
+        </view>
+        <view wx:elif="{{item.status == 3}}" class="order-footer">
+            <text class="btn-pay" bindtap="test" id="{{item.orderid}}" data-index="{{index}}">查看订单</text>
+             <block wx:if='{{item.iscomment=="0"}}'>
+                <text class="btn-pay" data-index="{{item.orderid}}" bindtap="evaluation">评价</text>
+            </block>
+        </view>
+      <!--   <view wx:elif="{{item.status == 4}}" class="order-footer">
+            <text class="btn-pay" bindtap="test" id="{{item.orderid}}" data-index="{{index}}">查看订单</text>
+           
+        </view> -->
+        <view wx:else class="order-footer">
+            <text wx:if="{{item.statusstr=='已取消'}}" class="btn-pay" data-index="{{index}}" bindtap="delete">立即删除</text>
+        </view>
+    </view>
+</block>
+<block wx:else>
+    <view class='noInfo'>
+        <image src="../../../images/noorder.png"></image>
+    </view>
+</block>
+<loading wx:if="{{loading}}"></loading>
+
+<view class='delete' wx:if='{{show}}'>
+    <view class='d_block'>
+        <view class='d_titile'>取消预约 <image bindtap='hidden' class='d_img' src='/packageA/images/close.png' /></view>
+        <view style='margin-bottom:40rpx;'>
+            <view  class='d_item' data-index='1' bindtap='select'>我不想要了 
+                <image class='d_img' src='{{ select==1 ? "/packageA/images/xz.png":"/packageA/images/xu.png"}}' /></view>
+            <view  class='d_item' data-index='2' bindtap='select'>与商家达成一致，取消订单 
+                <image class='d_img' src='{{ select==2 ? "/packageA/images/xz.png":"/packageA/images/xu.png"}}' /></view>
+            <view  class='d_item' data-index='3' bindtap='select'>我想换个时间 
+                <image class='d_img' src='{{ select==3 ? "/packageA/images/xz.png":"/packageA/images/xu.png"}}' /></view>
+            <view  class='d_item' data-index='4' bindtap='select'>商家拒绝提供此服务 
+                <image class='d_img' src='{{ select==4 ? "/packageA/images/xz.png":"/packageA/images/xu.png"}}' /></view>
+        </view>
+        <view class='d_titile btn' bindtap='submitcancel'>提交并取消</view>
+    </view>
+</view>

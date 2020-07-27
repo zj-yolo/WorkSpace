@@ -1,0 +1,19 @@
+<view class="sharelunbo" style="height: {{heightall}}px">
+  <view class="imgshare">
+    <view class="poster">
+      <block wx:if="{{poster}}">
+        <view class="userInfo">
+          <image class="avatar" src="{{cardInfo.avatar}}"></image>
+          <view class="roleInfo">
+            <view class="username">{{cardInfo.name}}</view>
+            <view class="role">{{userCardPhone}}</view>
+          </view>
+        </view>
+        <view class="qrcodeContainer">
+          <image class="qrcode" bindtap="preview" src="{{poster}}"></image>
+        </view>
+      </block>
+      <i-spin fix wx:else></i-spin>
+    </view>
+  </view>
+</view>

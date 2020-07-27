@@ -1,0 +1,22 @@
+<scroll-view class="cc_couponList" scroll-X="true" wx:if="{{couponList.length>0}}">
+	<block wx:for="{{couponList}}" wx:key="index">
+		<view class="cc_couponItem my-class" bindtap="receiveCoupon"  data-id="{{item.id}}">
+			<view class="cc_left" wx:if="{{item.backtype == 0}}">
+				<view style="font-size:35rpx">￥{{item.deduct}}</view>
+				<view style="font-size:20rpx;">满{{item.enough}}元可用</view>
+			</view>
+			<view class="cc_left"  wx:if="{{item.backtype == 1}}">
+				<view style="font-size:35rpx">{{item.discount}}折</view>
+				<view style="font-size:20rpx;">满{{item.enough}}元可用</view>
+			</view>
+			<view class="cc_left"  wx:if="{{item.backtype == 2}}">
+				<view style="font-size:35rpx"  wx:if="{{item.backredpack !== ''}}">返{{item.backredpack}}</view>
+				<view style="font-size:20rpx;">满{{item.enough}}元可用</view>
+			</view>
+			<view class="cc_right">
+					<view class="cc_title">优惠券</view>
+				<view class="cc_receive">点击领取</view>
+			</view>
+		</view>
+	</block>
+</scroll-view>

@@ -1,0 +1,13 @@
+<view class='sharelunbo' style='height: {{heightall}}px'>
+  <view class='imgshare'>
+    <view class='poster'>
+      <image mode='widthFix' bindtap='preview' wx:if="{{poster}}" src='{{poster}}'></image>
+      <i-spin fix wx:else></i-spin>
+    </view>
+    <view class='dibu'>
+      <view class='longsao'>扫码或长按小程序识别</view>
+      <button class='saveshare' hover-class="hoverStyle" hover-start-time="60" hover-stay-time="60" bindtap='saveImg'>{{poster==null?'海报生成中':'保存图片分享'}}</button>
+      <view class='youxuanhaowu'>好物推荐，快点和朋友分享吧</view>
+    </view>
+  </view>
+</view>

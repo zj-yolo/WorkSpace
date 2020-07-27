@@ -1,0 +1,166 @@
+<block wx:if='{{storeData.isopen}}'>
+
+</block>
+<block wx:else>
+  <view style='background-color:rgba(0,0,0,0.4);position:absolute;top:20px;left:32%;font-size:27rpx;padding:2rpx 20rpx;border-radius:5rpx;line-height: 40rpx;z-index: 101;color:white;'>商家休息中，暂不接单</view>
+</block>
+
+
+<view style='width: 100%;height: 100%;'>
+  <view>
+    <view class='backImg' style='width:100%;height:150rpx;background-repeat:no-repeat;background:#ff6cbb'>
+      <view class="storeInfo">
+        <view class="storeLeft">
+          <view class="storeName">{{storeData.storename}}</view>
+          <view class="storeTime">
+            <image class="storetimeicon" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/boweisou/yy/images/clock2.png"></image>
+            营业时间:{{storeData.saletime}}</view>
+          <view class="storeTime">
+            <image class="storetimeicon" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/boweisou/yy/images/phone2.png"></image>
+            联系方式:{{storeData.tel}}</view>
+        </view>
+        <image class="storeRight" src='{{storeData.logo}}'></image>
+      </view>
+    </view>
+    <view class='tab'>
+      <view bindtap='tab' data-index='1' class="t_item {{tab=='1'?'tb_color':''}}">
+        <view bindtap='tab' class="t_itemB {{tab=='1'?'tb_colorB':''}}">商品</view>
+      </view>
+      <view bindtap='tab' data-index='2' class="t_item {{tab=='2'?'tb_color':''}}">
+        <view bindtap='tab' class="t_itemB {{tab=='2'?'tb_colorB':''}}">商家</view>
+      </view>
+    </view>
+  </view>
+  <!-- 点餐部分 -->
+  <block wx:if="{{tab=='1'}}">
+    <view class='foot_content'>
+      <view class='left'>
+        <block wx:for='{{serveCate}}'>
+          <view bindtap='handlSeveCate' data-id='{{item.id}}' data-index='{{index}}' class="l_item {{serveCateId==item.id?'l_select':''}}">{{item.name}}</view>
+        </block>
+        <view style='width: 100%;height: 120rpx;'></view>
+      </view>
+      <scroll-view class='right' scroll-y="true" bindscrolltolower="getmoreServe" >
+        <block wx:for="{{serveGoods}}" wx:key>
+          <view class='r_item' bindtap='toseverdetail' data-id='{{item.id}}' data-item="{{item.goods}}">
+            <image class='r_img'  src="{{item.thumb}}"></image>
+            <view class='r_content'>
+              <view>
+                <view class='r_h1'>{{item.title}}</view>
+                <!-- <view class='r_p rp_color'>月售 {{item.sales}}</view> -->
+              </view>
+              <view class='r_price'>￥{{item.price}}</view>
+            </view>
+          </view>
+        </block>
+        <!-- <view style='width: 100%;height: 120rpx;'></view> -->
+      </scroll-view>
+    
+    </view>
+  </block>
+  <!-- 商家 -->
+  <block wx:if="{{tab=='2'}}">
+    <view class='seller'>
+      <view class='sellerTop'>
+        <view class='sellerInfo'>门店简介</view>
+        <view class='sellerjs'>{{storeData.desc}}</view>
+      </view>
+      <view class='sellerBu'>
+        <view class='sellerBuRow'>
+          <view class='sellerLeft'>门店名称</view>
+          <view class='sellerRit'>{{storeData.storename}}</view>
+        </view>
+        <view style='height:2rpx;width:100%;background-color:#f3f3f3;'></view>
+        <view class='sellerBuRow'>
+          <view class='sellerLeft'>门店地址</view>
+          <view class='sellerRit'>{{storeData.address}}</view>
+        </view>
+        <view style='height:2rpx;width:100%;background-color:#f3f3f3;'></view>
+        <view class='sellerBuRow'>
+          <view class='sellerLeft'>门店电话</view>
+          <view class='sellerRit'>{{storeData.tel}}</view>
+        </view>
+        <view style='height:2rpx;width:100%;background-color:#f3f3f3;'></view>
+        <view class='sellerBuRow'>
+          <view class='sellerLeft'>营业时间</view>
+          <view class='sellerRit'>{{storeData.saletime}}</view>
+        </view>
+        <view style='height:2rpx;width:100%;background-color:#f3f3f3;'></view>
+        <view class='sellerBuRow'>
+          <view class='sellerLeft'>门店支持</view>
+          <view class='sellerRit'>
+            <block wx:if="{{storeData.type == 1}}">支持自提</block>
+            <block wx:if="{{storeData.type == 2}}">支持核销</block>
+            <block wx:if="{{storeData.type == 3}}">支持自提+核销</block>
+          </view>
+        </view>
+        <view style='height:2rpx;width:100%;background-color:#f3f3f3;'></view>
+        <map id="myMap" style="width:93%;height: 300px;margin:27rpx;" latitude="{{storeData.lat}}" longitude="{{storeData.lng}}" covers="{{covers}}" show-location></map>
+      </view>
+    </view>
+  </block>
+</view>
+
+
+<loading wx:if="{{showLoading}}">
+  <text style='font-size: 27rpx;'>加载中</text>
+</loading>
+
+
+<load wx:if="{{loading}}"></load>
+
+<!-- //弹框规格 -->
+<view animation='{{animationData}}' class="box" style="z-index:1000;" catchtouchmove='noMove'>
+  <view class="top">
+    <block wx:if="{{arr_img}}">
+      <image class="t_logo" src="{{arr_img}}"></image>
+    </block>
+    <block wx:else>
+      <image class="t_logo" src="{{goodThumbSpec}}"></image>
+    </block>
+    <view class='desc' catchtouchmove='noMove'>
+      <view class="red mb10">{{groupPrice}}</view>
+      <view class=" mb10" wx:if="{{store_count}}">库存：{{store_count}}</view>
+      <view class="select_F"> 选择：
+        <block wx:if="{{name_arr}}" wx:for="{{name_arr}}">
+          <block wx:if="{{name_arr[index]}}">
+            <text> {{name_arr[index]}} </text>
+          </block>
+        </block>
+      </view>
+    </view>
+    <image class="t_sc" src='http://tws.cnweisou.com/images/sc1.png' bindtap="none"></image>
+  </view>
+  <scroll-view class="bd" scroll-y="{{true}}">
+    <view class="list" wx:for="{{specData}}" wx:for-index="pos" wx:key="pos">
+      <view class="category">{{item[0].spec_name}}</view>
+      <view class="type">
+        <block wx:for="{{item}}">
+          <view class="item_F {{textStates[item.isClick]}}" bindtap="propClick" data-index="{{pos}}" data-pos="{{index}}" id="{{item.item_id}}" data-name='{{item.item}}' data-src="{{item.src}}">{{item.item}}</view>
+        </block>
+      </view>
+    </view>
+    <view class="list" style='margin-bottom: 30rpx;'>
+      <view class="sumOne">
+        <view class="sum_l">
+          购买数量
+          <text wx:if="{{usermaxbuy>0}}">（限购{{usermaxbuy}}{{goods.goods.unit}}）</text>
+        </view>
+        <view class="sum_r">
+          <view class="item" bindtap="bindMinus">-</view>
+          <input type="number" class="center_F" bindchange="bindManual" value="{{goods_num}}" disabled='{{maxbuy>0 || mixbuy>0 || usermaxbuy>0}}' />
+          <view class="item" bindtap="bindPlus">+</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 弹框底部 -->
+  <view class='tanDi' catchtap='added' data-nameArr="{{name_arr}}" data-optionid="{{optionid}}" data-price="{{groupPrice}}" data-id="{{addSpecId}}" data-title="{{addSpecTitle}}">完成</view>
+</view>
+
+<!-- <movable-area style="height: 100%; width: 100%;position: fixed;right: 0;top:0;pointer-events: none;z-index:9999;text-align:center;" bindtap="intoFace"> -->
+<!-- <movable-view inertia damping='30' friction='1' style="height: 100rpx; width: 100rpx;top:13%;right:10rpx;pointer-events: auto;" x='353' direction="all">
+    <image style='height: 40rpx; width: 50rpx;' src='https://tws.cnweisou.com/images/restaurant/money_2.png'></image>
+    <view style='font-size:20rpx;'>当面结算</view>
+  </movable-view> -->
+<!-- </movable-area> -->

@@ -1,0 +1,17 @@
+<view class="view-title">
+    <image src="http://tws.cnweisou.com/images/check.png"></image>
+    <text>订单已经提交成功</text>
+    <text bindtap="toStart" style="margin-right: 30rpx;">返回首页</text>
+</view>
+<view class="class-line1"></view>
+<view class="view-orderinfo">
+    <text>订单号:{{order.ordersn}} </text>
+    <text>支付金额:{{order.price}} </text>
+    <block wx:if="{{paydata.weixin_app}}">
+        <button type="primary" bindtap="pay">微信支付</button>
+    </block>
+    <block wx:else>
+        <image src="{{paydata.weixin_app_payimg}}" class="weixin_app_payimg"></image>
+        <text>{{paydata.weixin_app_paycon}}</text>
+    </block>
+</view>

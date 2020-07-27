@@ -1,0 +1,13 @@
+/* components/skipHome/skipHome.wxss */
+/* 跳转到首页按钮 */
+.skipIndex{
+  position: fixed;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  z-index: 999999;
+}
+.skipIndex image {
+  width: 55px;
+  height: 55px;
+}

@@ -1,0 +1,7 @@
+<view class='fj'>
+    极速达（配送时效以自动定位为准）</view>
+<view class='wrap' >
+    <block wx:for='{{obj}}'>
+    <view class='item' bindtap='toCity' data-addr='{{item.city}}' data-lat='{{item.N}}' data-lng='{{item.E}}'>{{item.city}}</view>
+</block>
+</view>

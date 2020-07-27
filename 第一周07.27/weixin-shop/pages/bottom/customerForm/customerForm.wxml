@@ -1,0 +1,127 @@
+<form bindsubmit="formSubmitAll" bindreset="formResetAll" class="formSubmitAll">
+    <view class="scroll" style="width:100%;min-height:1230rpx;height:auto;background-image:url('{{img}}');background-repeat:no-repeat;background-size:100% 100%;background-position:center center;">
+        <view>
+            <view class="titleAll">
+                <text>
+                    {{title}}
+                </text>
+            </view>
+            <view class="formList">
+                <block wx:for="{{dfieldsList}}" wx:key="index">
+                    <template is="{{item.data_type}}" data="{{data:item,index:index}}"></template>
+                </block>
+                <button class="createSubmit" form-type="submit">提交</button>
+                <button class="createSubmit" form-type="reset">清空</button>
+            </view>
+        </view>
+    </view>
+</form>
+<view class="bgtypeList" wx:if="{{isError}}">
+    <view class="cardAgainType">
+        请填写带*的必填项
+        <view bindtap="returnIndex" class="determineAgin">
+            确定
+        </view>
+    </view>
+</view>
+<template name="0">
+    <view class="everyInput" data-index="{{index}}">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' data-index="{{index}}" wx:if="{{data.title}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}" data-id="{{index}}">{{data.tp_name}}</text>
+        <input wx:if="{{data.tp_is_default== 3}}" placeholder="{{data.placeholder}}" data-id="{{index}}" bindblur="phoneChange" value="{{data.myCont}}" maxlength="11" data-index="{{index}}" />
+        <input wx:else placeholder="{{data.placeholder}}" data-id="{{index}}" bindblur="pname" value="{{data.myCont}}" maxlength="20" data-index="{{index}}" />
+    </view>
+</template>
+<template name="1">
+    <view class="everyInputIndu" data-index="{{index}}">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' data-index="{{index}}" wx:if="{{data.title}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}">{{data.tp_name}}</text>
+        <textarea value="{{data.myArea}}" data-id="{{index}}" bindblur="areaCont" placeholder-style="font-size:28rpx;line-height:80rpx;" placeholder="{{data.placeholder}}" maxlength="100" />
+    </view>
+</template>
+<template name="2" data-index="{{index}}">
+    <view class="everyInput">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' data-index="{{index}}" wx:if="{{data.title}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}">{{data.tp_name}}</text>
+        <picker class="formDateValue" data-id="{{index}}" bindchange="selectArea" value="{{data.areaIndex}}" range="{{data.tp_text}}">
+            <view class="picker">
+                当前选择：{{data.tp_text[data.areaIndex]}}
+            </view>
+        </picker>
+    </view>
+</template>
+<template name="3">
+    <view class="everyInputhbit" data-index="{{index}}">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' wx:if="{{data.title}}" data-index="{{index}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}">{{data.tp_name}}</text>
+        <checkbox-group bindchange="checkboxChange" data-id="{{index}}">
+            <label class="checkbox" wx:for="{{data.tp_text}}" wx:key="{{index}}">
+                <checkbox value="{{item}}" color="#666" />{{item}}
+            </label>
+        </checkbox-group>
+    </view>
+</template>
+<template name="5">
+    <view class="everyInput" data-index="{{index}}" data-selfIndex="{{data.index}}">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' data-index="{{index}}" data-selfIndex="{{data.index}}" wx:if="{{data.title}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}">{{data.tp_name}}</text>
+        <view class="formValue">
+            <view class="item" wx:for="{{data.images[data.index]}}" wx:key="{{index}}">
+                <image style="width:80rpx; height:80rpx;" src="{{item}}" bindtap="previewImage" mode="aspectFill" data-id="{{index}}" data-selfIndex="{{data.index}}" />
+                <view class="delete" bindtap="delete" data-index="{{index}}" data-selfIndex="{{data.index}}">
+                    <image style="left: {{imageWidth / 2 - 10}}px;" src="http://tws.cnweisou.com/images/icon_delete.png" data-index="{{index}}" />
+                </view>
+            </view>
+            <view class="item">
+                <image style="width:80rpx; height:80rpx;" src="http://tws.cnweisou.com/images/icon_add.png" class="button-upload" bindtap="chooseImage" data-id="{{index}}" data-selfIndex="{{data.index}}" data-tp_max="{{data.tp_max}}" />
+            </view>
+        </view>
+    </view>
+</template>
+<!--身份证 6 -->
+<template name="6">
+    <view class="everyInput" data-index="{{index}}">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' data-index="{{index}}" wx:if="{{data.title}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}">{{data.tp_name}}</text>
+        <input placeholder="{{data.placeholder}}" value="{{data.idNumber}}" bindblur="idNumber" maxlength="18" data-id="{{index}}" />
+    </view>
+</template>
+<!--预定时间 7 -->
+<template name="7">
+    <view class="everyInput" data-index="{{index}}">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' data-index="{{index}}" wx:if="{{data.title}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}">{{data.tp_name}}</text>
+        <picker class="formDateValue" mode="date" name="actStartdate" value="{{data.appointmentTime}}" bindchange="appointment" data-id="{{index}}" data-name="{{data.index}}">{{data.appointmentTime}}</picker>
+    </view>
+</template>
+<!--开始时间 结束 8 -->
+<template name="8">
+    <view class="everyInput" data-index="{{index}}">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' data-index="{{index}}" wx:if="{{data.title}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}">{{data.tp_name}}</text>
+        <picker class="formDateValueTime" mode="date" name="actStartdate" value="{{data.stratEndTime.Startdate}}" bindchange="changeStartDate" data-id="{{index}}" data-name="{{data.index}}">{{data.stratEndTime.Startdate}}</picker>
+        <picker class="formDateValueTime endTime" mode="date" name="actEnddate" value="{{data.stratEndTime.Enddate}}" data-id="{{index}}" bindchange="changeEndDate">
+            {{data.stratEndTime.Enddate}}</picker>
+    </view>
+</template>
+<!--选择地区   9-->
+<template name="9">
+    <view class="everyInput" data-index="{{index}}">
+        <view wx:if="{{data.tp_must== 1}}" class="must">*</view>
+        <view class="titleBlock" bindtap='titleBlock' data-index="{{index}}" wx:if="{{data.title}}">{{data.tp_name}}</view>
+        <text class="title"  data-index="{{index}}">{{data.tp_name}}</text>
+        <picker data-id="{{index}}" class="formDateValue" mode="region" bindchange="bindRegionChange" data-name="{{data.index}}" value="{{data.region}}" custom-item="{{customItem}}">
+            <view class="picker">
+                {{data.region[0]}}，{{data.region[1]}}，{{data.region[2]}}
+            </view>
+        </picker>
+    </view>
+</template>

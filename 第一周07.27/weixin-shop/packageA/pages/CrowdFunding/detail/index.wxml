@@ -1,0 +1,152 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<loading wx:if="{{loading}}"></loading>
+<!-- 轮播图 -->
+<swiper class="images" indicator-dots="true" autoplay="true" interval="5000" duration="1000" circular="true">
+    <block wx:for="{{data.goods.thumb_url}}" wx:for-index="index" wx:key="index">
+        <swiper-item style="height:700rpx;">
+            <image src="{{item.image_url}}" mode="aspectFill" class="swiper-image" bindtap="previewImageSwiper" data-current="{{index}}" />
+        </swiper-item>
+    </block>
+</swiper>
+<!-- 商品众筹情况 -->
+<view class='section_top'>
+    <view class='title'>{{data.goods.title}}</view>
+    <view class='section'>{{data.goods.description}}</view>
+    <view class='h_price'>
+        <text style='color:#737373'>目标筹资 :</text>
+        <text style='color:#1D1D1D;font-weight:bold;'>￥{{data.goods.price}}</text>
+    </view>
+    <progress percent="{{sum}}" activeColor='#E62D2D' show-info />
+    <view class='section_t_1'>
+        <view class='st1_item'>
+            <view class='st1_price'>￥{{data.goods.orderprice}}</view>
+            <view class='st1_title'>已筹款</view>
+        </view>
+        <view class='st1_item'>
+            <view class='st1_price'>{{data.goods.hastime}}</view>
+            <view class='st1_title'>剩余天数</view>
+        </view>
+        <view class='st1_item'>
+            <view class='st1_price'>{{data.goods.support}}</view>
+            <view class='st1_title'>支持数</view>
+        </view>
+    </view>
+</view>
+<!-- 该商品 的类型情况 -->
+<view class='section_body' style='margin-bottom: 50rpx;'>
+    <view class='sec_h1'>选择档位</view>
+    <view class='sec_price'>
+        <block wx:for='{{data.goods.items}}' wx:key='index'>
+            <block wx:if='{{data.goods.items[index].count > 0}}'>
+                <view bindtap='toSelect' data-index='{{index}}' class='sec_item {{type==index ? "select" : ""}}'>￥{{item.price}}</view>
+            </block>
+            <block wx:else>
+                <view data-index='{{index}}' class='sec_item' style='color:#ccc;border-color:#ccc;'>￥{{item.price}}</view>
+            </block>
+        </block>
+    </view>
+    <view class='sect_price'>
+        <view>￥{{data.goods.items[type].price}}</view>
+        <view style='font-size: 23rpx;'>
+            <text>支持人数：{{data.goods.items[type].support}} </text>
+            <text>剩余份数：{{data.goods.items[type].count}} </text>
+        </view>
+    </view>
+    <view class='secb_con'>
+        <view>{{data.goods.items[type].description}}</view>
+        <view class='secb_wrap' >
+            <block wx:for='{{data.goods.items[type].thumb_url}}' wx:key='index'>
+            <image class='secb_img' src='{{item.image_url}}' />
+        </block>
+        </view>
+        <!-- <view class='sec_color'>配送运费 ：免运费</view> -->
+        <view class='sec_color'>预计回报时间 : 项目众筹成功后{{data.goods.limittime}}天</view>
+
+        <view class="{{data.goods.type == '众筹中'? 'sec_zhichi' :'heise'}}" bindtap="{{data.goods.type == '众筹中'? 'move' :''}}">立即支持</view> 
+    </view>
+</view>
+<!-- 商品详情 -->
+<view>
+    <view class='sec_h2'> -- 商品详情 -- </view>
+    <view style='padding:20rpx;'>
+        <template is="wxParse" data="{{wxParseData:contain.nodes}}"></template>
+    </view>
+</view>
+<view style='height:120rpx;width:100%;'></view>
+<!-- 底部 -->
+<view class='section_bottom'>
+    <!--     <button class='sec_item1' plain style='border-color: #fff'  open-type="share">
+           <image style='width:50rpx;' class='sec_img' src='../../../images/fen_s1.png' />
+        <view>分享</view>
+
+      </button> -->
+    <view class='sec_item1'>
+        <image style='width:50rpx;margin-bottom: 36rpx;' class='sec_img' src='../../../images/fen_s1.png' />
+        <button plain style='border:none;width:90rpx;height:140rpx;font-size: 25rpx;line-height: 32rpx;padding:0;position: absolute;padding-top: 60rpx;top: 0;z-index: 3' open-type="share">分享</button>
+    </view>
+    <view class='sec_item1' bindtap="addCollect">
+        <block wx:if="{{isfavorite==0}}">
+            <image class='sec_img' src="http://tws.cnweisou.com/images/heart.png" style=""></image>
+        </block>
+        <block wx:else>
+            <image class='sec_img' src="http://tws.cnweisou.com/images/true_heart.png" style=""></image>
+        </block>
+        <!-- <image  src='http://tws.cnweisou.com/images/heart.png' /> -->
+        <view>收藏</view>
+    </view>
+    <view class="{{data.goods.type == '众筹中'? 'sec_item2' :'heise2'}}" bindtap="{{data.goods.type == '众筹中'? 'move' :''}}">立即支持</view>
+    
+</view>
+<!-- 弹窗 -->
+<view class="shadow {{buy?'':'dn'}}" bindtap="none"></view>
+<view class='box' animation='{{animationData}}' style="z-index:100;" catchtouchmove='noMove'>
+    <scroll-view class='section_body' scroll-y='true' style='margin-left:2%;width:96%;height:770rpx;padding:0;'>
+        <view class='sec_top'>
+            <view class='sec_h1'>选择档位
+                <text style='color:gray;'> | 售罄档位</text>
+            </view>
+            <image bindtap="none" style='width:40rpx;height:40rpx;' src='../../../images/close_s1.png' />
+        </view>
+        <view class='sec_price'>
+           <block wx:for='{{data.goods.items}}' wx:key='index'>
+            <block wx:if='{{data.goods.items[index].count > 0}}'>
+                <view bindtap='toSelect' data-index='{{index}}' class='sec_item {{type==index ? "select" : ""}}'>￥{{item.price}}</view>
+            </block>
+            <block wx:else>
+                <view data-index='{{index}}' class='sec_item' style='color:#ccc;border-color:#ccc;'>￥{{item.price}}</view>
+            </block>
+        </block>
+        </view>
+        <view class='sect_price'>
+            <view>￥{{data.goods.items[type].price}}</view>
+            <view style='font-size: 23rpx;'>
+                <text>支持人数：{{data.goods.items[type].support}} </text>
+                <text>剩余份数：{{data.goods.items[type].count}} </text>
+            </view>
+        </view>
+        <view class='secb_con'>
+            <view>{{data.goods.items[type].description}}</view>
+            <view class='secb_wrap'>
+                <block  wx:for='{{data.goods.items[type].thumb_url}}' wx:key='index'>
+                <image class='secb_img' src='{{item.image_url}}' />
+            </block>
+            </view>
+            <!-- <view class='sec_color'>配送运费 ：免运费</view> -->
+            <view class='sec_color'>预计回报时间 : 项目众筹成功后{{data.goods.limittime}}天</view>
+        </view>
+        <view class='sec_sum'>
+            <view>选择数量</view>
+            <view class="sum_r">
+                <view class="item" bindtap="bindMinus">-</view>
+                <!-- disabled='{{maxbuy>0 || mixbuy>0 || usermaxbuy>0}}' -->
+                <!-- <input type="number" class="center_F" bindinput="bindManual" value="{{num}}" /> -->
+                <view class='center_F' style='padding: 26rpx 70rpx'>{{num}}</view>
+                <view class="item" bindtap="bindPlus">+</view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class='sec_sure' bindtap='toBuy'>确定</view>
+</view>
+<view class='haha' bindtap='backToIndex' wx:if='{{flag}}'>
+   <image src='../../../../images/ret.png'></image>
+</view>

@@ -1,0 +1,47 @@
+<backToHome wx:if="{{shareIcon}}"></backToHome>
+
+<view class="view_con">
+  <block wx:if="{{articlefrom}}">
+    <block wx:if="{{!contentIndex}}">
+      <view class="view_title gridXb">
+        <view class="view_title_box f18">{{detail.article_title}}</view>
+        <view class="view_info f12 mt5">
+          <text class="iconfont">{{detail.article_date_v}}</text>
+          <text class="iconfont">{{detail.article_mp}}</text>
+          <text class="iconfont">浏览次数{{detail.readnum}}</text>
+        </view>
+      </view>
+    </block>
+  </block>
+
+  <block wx:if="{{!articlefrom}}">
+    <import src="../../../../wxParse/wxParse.wxml" />
+    <view class="wxParse">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+  </block>
+  <block wx:if="{{detail.article_content}}">
+    <import src="../../../../wxParse/wxParse.wxml" />
+    <view class="wxParse">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+  </block>
+  <block wx:if="{{contentIndex}}">
+    <import src="../../../../wxParse/wxParse.wxml" />
+    <view style="padding:20rpx">
+      <template is="wxParse" data="{{wxParseData:companyInfo.nodes}}" />
+    </view>
+  </block>
+  <block wx:if="{{newcompany}}">
+    <import src="../../../../wxParse/wxParse.wxml" />
+    <view style="font-weight:600;font-size:38rpx;color:#000000;margin:0 25rpx">{{companyTitle}}</view>
+    <view style="margin-left:30rpx;margin-top:16rpx;font-size:28rpx;color:#a9a9a9">{{createTime}}</view>
+    <view style="padding:20rpx">
+      <template is="wxParse" data="{{wxParseData:newcompany.nodes}}" />
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{numberPhone!='0'}}" class="artPhone" bindtap='artPhone'>
+  <image src="https://tws.cnweisou.com/images/indexPhone.png"></image>
+</view>

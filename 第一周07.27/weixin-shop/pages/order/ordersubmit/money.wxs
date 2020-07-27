@@ -1,0 +1,12 @@
+var fixed = function(money) {
+  return money.toFixed(2);
+}
+
+var setmoney=function(value){
+  return parseInt(value)
+}
+
+module.exports = {
+  fixed:fixed,
+  setmoney: setmoney
+};

@@ -1,0 +1,104 @@
+<view class="gd">
+	<view class="search">
+		<image wx:if="{{searchIcon}}" class='s_img' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-search.png' />
+		<input bindinput="handleInput" bindconfirm="handconfirm" class="searchinput" type="text" placeholder="丨搜索你想要的" placeholder-style="font-size:28rpx"></input>
+	</view>
+	<view class="subnav">
+		<scroll-view scroll-x="true" style="width: 100%;  white-space: nowrap; ">
+			<block wx:for="{{cateList}}" wx:key="index">
+				<!-- <view bindtop="handleCateClck" class="scrolltxt Classification"> -->
+				<view bindtap="handleCateClck" data-id="{{item.id}}" class="{{cateActive == item.id ? 'scrolltxt Classification' : 'scrolltxt'}}">
+					<text>{{item.name}}</text>
+				</view>
+			</block>
+		</scroll-view>
+	</view>
+</view>
+<block wx:if="{{cateActive =='0'}}">
+	<view class="content" wx:if="{{liveInfo &&liveInfo.length > 0}}">
+		<view class="content1">
+			<view class="yuan">
+				<view class="xiaoyuan"></view>
+			</view>
+			<text>好零食当然良品铺子...丨店铺直播中</text>
+		</view>
+		<view class="content2">
+			<view bindtap="skipLiveItem" data-roomid="{{liveInfo[0].roomid}}">进入</view>
+		</view>
+	</view>
+	<view class="Picture fristimg">
+		<image src='{{pageData.set.banner[0]}}'></image>
+	</view>
+	<view class="Coupon" wx:if="{{couponList && couponList.length > 0}}">
+		<view wx:for="{{couponList}}" bindtap="handlegaveCoupon" data-id="{{item.id}}" wx:key="index">
+			<view class="bcg" wx:if="{{item.backtype == 0}}">
+				<view class="Coupon1">￥<text>{{item.deduct}}</text></view>
+				<view class="Coupon2">满{{item.enough}}元可用</view>
+			</view>
+			<view class="bcg" wx:if="{{item.backtype == 1}}">
+				<view class="Coupon1"><text>{{item.discount}}</text>折</view>
+				<view class="Coupon2">满{{item.enough}}元可用</view>
+			</view>
+			<view class="bcg" wx:if="{{item.backtype == 2}}">
+				<view class="Coupon1">返<text>{{item.backmoney}}</text></view>
+				<view class="Coupon2">满{{item.enough}}元可用</view>
+			</view>
+
+		</view>
+	</view>
+	<view class="commodity" wx:for="{{pageData.items.team0}}" wx:key="index" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+		<image src="{{item.thumb}}"></image>
+		<view class="commoditytitle">{{item.title}}</view>
+		<view class="Price1">
+			<view class="Price2">到手价 ￥<text>{{item.packageprice}}</text></view>
+			<view class="Price3">买它<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-gou.png"></image>
+			</view>
+		</view>
+	</view>
+	<view class="Picture">
+		<image src="{{pageData.set.picture[0]}}"></image>
+	</view>
+	<view class="Commodity">
+		<view class="nextcommodity" wx:for="{{pageData.items.team1}}" wx:key="index" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+			<image src="{{item.thumb}}"></image>
+			<view class="nextcommoditytitle">{{item.title}}</view>
+			<view class="jg">
+				<view class="jg1">到手价￥<text>{{item.packageprice}}</text></view>
+				<view class="jg2">
+					<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-gou.png"></image>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="Picture">
+		<image src="{{pageData.set.picture[1]}}"></image>
+	</view>
+	<view class="Commodity">
+		<view class="nextcommodity" wx:for="{{pageData.items.team2}}" wx:key="index" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+			<image src="{{item.thumb}}"></image>
+			<view class="nextcommoditytitle">{{item.title}}</view>
+			<view class="jg">
+				<view class="jg1">到手价￥<text>{{item.packageprice}}</text></view>
+				<view class="jg2">
+					<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-gou.png"></image>
+				</view>
+			</view>
+		</view>
+	</view>
+</block>
+<block wx:for="{{cateList}}" wx:key="index" >
+ <block wx:if="{{cateActive == item.id &&cateActive != '0'}}">
+	<view class="Commodity" style="margin-top:170rpx">
+		<view class="nextcommodity" wx:for="{{cateGoodslist}}" wx:key="index" bindtap='intogoodsdetail' data-goodsid='{{item.id}}'>
+			<image src="{{item.thumb}}"></image>
+			<view class="nextcommoditytitle">{{item.title}}</view>
+			<view class="jg">
+				<view class="jg1">到手价￥<text>{{item.marketprice}}</text></view>
+				<view class="jg2">
+					<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-gou.png"></image>
+				</view>
+			</view>
+		</view>
+	</view>
+	</block>
+</block>

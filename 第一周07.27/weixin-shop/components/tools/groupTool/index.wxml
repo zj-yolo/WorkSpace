@@ -1,0 +1,24 @@
+<block wx:if="{{groupList.length > 0}}"> 
+<view class="groupComponenTitle my-class">
+	<view>
+		<text style="color:#000000;font-weight:800">今日</text>
+		<text style="color:#e87300;font-weight:800">必拼</text>
+	</view>
+	<view bindtap="togroupList">
+		<text style="font-size:25rpx">好友正在拼</text>
+		<image class="arrowImgCompontent" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-arrow-right.png" mode="widthFix"></image>
+	</view>
+</view>
+<scroll-view class="groupComponent my-class" scroll-x="true">
+	<block wx:for="{{groupList}}" wx:key="index">
+		<view class="groupComponentItem" bindtap="togroupItem" data-id="{{item.id}}">
+			<image class="groupComponentImg" src="{{item.thumb}}"></image>
+			<view class="datagroup" style="font-size:27rpx">
+				<text style="color:#000000">￥{{item.groupsprice}}</text>
+				<text style="color:#a1a1a1">￥{{item.price}}</text>
+			</view>
+			<view style="font-size:25rpx">已拼{{item.sales}}{{item.unit}}</view>
+		</view>
+	</block>
+</scroll-view>
+</block>

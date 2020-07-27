@@ -1,0 +1,157 @@
+<!-- <block wx:if='{{imgguangg}}'>
+<view style='width:100%;height:320rpx;'>
+ <image src='{{imgguangg}}' style='width:100%;height:100%;'></image>
+</view>
+</block> -->
+<view class="contain">
+  <view class="searchBox">
+    <view class="view_searchbg">
+      <input bindconfirm="formSubmit" bindinput="setinputValue" type="text" name="keyword" class="search" placeholder="搜索商品" value="{{input}}" />
+     <view class='input_img' bindtap='formSubmit'><image src="http://tws.cnweisou.com/images/search.png"></image></view> 
+    </view>
+  </view>
+  <view class="conbox" style="" wx:if="{{level != 4}}">
+    <scroll-view scroll-y="true" class="sidebar" style="display: inline-block;height:{{scrollHeight-55}}px;overflow-y:scroll;text-overflow:ellipsis;white-space: nowrap; ">
+      <view style="display:block;width:160rpx;padding:0 10rpx;" wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.name}}" data-index="{{index}}" class="{{highlight[index]}}">
+        <text>{{item.name}}</text>
+      </view>
+    </scroll-view>
+    <scroll-view scroll-y="true" style="display: inline-block;height: {{scrollHeight-55}}px;overflow-y: scroll;" class="main" bindscrolltolower="bottom">
+      <view class="gridview" wx:if="{{subCategorListG}}">
+        <block wx:if='{{newStyle == 1}}'>
+          <view class='newSt'>
+            <view class='newList' wx:for="{{subCategorListG}}" wx:key="id" data-object-id="{{item.goods.id}}" bindtap="avatarDetail">
+              <view class='new_left'>
+                <image src="{{item.goods.thumb}}" mode="scaleToFit"></image>
+              </view>
+              <view class='new_right'>
+                <view class='title'>{{item.goods.title}}</view>
+                <view class='price_butt'>
+                  <view class='price'>{{item.goods.marketprice}}</view>
+                  <view class='haha'>
+                    <image catchtap='add' data-id='{{item.goods.id}}' data-index="{{index}}" showtotal='{{item.goods.showtotal}}' wx:if="{{item.goods_spec_list}}" src='http://tws.cnweisou.com/images/addB.png'></image>
+                    <image catchtap='addNoGz' data-index="{{index}}" showtotal='{{item.goods.showtotal}}' data-id='{{item.goods.id}}' wx:if="{{!item.goods_spec_list}}" src='http://tws.cnweisou.com/images/addB.png'></image>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <dl wx:for="{{subCategorListG}}" wx:key="id" bindtap="avatarDetail" data-object-id="{{item.id}}">
+            <dl wx:key="id">
+              <dt>
+                <image src="{{item.thumb}}" mode="scaleToFit" />
+              </dt>
+              <dd>
+                <text>{{item.title}}</text>
+              </dd>
+            </dl>
+          </dl>
+        </block>
+        <view class="clear"></view>
+      </view>
+      <view class="gridviewC" wx:if="{{subCategorListC}}">
+        <dl wx:for="{{subCategorListC}}" wx:key="id" bindtap="avatarTap" data-object-id="{{item.id}}">
+          <dl wx:key="id">
+            <dt>
+              <image src="{{item.thumb}}" mode="scaleToFit" />
+            </dt>
+            <dd>
+              <text>{{item.name}}</text>
+            </dd>
+          </dl>
+        </dl>
+        <view class="clear"></view>
+      </view>
+      <view class='noMoreData' wx:if="{{noMoreData && subCategorListG != ''}}">没有更多数据了！</view>
+    </scroll-view>
+  </view>
+  <view wx:if="{{level==4}}">
+    <scroll-view scroll-x="true" class="sidebar sidebar4" style="display: inline-block;overflow-y: scroll;text-overflow:ellipsis;white-space: nowrap;width:100%;">
+      <text style="" wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.name}}" data-index="{{index}}" class="{{highlight4[index]}}" style="">{{item.name}}</text>
+    </scroll-view>
+    <scroll-view scroll-y="true" style="display: inline-block;height:{{windowHeight+'px'}};overflow-y: scroll;" class="main" bindscrolltolower="bottom">
+      <view class="gridview4" wx:if="{{subCategorListG}}">
+        <view wx:for="{{subCategorListG}}" wx:key="id" bindtap="avatarDetail" data-object-id="{{item.id}}" class="gridview4Cont">
+          <view class="thumbLeft">
+            <image src="{{item.thumb}}" mode="scaleToFit" />
+          </view>
+          <view class="thumbRight">
+            <view class="thumbTitle1">{{item.title}}</view>
+            <view class="thumbTitle2">￥{{item.marketprice}}</view>
+            <view class="thumbTitle3" wx:if="{{item.description != null && item.description != ''}}">{{item.description}}</view>
+          </view>
+        </view>
+        <view class="footerTip" wx:if="{{subCategorListG != ''}}">
+          <view class="footerInner">
+            <view class="commonLine"></view>
+            <view class="midText">没有更多数据了</view>
+            <view class="commonLine"></view>
+          </view>
+        </view>
+        <view class="clear"></view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<loading wx:if="{{loading}}"></loading>
+<!-- 自定义底部 -->
+<block wx:if='{{diymenu=="-2"}}'>
+  <view style='height: 100rpx;'></view>
+  <view class='diy_wrap'>
+    <view class='diy_item' bindtap='diy_index'>
+      <image class='diy_img' src='https://tws.cnweisou.com/images/un_shou.png'></image>
+      <view>首页</view>
+    </view>
+    <view class='diy_item'>
+      <image class='diy_img' src='https://tws.cnweisou.com/images/fen.png'></image>
+      <view>分类</view>
+    </view>
+    <view class='diy_item' bindtap='diy_phone'>
+      <image class='diy_img' src='https://tws.cnweisou.com/images/phone.png'></image>
+      <view>电话</view>
+    </view>
+    <view class='diy_item'>
+      <contact-button class='diy_contact' size="100" type="default-light" session-from="weapp" style=''>
+      </contact-button>
+      <image class='diy_img' src='https://tws.cnweisou.com/images/kefu1.png'></image>
+      <view>客服</view>
+    </view>
+  </view>
+</block>
+
+<view wx:if="{{show}}" style="width:100%; height:{{scrollHeight}}px;position:fixed; top :0px;background-color:#000;background: rgba(0, 0, 0, 0.5);text-align:center;z-index:1000;">
+  <view class="pointB">
+    <view class="popB">
+      <view class='popTitle' style='display:inline-block;width:300rpx;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;'>
+        {{title}}
+        <image src='https://tws.cnweisou.com/images/cha.png' bindtap='sql' style='width:40rpx;height:40rpx;position:absolute;right:20rpx;'></image>
+      </view>
+      <view style='display:inline-block;width:40rpx;height:40rpx;'></view>
+      <view class="list" wx:for="{{specData}}" wx:for-index="pos" wx:key="pos">
+        <view class="category">{{item[0].spec_name}}</view>
+        <view class="type">
+          <block wx:for="{{item}}" wx:key=''>
+            <view class="item_F {{textStates[item.isClick]}}" bindtap="propClick" data-index="{{pos}}" data-pos="{{index}}" id="{{item.item_id}}" data-name='{{item.item}}' data-src="{{item.src}}">{{item.item}}</view>
+          </block>
+        </view>
+      </view>
+      <view class='price_ha'>
+        <view class='buycartp'>
+          ￥{{guigePrice}}
+        </view>
+        <view class='butt'>
+          <text catchtap='reduxB' data-id='{{goodsidd}}'>-</text>
+          <text>{{total}}</text>
+          <text catchtap='addB' data-id='{{goodsidd}}'>+</text>
+        </view>
+      </view>
+      <view class='buyCart' bindtap='buyCart'>加入购物车</view>
+    </view>
+  </view>
+</view>
+
+<view wx:if='{{showb}}' style='position: absolute;text-align: center;z-index: 99999;left:43%;top:50%;background-color:#000;background: rgba(0, 0, 0, 0.6);padding:20rpx 30rpx;color:white;font-size:28rpx'>
+  添加成功
+</view>

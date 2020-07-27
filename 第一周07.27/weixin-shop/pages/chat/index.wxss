@@ -1,0 +1,33 @@
+/* pages/chat/index.wxss */ page {background-color: #e5e5e5; }
+ .nomore {width: 100%; text-align: center; color: #888; font-size: 25rpx; line-height: 70rpx; }
+ .chatbox {height: 100%; width: 100%; overflow: hidden; position: absolute; top: 0; bottom: 0; box-sizing: border-box; padding-bottom: 100rpx; }
+ .inputbox {width: 100%; min-height: 100rpx; position: absolute; bottom: 0rpx; left: 0rpx; }
+ .input-btn {width: 100%; height: 100rpx; display: flex; align-items: center; justify-content: space-around; background-color: #efefef; border-top: 2rpx solid #ccc; box-sizing: border-box; }
+ .inputbox input {background-color: #fff; border-radius: 10rpx; width: 500rpx; height: 75rpx; padding-left: 20rpx; padding-right: 20rpx; color: #666; font-size: 30rpx; }
+ .inputbox image {height: 75rpx; width: 75rpx; }
+ .inputbox .send-btn {background-color: orange; border-radius: 10rpx; width: 100rpx; height: 70rpx; line-height: 70rpx; padding-left: 20rpx; padding-right: 20rpx; color: #fff; font-size: 30rpx; box-sizing: border-box; }
+ .emjoy {height: 0rpx; background-color: #fff; transition: all 0.5s; }
+ .emjoy.active {height: 300rpx; border-top: 2rpx solid #ccc; }
+ .emjoy view {width: 10%; height: 75rpx; float: left; display: flex; align-items: center; justify-content: center; }
+ .emjoy image {width: 60rpx; height: 60rpx; } /*  滚动区域样式  */ scroll-view {width: 100%; height: 100%; }
+ .user {width: 100%; min-height: 160rpx; position: relative; padding: 20rpx; box-sizing: border-box; }
+ .user::after, .user::before {content: ""; display: block; clear: both; }
+ .user .avatar {width: 90rpx; height: 90rpx; position: absolute; right: 20rpx; top: 40rpx;border-radius: 10rpx; }
+ .user .avatar image {width: 100%; height: 100%;border-radius: 10rpx; }
+ .user .time {font-size: 20rpx; position: absolute; right: 140rpx; top:10rpx; color: #888; }
+ .user .message {float: right; max-width: 460rpx; min-height: 90rpx; min-width: 105rpx; font-size: 30rpx; margin-right: 120rpx; margin-top:20rpx; box-sizing: border-box; padding:10rpx 20rpx; background-color: #90d936; position: relative; color: black; border-radius: 10rpx; word-wrap:break-word;line-height: 70rpx;}
+ .user .message::after {content: ""; display: block; width: 30rpx; height: 30rpx; position: absolute; top: 20rpx; right: -28rpx; box-sizing: border-box; border-top: 15rpx solid rgba(0, 0, 0, 0); border-left: 15rpx solid #90d936; border-right: 15rpx solid rgba(0, 0, 0, 0); border-bottom: 15rpx solid rgba(0, 0, 0, 0); }
+ .user .image-message {float: right; margin-right: 120rpx; margin-top: 20rpx; }
+ .user .image-message image {width: 300rpx; } /* 对方 */
+ .other {width: 100%; min-height: 160rpx; position: relative; padding: 20rpx; box-sizing: border-box; }
+ .other::after,
+ .other::before {content: ""; display: block; clear: both; }
+ .other .avatar {width: 90rpx; height: 90rpx; position: absolute; left: 20rpx; top: 40rpx;border-radius: 10rpx; }
+ .other .avatar image {width: 100%; height: 100%; border-radius: 10rpx; }
+ .other .time {font-size: 20rpx; position: absolute; left: 140rpx; top: 10rpx; color: #888; }
+ .other .message {float: left; max-width: 460rpx; min-height: 90rpx; min-width: 105rpx; font-size: 30rpx; margin-left: 120rpx; margin-top: 20rpx; box-sizing: border-box; padding:10rpx 20rpx; background-color: #fff; position: relative; color: black; border-radius: 10rpx; word-wrap:break-word;line-height: 70rpx;}
+ .other .message::after {content: ""; display: block; width: 30rpx; height: 30rpx; position: absolute; top: 20rpx; left: -28rpx; box-sizing: border-box; border-top: 15rpx solid rgba(0, 0, 0, 0); border-right: 15rpx solid #fff; border-left: 15rpx solid rgba(0, 0, 0, 0); border-bottom: 15rpx solid rgba(0, 0, 0, 0); }
+ .other .image-message {float: left; margin-left: 120rpx; margin-top: 20rpx; }
+ .other .image-message image {width: 300rpx; } /* 表情样式 */
+ .message image {width: 40rpx; display: inline-block; vertical-align: middle; }
+ .wxEmoji{height: 0;}

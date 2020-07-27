@@ -1,0 +1,127 @@
+.couponNum{
+  border-bottom: 1px solid #ccc;
+}
+.newTitle {
+  height: 76rpx;
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  color: #000;
+  font-size: 30rpx;
+  background: #fff;
+}
+.newTitle text{
+  display: inline-block;
+  padding: 16rpx 0;
+}
+.active {
+  color: #e50b0b;
+  border-bottom: 3px solid #e50b0b;
+}
+
+page{
+  background: #f4f4f4;
+}
+.listItem{
+  margin-bottom: 20rpx;
+  padding: 26rpx 24rpx 30rpx;
+  width: 100%;
+  font-size: 30rpx;
+  background: #fff;
+  box-sizing: border-box;
+}
+.orderStatus{
+  font-size: 28rpx;
+  text-align: right;
+  color: #e82c2c;
+}
+.commodity{
+  display: flex;
+  margin-bottom: 34rpx;
+}
+.commodityImg{
+  margin-right: 14rpx;
+  width: 168rpx;
+  height: 168rpx;
+}
+.info{
+  display: flex;
+  width: calc(100% - 182rpx);
+  flex-direction: column;
+  justify-content: center;
+}
+.titleContainer{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.titleContainer{
+  margin-bottom: 10rpx;
+}
+.title{
+  overflow: hidden;
+  width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.standard{
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 26rpx;
+  color: #868686;
+}
+.price{
+  text-align: right;
+}
+.operateContainer{
+  display: flex;
+  justify-content: flex-end;
+}
+.operateItem{
+  width: 160rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  text-align: center;
+  border: 1px solid #939194;
+  border-radius: 8rpx;
+}
+.common{
+  margin-right: 20rpx;
+  border-color: #939194;
+}
+.buy{
+  background: #e50b0b;
+  color: #fff;
+  border-color: #e50b0b;
+}
+.comment{
+  color: #e50b0b;
+  border-color: #e50b0b;
+}
+
+.noInfo {
+  width: 100%;
+  height: 915rpx;
+  font-size: 32rpx;
+  color: #ff6a6a;
+  z-index: 100;
+  text-align: center;
+  border-radius: 10rpx;
+}
+
+.noInfo image {
+  margin-top: 210rpx;
+  text-align: center;
+  width: 340rpx;
+  height: 275rpx;
+  margin-bottom: 40rpx;
+}
+
+.noInfo text {
+  display: block;
+  width: 100%;
+  text-align: center;
+}

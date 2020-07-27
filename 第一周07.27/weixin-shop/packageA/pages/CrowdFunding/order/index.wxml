@@ -1,0 +1,89 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<loading wx:if="{{loading}}"></loading>
+<view wx:if='{{msgdata}}' class='tishi'>
+  {{msgdata}}
+</view>
+<view wx:else>
+  <block wx:if='{{address}}'>
+    <view class='top_add' bindtap='addressSelect'>
+      <!-- <view class='add_icon'>
+        <image src='../../../../images/add.png'></image>
+      </view> -->
+      <view class='add_text'>
+        <view>收货人：{{address.realname}}</view>
+        <view>收货地址：{{address.province}}{{address.city}}{{address.area}}{{address.address}}</view>
+      </view>
+      <view class='add_iconB'>
+        <image src='https://tws.cnweisou.com/images/rig.png'></image>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if='{{!address}}'>
+    <view class='top_add' bindtap='addressSelect'>
+      <view class='add_text' style='width:95%;margin:20rpx;'>
+        <view>请填写收货地址</view>
+      </view>
+      <view class='add_iconB'>
+        <image src='https://tws.cnweisou.com/images/rig.png'></image>
+      </view>
+    </view>
+  </block>
+  <view style='margin:0;padding:0;font-size:0;'>
+    <image style='width:100%;height:10rpx;' src='../../../images/orderline.png'> </image>
+  </view>
+  <view style='width:100%;height:20rpx;background-color:#fbfbfb;'></view>
+
+  <form bindsubmit='submit' report-submit='true' class='form'>
+    <view class='orderall'>
+      <view class='goodsDetail'>
+        <view class='haha'>
+          <view class='gs_left'>
+            <image src='{{orderData.thumb}}'></image>
+          </view>
+          <view class='gs_rig'>
+            <view class='title'>{{orderData.title}}</view>
+            <view class='price'>
+              <view>￥{{orderData.price}}</view>
+              <view>x{{count}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='huibao'>
+        <view>回报内容:</view>
+        <view>{{orderData.description}}</view>
+      </view>
+      <view class='yunfei'>
+        <view class='haha'>
+          <view>运费：</view>
+          <view wx:if='{{orderData.freight == 0}}'>免运费</view>
+          <view wx:else>{{orderData.dispatchprice}}</view>
+        </view>
+      </view>
+      <view class='liuyan'>
+        <view>留言</view>
+        <view class='area'>
+          <textarea placeholder='您可以在此给项目留言...' placeholder-class='textarea' style='height:100rpx;width:100%;padding:4rpx 4rpx;display:inline-block;' name="remark" placeholder-style="color:#9f9f9f;"></textarea>
+        </view>
+      </view>
+      <view class='fenxian'>
+        <view class='shuoming'>
+          <view>风险说明</view>
+          <!-- <view class='zhankai' bindtap='zhankai'>展开</view> -->
+        </view>
+        <view class='content' wx:if='{{shuoming}}'>
+          <template is="wxParse" data="{{wxParseData:contain.nodes}}"></template>
+        </view>
+      </view>
+    </view>
+    <view class='footer'>
+      <!-- <view style='' class='footer_two'> -->
+        <view style='width:70%;'>合计金额：
+          <text style='color:red;'>￥{{totalprice}}</text>
+        </view>
+        <button formType="submit" type='primary' class='liji'>去支付</button>
+      <!-- </view> -->
+    </view>
+  </form>
+</view>

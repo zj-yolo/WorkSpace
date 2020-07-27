@@ -1,0 +1,76 @@
+<import src="../../../wxParse/wxParse.wxml" />
+<scroll-view scroll-y="true" scroll-into-view="{{toView}}" style="height: 100%">
+	<view class="nav">
+		<view class="navItem" bindtap="handleIntoview" data-id="0">
+			<text>首页</text>
+			<view class="bx" wx:if="{{cateIndex ==0}}"></view>
+		</view>
+		<view class="navItem" bindtap="handleIntoview" data-type="about" data-id="1">
+			<text>关于我们</text>
+			<view class="bx" wx:if="{{cateIndex == 1}}"></view>
+		</view>
+		<view class="navItem" bindtap="handleIntoview" data-type="service" data-id="2">
+			<text>企业服务</text>
+			<view class="bx" wx:if="{{cateIndex ==2}}"></view>
+		</view>
+		<view class="navItem" bindtap="handleIntoview" data-type="News" data-id="3">
+			<text>企业资讯</text>
+			<view class="bx" wx:if="{{cateIndex == 3}}"></view>
+		</view>
+		<view class="navItem" bindtap="handleIntoview" data-id="4">
+			<text>联系我们</text>
+			<view class="bx" wx:if="{{cateIndex ==4}}"></view>
+		</view>
+	</view>
+	<view class="Picture">
+		<image src="{{pageData.set.banner[0]}}"></image>
+	</view>
+	<view class="About" id="about">
+		<view class="Aboutatitle">
+			<view>About Us</view>
+			<text>关于我们</text>
+		</view>
+		<view class="Abouttext" style="padding-bottom:20rpx">
+			 <template is="wxParse" data="{{wxParseData: introduce0.nodes}}" />
+		</view>
+	</view>
+	<view class="Service" id="service" >
+		<view class="Servicetitle">
+			<view>Service System</view>
+			<text>服务体系</text>
+		</view>
+		<view class="Servicetext" style="padding-bottom:20rpx">
+			 <template is="wxParse" data="{{wxParseData: introduce1.nodes}}"/>
+		</view>
+	</view>
+	<view class="News" id="News">
+		<view class="Nawstitle">
+			<view>News Center</view>
+			<view class="zx">企业资讯</view>
+		</view>
+		<view class="News1" wx:for="{{pageData.shopinfo.information}}" wx:key="index">
+			<view class="News1Picture">
+				<image src="{{item.resp_img}}"></image>
+			</view>
+			<view class="wb">
+				<view class="wb1">{{item.article_title}}</view>
+				<view class="wb2">{{item.resp_desc}}</view>
+				<view class="Details" bindtap="todetail" data-id="{{item.id}}">查看详情 ></view>
+			</view>
+		</view>
+	</view>
+	<view class="partner">
+		<view class="partnertitle">
+			<view>Strategic Partners</view>
+			<view class="zw">合作伙伴</view>
+		</view>
+		<view class="partnerIcon">
+			<view class="partnerPicture" wx:for="{{pageData.set.brand_enterprise}}" wx:key="index" data-type="companyActicle" data-id="{{item.id}}" bindtap="toacticle">
+				<image src="{{item.logo}}" mode="aspectFit"></image>
+			</view>
+		</view>
+	</view>
+	<view class="footer">
+		<image src="{{pageData.set.picture[0]}}"></image>
+	</view>
+</scroll-view>

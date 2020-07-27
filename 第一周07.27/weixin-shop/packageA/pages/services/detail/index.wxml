@@ -1,0 +1,300 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<block wx:if="{{data.goods.video}}">
+    <view class="nav_img">
+        <video custom-cache="{{false}}" class="nav_img" id="myVideo" src="{{data.goods.video}}" controls></video>
+    </view>
+</block>
+<block wx:else>
+    <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" class="nav_img" mode="widthFix">
+        <block wx:for="{{data.gallery}}" wx:for-index="index" wx:key="index">
+            <swiper-item data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}">
+                <image src="{{item.image_url}}" class="swiper-image" class="nav_img" bindtap="previewImageSwiper" data-current="{{index}}" />
+            </swiper-item>
+        </block>
+    </swiper>
+</block>
+<view class="container">
+    <view class="title_wrap" style='line-height:60rpx;'>
+        <view class="title" style="color:#000;font-weight:bolder;">{{data.goods.goods_name}}</view>
+        <view >
+            <text class='g_price'>￥{{data.goods.price}}</text>
+            <text class='g_m_price'>原价:￥{{data.goods.market_price}}</text>
+        </view>
+        <view>
+            <text class='g_count gray'>销量:{{data.goods.comment_count}}</text>
+            <text class='gray'>热度:{{data.goods.click_count ? data.goods.click_count : 0}}</text>
+        </view>
+        <view class="NumBox" style="">
+            <view> 数量：</view>
+            <view class="titleNum">
+                <text class="calNum" bindtap="sub">-</text>
+                <text class="calNum">{{sum}}</text>
+                <text class="calNum" bindtap="add">+</text>
+            </view>
+        </view>
+        <view class="summary" style="color:#000;margin-top:14rpx;line-height:50rpx;">
+            <block wx:if="{{name_arr}}">
+                <text wx:for="{{name_arr}}" wx:key="{{index}}" wx:if="{{name_arr[index] != null}}">{{name_arr[index]}} </text>
+            </block>
+            <block wx:elif='{{data.goods.goods_spec_list}}'>
+                <text wx:for="{{data.goods.goods_spec_list}}" wx:for-index="index" wx:key="index" wx:if="{{item[0].spec_name != null}}">{{item[0].spec_name}} </text>
+            </block>
+            <block>
+                <!-- {{data.goods.abstract}} -->
+            </block>
+        </view>
+        <view class="operateBtn">
+            <!--    <view class='share collectBtn' style='right:170rpx;' bindtap="addCollect" data-id="{{goods.goods.goods_id}}">
+              <view >收藏</view>
+              <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/xinyouxuan/shoucang.png'></image>
+              <image wx:else src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/xinyouxuan/commodity_collect.png'></image>
+          </view> -->
+            <view class='share' bindtap='openShare'>
+                <label for='share' class='share'>
+                    <view>分享</view>
+                    <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/xinyouxuan/share.png'></image>
+                </label>
+                <button hidden id='share' open-type='share'></button>
+            </view>
+        </view>
+    </view>
+    <!--     <block wx:if="{{store}}">
+        <view class="detail">
+            <view class="T_title">商家信息</view>
+            <view class="T_detail detail_bd" style="margin-top:20rpx;display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+                <view>
+                    <view style="color:black;font-size: 34rpx;padding-bottom: 20rpx;">{{store.storename}}</view>
+                    <view style="color:#000;">{{store.address}}</view>
+                </view>
+                <view style="display: flex;flex-direction: column;">
+                    <image bindtap="call" id='{{store.tel}}' style="width: 50rpx;height: 50rpx;margin-bottom: 25rpx;" src="https://tws.cnweisou.com/images/phone1.png"></image>
+                    <image bindtap='addr' data-lat="{{store.lat}}" data-lng="{{store.lng}}" data-name="{{store.storename}}" style="width: 50rpx;height: 50rpx;" src='https://tws.cnweisou.com/images/addr.png'></image>
+                </view>
+            </view>
+        </view>
+    </block> -->
+    <!-- tab -->
+    <view class='tab'>
+        <view bindtap='tabslide' data-index='1'>
+            <text class='{{tab==1?"blod":""}}' style='line-height:80rpx;display:inline-block;'>详情</text>
+        </view>
+        <view bindtap='tabslide' data-index='2'>
+            <text class='{{tab==2?"blod":""}}' style='line-height:80rpx;display:inline-block;'>评价</text>
+        </view>
+    </view>
+    <view wx:if='{{tab==1}}' style='width:100%;'>
+        <view class="detail">
+            <!-- <view class="T_title">具体详情</view> -->
+            <view class="T_detail detail_bd" style="margin-top:20rpx;">
+                <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+            </view>
+        </view>
+    </view>
+    <view wx:if='{{tab==2}}' style='width:100%;'>
+        <view class="Evaluation_top">
+            <block wx:for="{{Evaluation.count}}" wx:key="{{index}}">
+                <block wx:if="{{index=='all'}}">
+                    <view class="item {{select=='all'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                        <view>全部</view>
+                        <view>{{item}}</view>
+                    </view>
+                </block>
+                <block wx:if="{{index=='good'}}">
+                    <view class="item {{select=='good'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                        <view>好评</view>
+                        <view>{{item}}</view>
+                    </view>
+                </block>
+                <block wx:if="{{index=='normal'}}">
+                    <view class="item {{select=='normal'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                        <view>中评</view>
+                        <view>{{item}}</view>
+                    </view>
+                </block>
+                <block wx:if="{{index=='bad'}}">
+                    <view class="item {{select=='bad'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                        <view>差评</view>
+                        <view>{{item}}</view>
+                    </view>
+                </block>
+                <block wx:if="{{index=='pic'}}">
+                    <view class="item {{select=='pic'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                        <view>晒图</view>
+                        <view>{{item}}</view>
+                    </view>
+                </block>
+            </block>
+        </view>
+        <scroll-view style="max-height:760rpx;" scroll-y="true" bindscrolltolower="bottom">
+            <view>
+                <view class="container carts-list">
+                 <block wx:if='{{list.length==0}}'>
+                <image style='width:40%;margin-bottom: 120rpx;margin-left: 30%;' mode='widthFix' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/baiduapp/pinglun.png'></image>
+            </block>
+                    <template wx:else="{{select=='all'||select=='good'||select=='normal'||select=='bad'||select=='pic'}}" is="Evaluation" data="{{list:list}}"></template>
+                    <view></view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <!--    <view class="banner">
+        <view class="T_title" style='margin-bottom: 20rpx;'>相似介绍</view>
+        <scroll-view class="banner_wrap" scroll-x="true" style=" white-space: nowrap;">
+            <block wx:for="{{data.recommend}}" wx:key="{{index}}">
+                <view class="banner_one" style="display:inline-block;" bindtap="order_goods" data-objectId="{{item.id}}">
+                    <image class="banner_img" src="{{item.thumb}}" />
+                    <view class="banner_title">{{item.title}}</view>
+                    <view class="banner_detail">{{item.price}}元</view>
+                </view>
+            </block>
+        </scroll-view>
+    </view> -->
+</view>
+<view class="bgtypeList" wx:if="{{showImage}}" bindtap="showImages">
+    <swiper autoplay="false" duration="500" class="slideImgs" bindchange="currChange" circular="true">
+        <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+            <swiper-item style="height:auto;display:flex;flex-direction:row;justify-content:center;align-items:center;">
+                <image src="{{item}}" class="slide-image" mode="widthFix" />
+            </swiper-item>
+        </block>
+    </swiper>
+    <view class="imagesNum">{{currIndex}}/{{imgLength}}</view>
+</view>
+<view style='width: 100%;height: 100rpx;'></view>
+<view class="footer">
+    <view class='tip_item'>
+        <button hidden open-type="contact" id='contact'></button>
+        <label for='contact' class='tip_item'>
+            <image class="tip" src='/images/detail-kefu.png'></image>
+        </label>
+    </view>
+    <view class='tip_item' bindtap='backToIndex'>
+        <image class="tip" src='/images/detail-shop.png'></image>
+    </view>
+    <!-- <view class='reservation' bindtap="reservas">立即预约</view> -->
+    <view class="reservation">
+        <block wx:if='{{hasoption=="1"}}'>
+            <view class="reservation_detail" bindtap="move">立即预约</view>
+        </block>
+        <block wx:else>
+            <view class="reservation_detail" bindtap="reservas">立即预约</view>
+        </block>
+    </view>
+    <!--     <view class="contact" style="display:flex;flex-dorection:row;align-items:center;position:relative;">
+        <contact-button class='diy_contact' size="100" type="default-light" session-from="weapp" style=''>
+        </contact-button>
+        <view style="width:49%;display:flex;flex-direction:colum;">
+            <view style="position:relative;">
+                <image class="tip" src='/images/detail-kefu.png'></image>
+                <text style="margin-top:38rpx;display:block;padding-left:48rpx;">客服咨询</text>
+            </view>
+        </view>
+    </view>
+    <view class="reservation">
+        <block wx:if='{{hasoption=="1"}}'>
+            <view class="reservation_detail" bindtap="move">立即预约</view>
+        </block>
+        <block wx:else>
+            <view class="reservation_detail" bindtap="reservas">立即预约</view>
+        </block>
+    </view> -->
+</view>
+<template name="Evaluation">
+    <block wx:for="{{list}}" wx:key="{{index}}">
+        <view style="width: 95%;padding:20rpx 2.5%;font-size: 28rpx;font-weight: normal;">
+            <view style="display:flex;flex-direction: row;justify-content: space-between;line-height: 100rpx;margin-bottom: 20rpx;">
+                <view style="display: flex;flex-direction: row;">
+                    <image src="{{item.headimgurl}}" style="width: 100rpx;height: 100rpx;border-radius: 50%;" />
+                    <view style="margin-left: 20rpx;">{{item.nickname}}</view>
+                </view>
+                <template is="wxParse" data="{{wxParseData:replyTemArray[index]}}" />
+            </view>
+            <view style="margin-bottom: 20rpx;">
+                <image wx:if="{{item.level ==   '0'}}" class="stars" src="http://tws.cnweisou.com/images/stars0.gif"></image>
+                <image wx:elif="{{item.level == '1'}}" class="stars" src="http://tws.cnweisou.com/images/stars1.gif"></image>
+                <image wx:elif="{{item.level == '2'}}" class="stars" src="http://tws.cnweisou.com/images/stars2.gif"></image>
+                <image wx:elif="{{item.level == '3'}}" class="stars" src="http://tws.cnweisou.com/images/stars3.gif"></image>
+                <image wx:elif="{{item.level == '4'}}" class="stars" src="http://tws.cnweisou.com/images/stars4.gif"></image>
+                <image wx:elif="{{item.level == '5'}}" class="stars" src="http://tws.cnweisou.com/images/stars5.gif"></image>
+            </view>
+            <view style="margin-bottom: 20rpx;">{{item.content}}</view>
+            <view style="width:100%;display: flex;flex-direction: row;align-items: flex-start;" bindtap="joinImage" data-img="{{item.images}}">
+                <block wx:for="{{item.images}}" wx:key="{{index}}">
+                    <view style='overflow:hidden;width:160rpx;height: 160rpx;margin: 10rpx;'>
+                        <image src="{{item}}" style='width: 160rpx;height: 160rpx;' mode='aspectFill' />
+                    </view>
+                </block>
+            </view>
+            <!-- 客服回复 -->
+            <block wx:if='{{item.reply_content!=""}}'>
+                <view style='width: 100%;background-color: #eee;display: flex;flex-direction: row;font-size: 25rpx;'>
+                    <view style='width: 19%;line-height: 70rpx;margin-left: 1%;'>客服回复:</view>
+                    <view style='width: 80%;line-height: 50rpx;padding:10rpx 0;color: gray;'>
+                        <view>{{item.reply_content}}</view>
+                        <view wx:if='{{item.reply_images!=""}}' style="width:100%;display: flex;flex-direction: row;align-items: center;flex-wrap: nowrap;" bindtap="joinImage" data-img="{{item.reply_images}}">
+                            <block wx:for="{{item.reply_images}}" wx:key="{{index}}">
+                                <view style='overflow:hidden;width:160rpx;height: 160rpx;margin: 10rpx;'>
+                                    <image src="{{item}}" style='width: 160rpx;height: 160rpx;' mode='aspectFill' />
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </block>
+</template>
+<!-- 购买 -->
+<view class="shadow {{buy?'':'dn'}}" bindtap="none"></view>
+<view animation='{{animationData}}' class="box" style="z-index:100;" catchtouchmove='noMove'>
+    <view class="top">
+        <block wx:if="{{img_arr!=''}}">
+            <image class="t_logo" src="{{img_arr[index]}}"></image>
+        </block>
+        <block wx:else>
+            <image class="t_logo" src="{{data.gallery[0].image_url}}"></image>
+        </block>
+        <view class='desc' catchtouchmove='noMove'>
+            <view class="red mb10">{{cost_price}}</view>
+            <view class="select_F"> 选择：
+                <block wx:if="{{name_arr}}" wx:for="{{name_arr}}" wx:key="{{index}}">
+                    <block wx:if="{{name_arr[index]}}">
+                        <text> {{name_arr[index]}} </text>
+                    </block>
+                </block>
+            </view>
+        </view>
+        <image class="t_sc" src='http://tws.cnweisou.com/images/sc1.png' bindtap="none"></image>
+    </view>
+    <scroll-view class="bd" scroll-y="{{true}}">
+        <view class="list" wx:for="{{data.goods.goods_spec_list}}" wx:for-index="pos" wx:key="pos">
+            <view class="category">{{item[0].spec_name}}</view>
+            <view class="type">
+                <block wx:for="{{item}}" wx:key="{{index}}">
+                    <view class="item_F {{textStates[item.isClick]}}" bindtap="propClick" data-index="{{pos}}" data-pos="{{index}}" id="{{item.item_id}}" data-name='{{item.item}}'>{{item.item}}</view>
+                </block>
+            </view>
+        </view>
+        <view class="list" style='margin-bottom: 30rpx;'>
+            <view class="sum">
+                <view class="sum_l">
+                    购买数量
+                    <text wx:if="{{usermaxbuy>0}}">（限购{{usermaxbuy}}{{goods.goods.unit}}）</text>
+                </view>
+                <view class="sum_r">
+                    <view class="item" bindtap="sub">-</view>
+                    <input type="number" class="center_F" bindchange="bindManual" value="{{sum}}" disabled='{{maxbuy>0 || mixbuy>0 || usermaxbuy>0}}' />
+                    <view class="item" bindtap="add">+</view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <!--有规格  -->
+    <form bindsubmit="addCart" report-submit="true">
+        <view class="ft">
+            <button class="ft_l" form-type="submit">加入购物车</button>
+            <view class="ft_r" bindtap="bug">立即购买</view>
+        </view>
+    </form>
+</view>
+<skipHome wx:if="{{showIndex}}" />

@@ -1,0 +1,144 @@
+<template style is="data" data="{{data:data,images:images}}"></template>
+<template name="data">
+  <view class="container">
+    <image src="http://tws.cnweisou.com/images/registered.jpg"></image>
+    <view class="Pending">
+      <text style="float:none">{{data.msg}} </text>
+    </view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="box">
+        <view class="name dr">
+          <text class="word">商户名称</text>
+          <text class="xing">*</text>
+          <block wx:if="{{data.result.merchname}}">
+            <input name="merchname" type="text" placeholder="商户名称" value="{{data.result.merchname}}" />
+          </block>
+          <block wx:else>
+            <input name="merchname" type="text" placeholder="商户名称" value="" />
+          </block>
+        </view>
+        <view class="name dr">
+          <text class="word">主营项目</text>
+          <text class="xing">*</text>
+          <block wx:if="{{data.result.salecate}}">
+            <input name="salecate" type="text" placeholder="例如鞋帽、化妆品" value="{{data.result.salecate}}" />
+          </block>
+          <block wx:else>
+            <input name="salecate" type="text" placeholder="例如鞋帽、化妆品" value="" />
+          </block>
+        </view>
+        <view class=" bor goods1 dr">
+          <text class="word word1">简单介绍</text>
+          <text class="xing">*</text>
+          <block wx:if="{{data.result.desc}}">
+            <input name="desc" class="textarea" type="text" placeholder="简单介绍下商品" value="{{data.result.desc}}" />
+          </block>
+          <block wx:else>
+            <input name="desc" class="textarea" type="text" placeholder="简单介绍下商品" value="" />
+          </block>
+        </view>
+      </view>
+      <view class="box">
+        <view class="name dr">
+          <text class="word">联系人</text>
+          <text class="xing">*</text>
+          <block wx:if="{{data.result.realname}}">
+            <input name="realname" type="text" placeholder="您的称呼" value="{{data.result.realname}}" />
+          </block>
+          <block wx:else>
+            <input name="realname" type="text" placeholder="您的称呼" value="" />
+          </block>
+        </view>
+        <view class="name bor dr">
+          <text class="word">电话</text>
+          <text class="xing">*</text>
+          <block wx:if="{{data.result.mobile}}">
+            <input name="mobile" type="number" maxlength="11" placeholder="请输入您的电话" value="{{data.result.mobile}}" bindblur="phone" />
+          </block>
+          <block wx:else>
+            <input name="mobile" type="number" maxlength="11" placeholder="请输入您的电话" value="" bindblur="phone" />
+          </block>
+        </view>
+        <view class="name bor dr">
+          <text class="word">地址</text>
+          <text class="xing">*</text>
+          <block wx:if="{{data.result.address}}">
+            <input name="address" class="address" type="text" placeholder="请输入您的地址" value="{{data.result.address}}" />
+          </block>
+          <block wx:else>
+            <input name="address" class="address" type="text" placeholder="请输入您的地址" value="" />
+          </block>
+        </view>
+        <view class="contact">
+          <text>请仔细填写联系方式，以保证我们能尽快联系到您</text>
+        </view>
+      </view>
+      <view class="box">
+        <view class="name dr">
+          <text class="word">账号</text>
+          <text class="xing">*</text>
+          <block wx:if="{{data.result.uname}}">
+            <input name="uname" type="text" placeholder="请输入您的账号" value="{{data.result.uname}}" />
+          </block>
+          <block wx:else>
+            <input name="uname" type="text" placeholder="请输入您的账号" value="" />
+          </block>
+        </view>
+        <view class="name bor dr">
+          <text class="word">密码</text>
+          <text class="xing">*</text>
+          <block wx:if="{{data.result.upass}}">
+            <input name="upass" type="password" placeholder="请输入您的密码" value="{{data.result.upass}}" />
+          </block>
+          <block wx:else>
+            <input name="upass" type="password" placeholder="请输入您的密码" value="" />
+          </block>
+        </view>
+        <view class="contact">
+          <text>用于登陆多用户后台，请认真填写哦</text>
+        </view>
+      </view>
+      <view class='list' style="line-height: 150rpx;display: flex;flex-direction: row;padding-left: 20rpx;">
+        <view style="width:200rpx">提交营业执照:</view>
+        <view style="">
+          <view class="gallery">
+            <block wx:if="{{images!=''}}">
+              <view class="item" wx:key="" style="margin-top: 25rpx;">
+                <image style="width: 100rpx; height: 100rpx" src=" {{images[0]}}" bindtap="previewImage" mode="aspectFill" />
+                <view class="delete" bindtap="delete" data-index="{{index}}">
+                  <image style="left: 33%;" src="https://tws.cnweisou.com/images/icon_delete.png" />
+                </view>
+              </view>
+            </block>
+            <block wx:if="{{images==''}}">
+              <view class="item" style="margin-top: 25rpx;">
+                <image style="" src="https://tws.cnweisou.com/images/icon_add.png" class="button-upload" bindtap="chooseImage" />
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view class="box">
+        <view class="name" style="border:none">
+          <checkbox-group bindchange="checked">
+            <label>
+              <checkbox value="asdddddddddddddddddddddd" checked="true" name="xxxxxxxxxxxxx" />
+            </label>
+          </checkbox-group>
+          <text class="detector">我已阅读并了解 </text>
+          <text class="shenqing" bindtap="xieyi">【入驻申请协议】</text>
+        </view>
+      </view>
+      <view class="btn">
+        <button class="btn" type="submit" formType="submit">立即申请入驻</button>
+      </view>
+    </form>
+  </view>
+</template>
+<view class="{{xieyi=='1'?'dn':'db'}} wrap">
+  <view class="title">{{data.result.applytitle}}</view>
+  <view class="content">
+    <rich-text nodes="{{data.result.applycontent}}"></rich-text>
+  </view>
+  <view class="sub" bindtap="tijiao">确认</view>
+</view>

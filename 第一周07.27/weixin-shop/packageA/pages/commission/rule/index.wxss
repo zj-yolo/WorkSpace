@@ -1,0 +1,21 @@
+.rule{
+  padding: 50rpx 30rpx 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.title{
+  margin-bottom: 50rpx;
+  padding-left: 20rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-left: 3px solid #000;
+}
+.ruleItem{
+  margin-bottom: 50rpx;
+  font-size: 30rpx;
+  line-height: 1.8;
+  color: #191919;
+}
+.ruleItem:last-child{
+  margin: 0;
+}

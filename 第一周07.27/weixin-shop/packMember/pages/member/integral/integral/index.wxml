@@ -1,0 +1,33 @@
+<view class="integral">我的积分：{{credit}}</view>
+  <block wx:if='{{data.list.length>0}}'>
+<block wx:for="{{data.list}}">
+    <view class="item" bindtap="torecording">
+        <image class="left" src="{{item.thumb}}"></image>
+        <view class="center">
+            <view style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{item.title}}</view>
+            <view style="font-size: 24rpx;margin-top: 12rpx;">我是时间</view>
+        </view>
+        <view class="right">
+            <view style="color:rgb(205, 121, 140)">-{{item.credit}}积分</view>
+            <view style="margin-top: 12rpx;">
+                <!--      <block wx:if='{{item.creditpay=="1"}}'>
+                    <block wx:if='{{item.status=="2"}}'>兑换成功</block>
+                    <block wx:else='{{item.status=="2"}}'>兑换失败</block>
+                </block>
+                <block wx:elif='{{item.creditpay=="0"}}'>
+                    <block wx:if='{{item.status=="1"&&item.paystatus=="0"}}'>待支付</block>
+                    <block wx:elif='{{item.status=="2"&&item.paystatus=="1"}}'>待发货</block>
+                    <block wx:elif='{{item.status=="2"&&item.paystatus=="2"}}'>已完成</block>
+                </block> -->
+                <block wx:if='{{item.status=="1"&&item.paystatus=="0"}}'>待支付</block>
+                <block wx:elif='{{item.status=="2"}}'>待发货</block>
+                <block wx:elif='{{item.status=="2"&&item.paystatus=="2"}}'>已完成</block>
+            </view>
+        </view>
+    </view>
+</block>
+</block>
+    <block wx:else>
+        <view style='width:100%;display: flex;align-items: center;'>
+        <image class='noData' style='' src='../../../../images/jf.png' mode='widthFix'></image></view>
+    </block>

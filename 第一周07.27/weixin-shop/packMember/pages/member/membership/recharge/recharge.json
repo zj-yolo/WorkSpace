@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText":"会员充值",
+  "usingComponents": {
+    "loading": "/components/loading/index"
+  }
+}

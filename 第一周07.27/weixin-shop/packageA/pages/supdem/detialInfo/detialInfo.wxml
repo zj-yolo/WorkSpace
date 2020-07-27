@@ -1,0 +1,75 @@
+<scroll-view scroll-y class="scrollY" bindscrolltolower='bindscrolltolower'>
+  <view class="topDetail">
+    <image src="{{detialList.avatar}}"></image>
+    <view class='centerBox'>
+      <view class="center">
+        <view class="nickname overNone">
+          {{detialList.name}}
+        </view>
+        <view class="right">类型：{{detialList.desc}}</view>
+      </view>
+      <view class="time overNone">
+        {{createtime}} {{detialList.area}}
+      </view>
+    </view>
+  </view>
+  <view class="contDetail">
+    {{detialList.content}}
+  </view>
+  <view class="imgDetail" wx:if="{{detialList.imgs.length>0}}">
+    <block wx:for="{{detialList.imgs}}" wx:key=''>
+      <image src="{{item}}" data-index="{{index}}" data-url="{{item}}" mode="aspectFit" bindtap='previewImg'></image>
+    </block>
+  </view>
+  <view class="message">
+    <view class="top">
+      留言
+    </view>
+    <view class="messageCont">
+      <view class="noMessage" wx:if="{{detialList.comments.length==0}}">
+        还没有人留言，快来抢沙发喔
+      </view>
+      <view class="contMessage" wx:if="{{detialList.comments.length>0}}" wx:for="{{commentsAll}}" wx:key=''>
+        <image src="{{item.avatar}}"></image>
+        <view class="detail">
+          <view class="nickName">
+            {{item.nickname}}
+          </view>
+          <view class="cont">
+            {{item.content}}
+          </view>
+          <view class="cont">
+            {{item.createtime}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="line"></view>
+</scroll-view>
+<view class="fixedBottom">
+  <view bindtap='clickLike'>
+    <image src="https://tws.cnweisou.com/images/exhibitLikeGray.png" wx:if="{{detialList.is_like==0}}"></image>
+    <image src="https://tws.cnweisou.com/images/exhibitLike.png" wx:if="{{detialList.is_like==1}}"></image>
+    <text>点赞{{detialList.likes}}</text>
+  </view>
+  <view bindtap='message'>
+    <image src="https://tws.cnweisou.com/images/exhibitMessage.png"></image>
+    <text>留言</text>
+  </view>
+  <view>
+    <image src="https://tws.cnweisou.com/images/exhibitRead.png"></image>
+    <text>阅读{{detialList.views}}</text>
+  </view>
+  <view>
+    <text bindtap='callHoster'>我想要</text>
+  </view>
+  <view class="textareaView" wx:if="{{hasmessage}}">
+    <form bindsubmit="formMessage">
+      <image bindtap='closeMessage' src="https://tws.cnweisou.com/images/exhibitkeyboard.png"></image>
+      <!--placeholder="输入文字信息"  -->
+      <textarea placeholder-style="line-height:100rpx;font-size:28rpx;" name="cont" value="{{contDetail}}" bindconfirm="clickSumbit"></textarea>
+      <button form-type="submit">发送</button>
+    </form>
+  </view>
+</view>

@@ -1,0 +1,46 @@
+<view class="liveStreaming">
+  <view class="liveList">
+    <view class="liveItem" wx:for="{{liveList}}" wx:for-item="items" wx:key="{{items.id}}" bindtap="skipLiveStreaming" data-roomid="{{items.roomid}}" data-url="{{items.live_links}}">
+      <view class="mainImage">
+        <image class="liveImage" src="{{items.share_img}}"></image>
+        <view class="hots">
+          <image class="hotsImage" src="https://tws.oss.cnweisou.com/images/20541/2020/03/MVezt8u8f8p3868AXuvVY3jN6e3Ct6.png"></image>
+          <block wx:if="{{items.live_status == '101'}}">
+            <view class="hotsFigure">直播中</view>
+          </block>
+          <block wx:if="{{items.live_status == '102'}}">
+            <view class="hotsFigure">未开始</view>
+          </block>
+          <block wx:if="{{items.live_status == '103'}}">
+            <view class="hotsFigure">已结束</view>
+          </block>
+          <block wx:if="{{items.live_status == '104'}}">
+            <view class="hotsFigure">禁播</view>
+          </block>
+          <block wx:if="{{items.live_status == '105'}}">
+            <view class="hotsFigure">暂停中</view>
+          </block>
+          <block wx:if="{{items.live_status == '106'}}">
+            <view class="hotsFigure">异常</view>
+          </block>
+          <block wx:if="{{items.live_status == '107'}}">
+            <view class="hotsFigure">已过期</view>
+          </block>
+        </view>
+      </view>
+      <view class="liveInfo">
+        <view class="shopInfo">
+          <view class="liveTitle">{{items.name}}</view>
+          <view style="font-size:25rpx;font-weight:400;color:#ccc">{{items.anchor_name}}</view>
+        </view>
+        <view class="goodsList">
+          <view class="imageWrap" wx:for="{{items.goods}}" wx:key="{{item.id}}">
+            <image class="goodsImage" src="{{item.cover_img}}"></image>
+            <view class="bg"></view>
+            <view class="goodsPrice">￥{{item.price}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

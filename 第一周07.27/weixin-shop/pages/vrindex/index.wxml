@@ -1,0 +1,9 @@
+<block wx:if="{{vrLink != ''}}">
+  <view class="vrIndex" bindtap="handleSkip" style="background:url('{{vrImg}}');background-size: cover;background-position: center">
+    <image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-vr.png" class="vrDecorateImg"></image>
+  </view>
+</block>
+<block wx:elif="{{videos}}">
+  <video id="video" class="video" show-center-play-btn bindplay='toplay' poster="{{videoImg}}" src="{{videos}}"></video>
+</block>
+<view wx:elif="{{showDefault}}" class="imageContainer"></view>

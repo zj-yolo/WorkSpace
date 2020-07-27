@@ -1,0 +1,90 @@
+<!-- 商城页面 -->
+<block wx:if="{{tabIndex == 0}}">
+	<view class='topBar' style='top:0;margin-top:0;padding-top:0;'>
+		<scroll-view scroll-x="true" class="sidebar sidebar4" style="display: inline-block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:100%;background-color: white; height:37px;">
+			<text wx:for="{{category}}" wx:key="index" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.name}}" data-index="{{index}}" class="{{highlight4[index]}}" style='font-size:28rpx;'>{{item.name}}</text>
+		</scroll-view>
+	</view>
+	<view style="margin:70rpx 0">
+		<block wx:if="{{data.length>0}}">
+			<block wx:for="{{data}}" wx:key="index">
+				<view class="gl_item" bindtap="toDetail" data-id="{{item.id}}">
+					<view class="gl_image">
+						<image class="g_img" src="{{item.thumb}}"></image>
+					</view>
+					<view class="gl_content" style="width:100%">
+						<view class="topContent">
+							<view class="g_goodstitle">{{item.title}}</view>
+							<view class="goodsSales" style="font-size:24rpx;margin-top:10rpx">已拼{{item.sales}}件</view>
+						</view>
+						<view class="centerContent">
+							<view style="display:flex;align-items:center">
+								<view style="color:#ee1317;font-weight:700;font-size: 30rpx;">￥{{item.groupsprice}}</view>
+								<view style="color:#959595;font-size: 20rpx;text-decoration:line-through;margin-left:10rpx">￥{{item.price}}</view>
+							</view>
+							<view class="button" style='color:white;background-color:#ff3a2a;font-size:24rpx;width:120rpx;height:47rpx;line-height:47rpx;text-align:center;border-radius:30rpx'>去拼团</view>
+						</view>
+					</view>
+				</view>
+			</block>
+		</block>
+		<block wx:else>
+			<view class="nostate">
+				<image class="noimg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/hotgoods.png"></image>
+				<text >商品上架中</text>
+			</view>
+		</block>
+	</view>
+</block>
+
+<!-- 订单页面 -->
+<block wx:if="{{tabIndex == 1}}">
+	<view class="top topBar">
+		<view class="t_item {{select=='0' ?'b_bottom':''}}" data-index='0' bindtap="handleselect">拼团中</view>
+		<view class="t_item {{select=='1' ?'b_bottom':''}}" data-index='1' bindtap="handleselect">拼团成功</view>
+		<view class="t_item {{select=='-1' ?'b_bottom':''}}" data-index='-1' bindtap="handleselect">拼团失败</view>
+	</view>
+	<view class="order" style="padding:80rpx 0">
+		<block wx:if="{{orderdata.length > 0}}">
+			<view class="orderItem" wx:for="{{orderdata}}" wx:key="index">
+				<view class="goodsItem">
+					<image src="{{item.thumb}}" class="goodsimg"></image>
+					<view class="goodsItem-content">
+						<view style="width:100%;font-size:24rpx;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{item.title}}</view>
+						<view class="gc_option" style="font-size:24rpx;margin-top:10rpx;color:#ccc">{{item.optiontitle}}</view>
+						<view class="gc_price" style="display:flex;align-items:center">
+							<view style="color:#000000;font-size: 25rpx;">￥{{item.price}}</view>
+							<!-- <view style="color:#959595;font-size: 20rpx;text-decoration:line-through;margin-left:10rpx">{{item.units}}</view> -->
+						</view>
+					</view>
+				</view>
+				<view class="operation">
+					<view class="orderStatus" style="color:red" wx:if="{{select==0}}">拼团中</view>
+					<view class="orderStatus" style="color:green" wx:elif="{{select==1}}">拼团成功</view>
+					<view class="orderStatus" style="color:#ccc" wx:elif="{{select==-1}}">拼团失败</view>
+					<view class="operationButton">
+						<view class="ItemButton" bindtap="toorderDetail" data-id="{{item.id}}" data-teamid='{{item.teamid}}'>订单详情</view>
+						<view class="ItemButton" bindtap="togroup" data-id="{{item.id}}" data-teamid='{{item.teamid}}'>拼团详情</view>
+					</view>
+				</view>
+			</view>
+		</block>
+
+		<block wx:else>
+			<view class="nostate">
+				<image class="noorder" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/no_al_order.png"></image>
+			</view>
+		</block>
+	</view>
+</block>
+<!-- 底部tabbar -->
+<view class="bottombar">
+	<view class="{{tabIndex == 0 ? 'tabItem tabActive':'tabItem'}}" bindtap="handleTab" data-index="0">
+		<image src="{{tabIndex == 0 ? 'http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/gl_shop_selected.png':'http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/gl_shop.png'}}"></image>
+		<text>拼团商城</text>
+	</view>
+	<view class="{{tabIndex == 1 ? 'tabItem tabActive':'tabItem'}}" bindtap="handleTab" data-index="1">
+		<image src="{{tabIndex == 1 ? 'http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/my_selected.png':'http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/my.png'}}"></image>
+		<text>我的</text>
+	</view>
+</view>

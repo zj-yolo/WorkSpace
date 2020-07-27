@@ -1,0 +1,169 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<view style="width:100%;overflow: hidden;">
+<swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height: 640rpx;" indicator-dots="{{indicatorDots}}">
+	<block wx:for="{{data.res.images}}" wx:key='item'>
+		<swiper-item catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}">
+			<image src="{{item}}" class="swiper-image" style="width:100%;height: 100%;display: block;" />
+		</swiper-item>
+	</block>
+</swiper>
+<view style="height: 80rpx;width: 100%;background-color: rgba(0,0,0,.4);margin-top: -80rpx;z-index: 3;position: absolute;color: #Fff;text-align: right;line-height: 80rpx;font-size: 30rpx;">
+	<block wx:if="{{data.res.custom.countdown}}">
+		<text style="margin-left:20rpx;float: left;">{{data.res.custom.countdown}}</text>
+	</block>
+	 <text style="margin-right: 40rpx;">{{time}}</text> 
+</view>
+
+<view style="height: 80rpx;width: 100%;background-color: #FF605D;color: #Fff;text-align: right;line-height: 80rpx;display: flex;flex-direction: row;justify-content: space-between;font-size: 28rpx;">
+
+	<view style="margin-left: 40rpx;">
+
+		<block wx:if="{{data.res.type=='1'}}">
+			底价:¥ <text style="font-size: 50rpx;">{{data.res.end_price}}</text> 原价:¥ <text>{{data.res.start_price}}</text>
+		</block>
+		<block wx:elif="{{data.res.type=='0'}}">
+			原价:¥ <text style="font-size: 50rpx;">{{data.res.start_price}}</text>
+			<block wx:if="{{data.res.custom.cutmore}}">
+				<text style="margin-left:20rpx;">{{data.res.custom.cutmore}}</text>
+			</block>
+		</block>
+	</view>
+
+	<text style="margin-right: 40rpx;">{{data.res.act_times}}人参与</text>
+</view>
+
+<view class="wrap">
+	<view class="title">
+		<view style="width: 80%;display: flex;flex-direction: column">
+			<text style="font-weight: bolder;font-size: 28rpx;border-right: 1rpx solid #f3f3f3;padding-right: 20rpx;">{{data.res.title}}</text>
+			<text style="font-size: 26rpx;color:#ccc;">{{data.res.title2}}</text>
+		</view>
+	</view>
+  <view class="lineWidth"></view>
+   <view wx:if="{{goods_attr}}" class="goods_attr" bindtap='showModel'>
+     <view class="attr_title">
+       选择：<text wx:for="{{goods_spec_list}} wx:key='item'">{{item[0].spec_name}}</text>
+     </view>
+     <image src="https://tws.cnweisou.com/images/rightArrow.png" />
+   </view>
+   <view class="lineWidth"></view>
+</view>
+
+<view class="kanjia">
+	<view class="head">
+		<view style="width: 10rpx;height: 30rpx;background-color:#FD5454; margin-right: 20rpx;"></view>
+		<view>砍价流程</view>
+	</view>
+	<view class="body">
+		<view class="box">选择心仪商品</view>
+		<view class="box">邀请好友砍价</view>
+		<view class="box" style="margin-right: 0;">砍到最低价后支付</view>
+	</view>
+</view>
+
+<view style="padding: 20rpx 20rpx 40rpx;display: flex;flex-direction: row;justify-content: center;background-color: #fff;margin-bottom: 120rpx;">
+	<view style="border-bottom: 4rpx solid #FEAAAA;padding:0 12rpx 6rpx;font-size: 32rpx;font-weight: bolder;">图文详情</view>
+</view>
+
+  <view style="margin-left: 12rpx;">
+ <block wx:if="{{goods.goods.goods_content!=''}}">
+    <template is="wxParse" data="{{wxParseData:contain.nodes}}"></template>
+  </block>
+</view>
+
+<view class="footer">
+	<view class="left" bindtap="toback"> 首页
+		<image style="width: 45rpx;height: 45rpx;" src="../../../../images/icon_home2.png"></image>
+	</view>
+	<view class="item" bindtap="tocorder">
+		<view class="yuanjia" bindtap="{{goods_attr ==true?'showModel':'tosubmitorder'}}" data-id="{{data.res.goods_id}}">原价购买</view>
+	</view>
+		<block wx:if="{{data.swi=='0'}}">
+      <view class="item" bindtap="{{goods_attr == true?'showModel':'tobargain'}}" data-id="{{data.res.id}}">
+        <block wx:if="{{!data.act_swi.id}}">
+          <view class="kanjias" >立即砍价</view>
+        </block>
+        <block wx:else>
+          <view class="kanjias" >立即砍价</view>
+        </block>
+      </view>
+		</block>
+		<block wx:elif="{{data.swi=='1'}}">
+		  <view class="item">
+	      <view class="kanjias">尚未开始</view>
+			</view>
+		</block>
+		<block wx:elif="{{data.swi=='2'}}">
+			<view class="item">
+			  <view class="kanjias">已经结束</view>
+			</view>
+		</block>
+		<block wx:elif="{{data.swi=='3'}}">
+			<view class="item">
+			  <view class="kanjias">库存不足</view>
+			</view>
+		</block>
+	<view class="left" bindtap="tolist"> 我的
+		<image style="width: 45rpx;height: 45rpx;" src="../../../../images/icon_member2.png"></image>
+	</view>
+</view>
+</view>
+<view class="attr_box" animation='{{animationData}}'>
+  <view class="top">
+     <image class="t_logo" src="{{data.res.images[0]}}" /> 
+    <view class="desc">
+      <view class="red">{{cost_price}}</view>
+      <view class=" mb10">库存：{{store_count}}</view>
+      <view class="select_f">选择：
+        <block wx:if="{{name_arr}}" wx:for="{{name_arr}}" wx:key='item'>
+          <text>{{item}}</text>
+        </block>
+      </view>
+    </view>
+    <image bindtap='cancelModel' class="t_sc" src="http://tws.cnweisou.com/images/sc1.png" />
+  </view>
+  <scroll-view class="bd" scroll-y="true">
+     <view class="attr_list" wx:for="{{goods_spec_list}}" wx:for-index="parents" wx:key='item'>
+       <view class="category">{{item[0].spec_name}}</view>
+       <view class="attr_type">
+          <view class="item_f {{textStates[item.isClick]}}" wx:for="{{item}}" wx:for-index="child" wx:key='' data-parents="{{parents}}"id="{{item.item_id}}" data-child="{{child}}"  data-name='{{item.item}}' bindtap='propClick'>{{item.item}}</view>
+       </view>
+     </view>
+  </scroll-view>
+   <view class="modelfooter">
+    <view class="left" bindtap="toback">
+     首页<image style="width: 45rpx;height: 45rpx;" src="../../../../images/icon_home2.png" />
+	  </view>
+    <view class="item" bindtap="tocorder">
+		   <view class="yuanjia" bindtap="tosubmitorder" data-id="{{data.res.goods_id}}">原价购买</view>
+	  </view>
+    <block wx:if="{{data.swi=='0'}}">
+	    <view class="item" bindtap="tobargain" data-id="{{data.res.id}}">
+        <block wx:if="{{!data.act_swi.id}}">
+          <view class="kanjias" >立即砍价</view>
+        </block>
+        <block wx:else>
+          <view class="kanjias" >立即砍价</view>
+        </block>
+		  </view>
+		</block>
+		<block wx:elif="{{data.swi=='1'}}">
+		  <view class="item">
+			  <view class="kanjias">尚未开始</view>
+			</view>
+		</block>
+		<block wx:elif="{{data.swi=='2'}}">
+			<view class="item">
+			   <view class="kanjias">已经结束</view>
+			</view>
+		</block>
+		<block wx:elif="{{data.swi=='3'}}">
+			<view class="item">
+			  <view class="kanjias">库存不足</view>
+			</view>
+		</block>
+    <view class="left" bindtap="tolist"> 我的
+      <image style="width: 45rpx;height: 45rpx;" src="../../../../images/icon_member2.png"></image>
+    </view>
+  </view> 
+</view>

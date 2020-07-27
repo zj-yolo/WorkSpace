@@ -1,0 +1,260 @@
+.fristimg{
+  margin-top: 170rpx;
+}
+.gd{
+  position: fixed;
+  top: 0rpx;
+  left: 0;
+  width: 100%;
+  
+}
+.search{
+  width: 100%;
+  height: 80rpx;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.searchinput{
+  width: 100%;
+  height: 80rpx;
+  background-color: #f8f8f8;
+  text-align: center;
+  font-size: 35rpx;
+  color: #959595;
+}
+.s_img{
+  width: 35rpx;
+  height: 35rpx;
+  position: absolute;
+  top: 25rpx;
+  left: 230rpx;
+}
+.subnav{
+  height: 94rpx;
+  white-space: nowrap;
+  background: #fff;
+  z-index: 100;
+  box-sizing: border-box;
+}
+.scrolltxt{
+  display: inline-block;
+  height: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  letter-spacing: 1rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+.scrolltxt text{
+  display: inline-block;
+  padding: 24rpx 0;
+  color: #444444;
+}
+.Classification{
+  color: #101010;
+  font-weight: 600;
+  font-size: 30rpx;
+}
+.Classification text{
+  border-bottom: 2px solid #272727;
+}
+.content{
+  width: 100%;
+  height: 80rpx;
+  font-size: 28rpx;
+  color: #101010;
+  background-color: #ffd5d5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25rpx;
+  box-sizing: border-box;
+  margin-top: 180rpx;
+}
+.content1{
+  display: flex;
+  align-items: center;
+}
+.yuan{
+  width: 45rpx;
+  height: 45rpx;
+  background-color: #ffffff;
+  border-radius: 50%;
+  margin-right: 25rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.xiaoyuan{
+  width: 18rpx;
+  height: 18rpx;
+  background-color: #d52121;
+  border-radius: 50%;
+  
+}
+.c_img{
+  width: 45rpx;
+  height: 45rpx;
+  padding-right: 25rpx;
+}
+.content1 text{
+  line-height: 80rpx;
+}
+.content2{
+  width: 105rpx;
+  height: 50rpx;
+  color:#fff3f4;
+  background:linear-gradient(to right,#ff8285,#ff3a61);
+  border-radius:30rpx;
+  line-height: 50rpx;
+  text-align: center;
+}
+.Picture{
+  width:100%;
+  height: 670rpx;
+}
+.Picture image{
+  width:100%;
+  height: 670rpx;
+}
+.Coupon{
+  width: 100%;
+  height: 180rpx;
+  display: flex;
+  align-items: center;
+}
+.bcg{
+  width: 251rpx;
+  height: 180rpx;
+  background-color: #ffdfdf;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Coupon1{
+  font-size: 30rpx;
+  display: block;
+  color: #e56464;
+}
+.Coupon1 text{
+  font-size: 60rpx;
+}
+.Coupon2{
+  font-size: 25rpx;
+  color: #ea8080;
+}
+.commodity{
+  width: 100%;
+  height: 850rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+.commodity image{
+  width: 690rpx;
+  height: 640rpx;
+  border: 10rpx solid #e6bf64;
+}
+.commoditytitle{
+  padding:  0 20rpx;
+  width: 100%;
+  height: 90rpx;
+  font-size: 35rpx;
+  text-align: center;
+  line-height: 90rpx;
+  color: #191919;
+  overflow: hidden;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.Price{
+  width: 100%;
+  height: 120rpx;
+  display: flex;
+  justify-content: center;
+}
+.Price1{
+  width: 550rpx;
+  height: 75rpx;
+  margin: 0 95rpx;
+  background:linear-gradient(to right,#edf3ff,#cadcff);
+  border-radius:50rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.Price2{
+  display: flex;
+  padding-top: 18rpx;
+  font-size: 22rpx;
+  padding-left: 40rpx;
+  align-items: baseline;
+}
+.Price2 text{
+  font-size: 35rpx;
+  color: #4349a5;
+}
+.Price3{
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  padding-right: 15rpx;
+}
+.Price3 image{
+    width: 50rpx;
+    height: 50rpx;
+    border: none;
+    padding-left: 15rpx;
+}
+.Commodity{
+  padding: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+.nextcommodity{
+  width: 340rpx;
+  height: 470rpx;
+  margin-bottom: 20rpx;
+  border-radius: 30rpx;
+  border: 1rpx solid #dfdfdf;
+  overflow: hidden;
+  margin-right: 20rpx;
+}
+.nextcommodity:nth-child(even){
+  margin-right: 0rpx;
+}
+.nextcommodity image{
+  width: 340rpx;
+  height: 345rpx;
+  
+}
+.nextcommoditytitle{
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 60rpx;
+  overflow: hidden;
+  width: 100%;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.jg{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15rpx;
+}
+.jg1{
+  font-size: 20rpx;
+  color: #db4444;
+}
+.jg1 text{
+  font-size: 25rpx;
+  color: #d52121;
+}
+.jg2 image{
+  width: 40rpx;
+  height: 40rpx;
+}

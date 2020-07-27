@@ -1,0 +1,5 @@
+<!--components/skipHome/skipHome.wxml-->
+<!-- 返回首页图标按钮 -->
+<view class="skipIndex" bindtouchmove="getPosition" bindtap="skipToIndex" style="top:{{top}}px;left:{{left}}px">
+  <image src='https://tws.cnweisou.com/images/go_back.png'></image>
+</view>

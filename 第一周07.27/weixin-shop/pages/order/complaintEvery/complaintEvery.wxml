@@ -1,0 +1,41 @@
+  <view wx:if="{{myQuesList}}">	
+  <view class="toptitle">
+大家的提问
+</view>
+  <view class="talkCont" wx:for="{{myQuesList}}" data-index="{{index}}">
+<view class="question">
+<view class="title">
+问
+</view>
+<view class="titleTip">
+<text>{{item.nickname}}</text>
+<image src='{{item.avatar}}'></image>
+<text>{{item.create_time}}</text>
+</view>
+<view class="cont">
+<text>{{item.question}}</text>
+</view>
+</view>
+<view class="answer" wx:if="{{item.answer!=null}}">
+<view class="title">
+答
+</view>
+<view class="titleTip">
+<text>小店</text>
+<text>{{item.answer_time}}</text>
+</view>
+<view class="cont">
+<text>{{item.answer}}</text>
+</view>
+</view>
+</view>
+  <view class="toptitle1">
+</view>
+<view class="bottomMyQues" bindtap="joinQues">
+继续提问
+</view> 
+</view>
+<view wx:if="{{!myQuesList}}" class="noActivity">
+目前大家还没有提出问题，点击<text bindtap="joinQues">确定</text>，即可提问
+<text class="creatActi" bindtap="joinQues">确定</text>
+</view>

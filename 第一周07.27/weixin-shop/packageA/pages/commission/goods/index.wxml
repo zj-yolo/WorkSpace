@@ -1,0 +1,24 @@
+<view class="wrapper">
+  <view class="banner__container">
+    <image class="banner" mode="widthFix" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/goods-banner.png"></image>
+  </view>
+  <view class="goods__list">
+    <view class="list__item" wx:for="{{goodsList}}" wx:key="{{item.id}}" bindtap="handleSkip" data-id="{{item.goodsid}}">
+      <image class="item__image" src="{{item.image}}"></image>
+      <view class="list__content">
+        <view>
+          <view class="title">{{item.title}}</view>
+          <view class="option" wx:if="{{item.option}}">规格：{{item.option.title}}</view>
+        </view>
+        <view class="figure__wrapper">
+          <view class="price">￥{{item.price}}</view>
+          <view class="item__btn" bindtap="handleShowModal" data-type="single">去购买</view>
+        </view>
+      </view>
+    </view>
+    <view class="noGoods" wx:if="{{!hasContent}}">
+      <image class="icon__no-goods" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/icon-no-distribution.png"></image>
+      <view class="noGoodsText">暂无相关商品</view>
+    </view>
+  </view>
+</view>

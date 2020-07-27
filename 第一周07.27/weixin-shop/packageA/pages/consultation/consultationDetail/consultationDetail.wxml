@@ -1,0 +1,39 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<backToHome wx:if="{{shareIcon}}"></backToHome>
+<view class="newsTop">
+<view class="newsTitle">{{article_title}}</view>
+<text class="special">{{article_author}}</text>
+<text class="specialTitle">{{article_date}}</text>
+</view>
+<view class="newsCont">
+<template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+</view>
+<view class="interval"></view>
+<view class="readmember">
+<view class="readImage">
+<block wx:for="{{avatar}}" wx:key="{{index}}">
+<image src="{{item.avatar}}"></image>
+</block> 
+</view>
+</view>
+ <view wx:if='{{more}}' class="more">…</view> 
+<view class="partitionBottom">
+</view>
+<view class="newsBottom">
+<view class="commentLeft" bindtap="joinReview1">
+<image src="http://tws.cnweisou.com/images/talk1Z.png"></image>
+<text class="commentWrite">写评论</text>
+</view>
+<view class="commentRight" bindtap="joinReview2">
+<image src="http://tws.cnweisou.com/images/talk2Z.png"></image>
+<text class="commentNum">{{article_report}}</text>
+</view>
+<view class="commentCenter" bindtap="giveGood">
+<image wx:if="{{isGood}}" src="http://tws.cnweisou.com/images/good1Z.png"></image>
+<image wx:else src="http://tws.cnweisou.com/images/good2Z.png"></image>
+<text class="commentNum">{{article_likenum}}</text>
+</view>
+</view>
+<view wx:if="{{numberPhone}}" class="artPhone" bindtap='artPhone'>
+<image src="https://tws.cnweisou.com/images/indexPhone.png"></image>
+</view>

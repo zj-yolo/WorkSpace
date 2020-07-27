@@ -1,0 +1,8 @@
+<!--chainPage.wxml-->
+
+<web-view src="{{wl.url}}" wechat_redirect>
+
+
+</web-view>
+
+<!-- <view class="classname"></view>> -->

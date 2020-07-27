@@ -1,0 +1,83 @@
+<view style="width:100%;height: 100%;overflow:hidden;">
+    <view class="parent">
+        <block wx:if="{{result.store}}">
+            <view class="view-order">
+                <block wx:if="{{result.log.status=='0'}}">
+                    <text class="pay_status">待支付</text>
+                </block>
+                <block wx:elif="{{result.log.status=='2'}}">
+                    <text class="pay_status">待服务</text>
+                </block>
+                <block wx:elif="{{result.log.status=='4'}}">
+                    <text class="pay_status">待评价</text>
+                </block>
+                <block wx:elif="{{result.log.status=='-1'}}">
+                    <text class="pay_status">已取消</text>
+                </block>
+                <text class="store_name">{{result.store.storename}}</text>
+                <text class="store_addr">{{result.store.address}}</text>
+                <!--           <text class="text-address">预约开始时间: {{start}}</text>
+                <block wx:if="{{end}}">
+                    <text class="text-address">预约结束时间: {{end}}</text>
+                </block> -->
+            </view>
+        </block>
+        <!--       <view class="view-title">
+            <image src="http://tws.cnweisou.com/images/payicon.png"></image>
+            <text style="margin-left:10rpx;">网站自营</text>
+        </view> -->
+        <view class="container carts-list">
+            <view class="carts-item">
+                <view>
+                    <image class="carts-image" src="{{result.goods.thumb}}" mode="aspectFill" />
+                </view>
+                <view class="carts-text">
+                    <text class="carts-title">{{result.goods.title}}</text>
+                    <!-- <text class="carts-key-name">{{result.goods.optiontitle}}</text> -->
+                    <!--    <view class="carts-subtitle">
+                    </view> -->
+                    <view class="carts-right" style="align-items:flex-end;font-size: 24rpx;">
+                        <text class="text-red">￥{{result.goods.price}}</text>
+                        <text class="text-price"> x{{result.log.number}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view style="background:#ffffff;border-bottom:20rpx solid #eee;padding:20rpx 0;">
+            <view>
+                <view class=" text_between"><text>商品小计</text><text class="text_price">￥{{result.log.price}}</text></view>
+                <view class=" text_between"><text>运费</text><text class="text_price">￥0.00</text></view>
+                <view class=" text_between"><text>实付费(不含运费)</text><text class="text_price">￥{{result.log.price}}</text></view>
+            </view>
+        </view>
+        <view style="background:#ffffff;border-bottom:20rpx solid #eee;padding:20rpx 0;">
+            <view class=" text_between"><text>预约到店时间</text><text class="text_price">{{start}}</text></view>
+            <view class=" text_between"><text>预约人</text><text class="text_price">李四</text></view>
+            <view class=" text_between"><text>备注</text><text class="text_price">{{result.log.remark ? result.log.remark : '' }}</text></view>
+        </view>
+        <view style="background:#ffffff;border-bottom:20rpx solid #eee;padding:20rpx 0;">
+            <view class=" text_between"><text>订单编号</text><text class="text_price">{{result.log.logno}}</text></view>
+            <view class=" text_between"><text>创建时间</text><text class="text_price">{{times}}</text></view>
+        </view>
+        <!--         <view class="btn_wrap">
+            <text class="btn_item">取消订单</text>
+        </view> -->
+        <!--        <view style="background:#ffffff;border-bottom:1px solid #eee;">
+            <view class="text_order">
+                <text>订单编号：{{result.log.logno}}</text>
+            </view>
+            <view class="text_order">
+                <text>创建时间：{{times}}</text>
+            </view>
+        </view> -->
+    </view>
+    <view class='btn' bindtap='to_use' wx:if='{{hexiao}}'>确定核销</view>
+    <block wx:else>
+        <block wx:if="{{result.log.status=='2'||result.log.status=='1'}}">
+            <view class='btn' bindtap='show'>消费码</view>
+        </block>
+    </block>
+    <view bindtap='show' class="{{show==1? 'dn':''}}" style='width: 100%;height: 100%;position: fixed;top: 0;background-color: rgba(0,0,0,.2);'>
+        <image src='{{url}}' style='width: 80%;margin:10% 10%;' mode='widthFix'></image>
+    </view>
+</view>

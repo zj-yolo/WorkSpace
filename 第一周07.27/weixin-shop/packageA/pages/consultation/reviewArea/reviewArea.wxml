@@ -1,0 +1,75 @@
+<form wx:if="{{submitShow}}" class="reviewForm" bindsubmit="submitReview" bindreset="formResetReview">
+	<textarea class="reviewText" value="{{content}}" bindblur="bindTextAreaBlur" name="talkContent" placeholder="说说你的看法" />
+	<view class="showRegion">
+		<image class="reviewImage" src="http://tws.cnweisou.com/images/position2Z.png"></image>
+		<text wx:if="{{isNull}}" class="getPsition" bindtap="getMap">点击获取位置</text>
+		<text wx:else class="getPsition" bindtap="getMap">{{getMap}}</text>
+		<block wx:if="{{showExpression}}">
+			<template is="WxEmojiChooseChooseViewRevi" data="{{WxEmojiObjs}}"></template>
+		</block>
+		<button form-type="submit"> 发表 </button>
+	</view>
+</form>
+<view class="everybodyTalk">
+	<view wx:if="{{news}}" class="talkTitle">
+		最新评论
+	</view>
+	<view class="talkCont" wx:for="{{talkList}}" data-index="{{index}}">
+		<view class="talcImg">
+			<image src="{{item.avatar}}"></image>
+		</view>
+		<view class="rightCont rightContBottom">
+			<view class="rightContTop">{{item.nickname}}</view>
+			<text class="special">{{item.time}}</text>
+			<image wx:if="{{item.address}}" class="reviewImage" src="http://tws.cnweisou.com/images/position2Z.png"></image>
+			<text wx:if="{{item.address}}" class="reviewPsition">{{item.address}}</text>
+			<view class="talkDetial talkDetialCont">
+				{{item.cons}}
+				</view>
+			<view class="talkReply">
+				<view class="talkReplyCont">
+					<image wx:if="{{isgoods}}" class="talkReplyImage" data-index="{{index}}" bindtap="giveGood" src="http://tws.cnweisou.com/images/good1Z.png"></image>
+					<image wx:else class="talkReplyImage" data-index="{{index}}" bindtap="giveGood" src="http://tws.cnweisou.com/images/good1Z.png"></image>
+					<text class="reviewPsition marginRight30"> {{item.like}}</text>
+					<image class="reviewImage" src="http://tws.cnweisou.com/images/talk2Z.png"></image>
+					<text class="reviewPsition marginRight30"> {{item.count_report}}</text>
+					<image class="reviewImage" src="http://tws.cnweisou.com/images/talk1Z.png"></image>
+				<text class="reviewPsition" data-index="{{index}}" bindtap="talkArea1">回复</text>
+					<view wx:if="{{currArea1==index}}" class="replyCont">
+						<form bindsubmit="submitTalk" bindreset="formResetReview" data-index="{{index}}">
+							<textarea  value='{{contentReply}}' bindblur="everyReply" placeholder="回复Ta:" />
+								<image class="reviewImage" src="http://tws.cnweisou.com/images/position2Z.png"></image>
+							<text wx:if="{{isNullS}}" class="reviewPsition" bindtap="getMapSecond">点击获取位置</text>
+							<text wx:else class="reviewPsition" bindtap="getMapSecond">{{getMapS}}</text>
+							<button form-type="submit"> 发表 </button>				
+						</form>
+					</view>
+				</view>
+			</view>
+			<view class="clear"></view>
+		</view>
+		<view class="talkTitle2">
+		</view>
+		<view class="talkCont marginSecond" wx:for="{{item.child_report}}" data-index="{{index}}">
+			<view class="rightCont rightCont2">
+				<text class="special2">{{item.nickname}}</text>
+				<image wx:if="{{item.address}}" class="reviewImage" src="http://tws.cnweisou.com/images/position2Z.png"></image>
+				<text wx:if="{{item.address}}" class="reviewPsition">{{item.address}}</text>
+				<view class="talkDetial">
+					{{item.cons}}
+				</view>
+				<view class="talkReply talkSecond">
+				</view>
+
+			</view>
+		</view>
+	</view>
+</view>
+<view class="bgtypeListTalk" wx:if="{{talkAlert}}">
+	<view class="cardAgainType">
+		{{msgTalk}}
+		<view bindtap="returnIndex" class="determineAgin">
+			确定
+		</view>
+	</view>
+</view>

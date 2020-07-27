@@ -1,0 +1,19 @@
+var add = function(num, value) {
+  var result = parseFloat(num) + parseFloat(value);
+  return result.toFixed(2);
+}
+var time = function(endtime) {
+  var bijiao = getDate(endtime) - getDate(); //判断结束时间减去当前时间 ，如果当前时间大于0则为True
+  return bijiao > 0 ? true : false;
+}
+
+// var limit = function(start_time, time_limit) {
+//   var limitTime = getDate() - getDate(start_time); //判断当前时间减去开始时间 ，如果当前时间大于时限(time_limit)则为True
+//   return limitTime < (time_limit*3600) ? true : false;
+// }
+
+module.exports = {
+  add: add,
+  time: time,
+  // limit: limit
+}

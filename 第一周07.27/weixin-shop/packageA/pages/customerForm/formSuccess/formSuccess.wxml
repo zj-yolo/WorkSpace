@@ -1,0 +1,8 @@
+<view class="formList" wx:for="{{myList}}" data-index="{{index}}" bindtap="joinDetail">
+  <view class="everyInputhbit">
+    <text class="title">主题</text>
+    <view class="cont">
+      {{item.title}}
+    </view>
+  </view>
+</view>

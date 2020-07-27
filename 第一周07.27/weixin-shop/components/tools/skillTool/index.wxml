@@ -1,0 +1,30 @@
+<block wx:if="{{goods.length > 0}}">
+	<view class="groupComponenTitle my-class">
+		<view style="display:flex">
+			<view>
+				<text style="color:#000000;font-weight:800">整点</text>
+				<text style="color:#d10b0c;font-weight:800">秒杀</text>
+			</view>
+			<view style="margin-left:10rpx">
+				<text style="font-size:27rpx;color:#000000">{{time.time}}点场</text>
+				<text class="timeset">{{clock.clock_hour}}:{{clock.clock_min}}:{{clock.clock_sec}}</text>
+			</view>
+		</view>
+
+		<view bindtap="toskillList">
+			<text style="font-size:25rpx">更多抢购</text>
+			<image class="arrowImgCompontent" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-arrow-right.png" mode="widthFix"></image>
+		</view>
+	</view>
+	<scroll-view class="groupComponent my-class" scroll-x="true">
+		<block wx:for="{{goods}}" wx:key="index">
+			<view class="groupComponentItem" bindtap="toskillItem" data-id="{{item.goodsid}}">
+				<image class="groupComponentImg" src="{{item.thumb}}"></image>
+				<view class="datagroup" style="font-size:27rpx">
+					<text style="color:#000000">￥{{item.price}}</text>
+					<text style="color:#a1a1a1">￥{{item.marketprice}}</text>
+				</view>
+			</view>
+		</block>
+	</scroll-view>
+</block>

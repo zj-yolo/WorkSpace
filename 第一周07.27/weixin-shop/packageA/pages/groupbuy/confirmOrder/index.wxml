@@ -1,0 +1,214 @@
+<!-- <block wx:if="{{isverify == 1 && storeids}}"> -->
+<view class='allPage'>
+	<!-- <view class="swiper-tab">
+    <view class="swiper-tab-item {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">
+      <view class="tab-item {{currentTab==0 ? 'onon' : ''}}" data-current="0" bindtap="swichNav">快递配送</view>
+    </view>
+    <view class="swiper-tab-item {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">
+      <view class="tab-item {{currentTab==1 ? 'onon' : ''}}" data-current="1" bindtap="swichNav">上门自提</view>
+    </view>
+  </view> -->
+	<view current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 80}}px" bindchange="bindChange">
+		<block wx:if="{{currentTab == 0}}">
+			<view>
+				<block wx:if="{{status=='1'}}">
+					<view class="page" style="height:{{height*2-144}}rpx;position: fixed;top: 0;width: 100%;z-index: 9">
+						<view style="display: flex;flex-direction: column;margin-top: 40%;justify-content: center;align-items: center;">
+							<image style="width: 160rpx;height: 160rpx;margin-bottom: 72rpx;" src="https://tws.cnweisou.com/images/jingao.png"></image>
+							<view style="margin-bottom: 72rpx;">{{msg}}</view>
+							<button style="width: 80%;" bindtap="todetail">确认</button>
+						</view>
+					</view>
+				</block>
+				<block wx:else>
+					<form bindsubmit="bindFormSubmit">
+						<view class="page" style="height:{{height*2-174}}rpx;">
+							<view class="promptText">
+								<image class="audioImg" src="/images/shop/add/audio.png"></image>
+								<view class="content" style="flex:1">即日起，快递单上禁止出现*先生，*女士等名字，为防止您 的快递无法正常寄送，请勿必填写真实姓名</view>
+							</view>
+							<view class="bgContainer">
+								<image src="/images/order-bg.png" mode="widthFix" class="orderBg"></image>
+							</view>
+							<block wx:if="{{address}}">
+								<view class="addr" bindtap="addressSelect" id="{{address.id}}">
+									<view style="display: flex;flex-direction: column;width: 450rpx;">
+										<view>收货人：{{address.realname}}</view>
+										<view style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">收货地址：{{address.province}} {{address.city}} {{address.area}}</view>
+									</view>
+									<view class="view-addressright">
+										<text class="text-mobile" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{address.mobile}}</text>
+										<image src="https://tws.cnweisou.com/images/right.png"></image>
+									</view>
+								</view>
+							</block>
+							<block wx:else>
+								<view class="addr" style="line-height: 80rpx;background-color: #fff" bindtap="addressSelect">
+									<view style="display: flex;flex-direction: column;">
+										<view>收货地址</view>
+									</view>
+									<view class="view-addressright">
+										<text class="text-mobile" style="color:#ccc;">请选择收货地址</text>
+										<image src="https://tws.cnweisou.com/images/right.png"></image>
+									</view>
+								</view>
+							</block>
+							<view style="height:20rpx;background:#f4f4f4;width:100%"></view>
+							<view class="goods-price">
+								<view>商品合计</view>
+								<block wx:if="{{type=='groups'}}">
+									<view>¥ {{ggPriceAndHead}}</view>
+								</block>
+								<block wx:else>
+									<view>¥ {{ggPriceAndHead}}</view>
+								</block>
+							</view>
+							<view class="goods-price">
+									<view>运费</view>
+									<view>¥ {{data.goods.freight}}</view>
+								</view>
+							<view style="height:20rpx;background:#f4f4f4;width:100%"></view>
+							<view class="goods">
+								<image class="img" src="{{data.goods.thumb}}"></image>
+								<view class="g_wrap">
+									<text style="overflow: hidden;color:#656565;font-size:28rpx;text-overflow:ellipsis;white-space: nowrap;">{{data.goods.title}}</text>
+									<view style="font-size:24rpx;color:#989898;margin-top:10rpx" wx:if="{{nameArr}}"> {{nameArr}}</view>
+									<view style="font-size:27rpx;margin-top:20rpx">
+										<text style="color:#e71717;margin-right:30rpx">¥ {{ggPriceAndHead}}</text>
+										<!-- <text style="color:#9b9b9b">¥ 589</text> -->
+									</view>
+								</view>
+							</view>
+							<view class="footer">
+								<view class="item" style="align-items: flex-start;color:#F06A75;padding-left:35rpx">
+									<text>应付：<text>{{total}}</text>
+									</text>
+								</view>
+								<view class="item" style="background-color: #ea1414;">
+									<label>
+										<text style="display: block;height: 100rpx;line-height: 100rpx;font-size: 26rpx;">去付款</text>
+										<button hidden form-type="submit" class="upload" type="primary" style='height: 100rpx;line-height: 100rpx;font-size: 26rpx;'> 去付款 </button>
+									</label>
+								</view>
+							</view>
+						</view>
+					</form>
+				</block>
+			</view>
+		</block>
+		<block wx:if="{{currentTab == 1}}">
+			<view>
+				<block wx:if="{{status=='1'}}">
+					<view class="page" style="height:{{height*2-144}}rpx;position: fixed;top: 0;width: 100%;z-index: 9">
+						<view style="display: flex;flex-direction: column;margin-top: 40%;justify-content: center;align-items: center;">
+							<image style="width: 160rpx;height: 160rpx;margin-bottom: 72rpx;" src="https://tws.cnweisou.com/images/jingao.png"></image>
+							<view style="margin-bottom: 72rpx;">{{msg}}</view>
+							<button style="width: 80%;" bindtap="todetail">确认</button>
+						</view>
+					</view>
+				</block>
+				<block wx:else>
+					<form bindsubmit="bindFormSubmitForZT">
+						<view class="page" style="height:{{height*2-174}}rpx;">
+							<block wx:if="{{addrdata}}">
+								<view class="addr" bindtap="storeListSelect" id="{{id}}">
+									<view style="display: flex;flex-direction: column;width: 450rpx;">
+										<view>门店名称：{{addrdata.storename}}</view>
+										<view style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">门店地址：{{addrdata.address}}</view>
+									</view>
+									<view class="view-addressright">
+										<image src="https://tws.cnweisou.com/images/right.png"></image>
+									</view>
+								</view>
+							</block>
+							<block wx:elif="{{mendiandata.length <= 0 && mendiandata == ''}}">
+								<view class="addr" style="line-height: 80rpx;background-color: #fff">
+									<view class="view-addressright">
+										<text class="text-mobile" style="color:#ccc;">没有门店不支持自提</text>
+										<image src="https://tws.cnweisou.com/images/right.png"></image>
+									</view>
+								</view>
+							</block>
+							<block wx:else>
+								<view class="addr" style="line-height: 80rpx;background-color: #fff" bindtap="storeListSelect">
+									<view style="display: flex;flex-direction: column;">
+										<view>选择门店</view>
+									</view>
+									<view class="view-addressright">
+										<text class="text-mobile" style="color:#ccc;">请选择门店地址</text>
+										<image src="https://tws.cnweisou.com/images/right.png"></image>
+									</view>
+								</view>
+							</block>
+							<view class="goods">
+								<image class="img" src="{{data.goods.thumb}}"></image>
+								<view class="g_wrap">
+									<text style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{data.goods.title}}</text>
+									<text>数量：1 (<text style="color:#F27C79;">
+                <block wx:if="{{type=='groups'}}"><text>¥ {{ggPriceAndHead}}</text>
+				</block>
+				<block wx:else>
+					<text>¥ {{ggPriceAndHead}}</text>
+				</block>
+				</text>/1件)</text>
+				<view style='display:flex;justify-content:space-between;'>
+					<text>库存：{{data.goods.stock}}</text>
+					<block wx:if="{{nameArr}}">
+						<text>规格:{{nameArr}}</text>
+					</block>
+				</view>
+			</view>
+	</view>
+	<!-- 姓名和电话 -->
+	<view>
+		<view class='phoneAndName'>
+			<view>联系人</view>
+			<input style='width:70%;' value='' type='text' name="person" placeholder='联系人姓名'></input>
+		</view>
+		<view class='phoneAndName'>
+			<view>联系人电话</view>
+			<input style='width:70%;' value='' type='number' name="phone" placeholder='联系人电话'></input>
+		</view>
+	</view>
+	<view class="store" style="padding: 10rpx 20rpx;">
+		<input type="text" style="width: 100%;font-size: 28rpx;" placeholder="选填：买家留言(50字以内)" name="prompt" maxlength="50" class="title" />
+	</view>
+	<view class="subtotal">
+		<view class="fsp bb">
+			<view>商品小计</view>
+			<block wx:if="{{type=='groups'}}">
+				<view>¥ {{ggPriceAndHead}}</view>
+			</block>
+			<block wx:else>
+				<view>¥ {{ggPriceAndHead}}</view>
+			</block>
+		</view>
+
+		<block wx:if="{{heads}}">
+			<view class="fsp">
+				<view>团长优惠</view>
+				<view wx:if="{{headsmoney > 0}}">-¥ {{data.goods.headsmoney}}</view>
+				<view wx:if="{{headsmoney <= 0}}">¥ {{data.goods.headsmoney}}</view>
+			</view>
+		</block>
+	</view>
+	<view class="footer">
+		<view class="item" style="align-items: flex-end;padding-right: 30rpx;color:#B4B4B4;">
+			<text>需付：¥ <text style="color:#F06A75;">{{ggPrice}}</text></text>
+		</view>
+		<image bindtap="toStart" style="margin-right: 30rpx;" src="/images/icon_home_selected.png"></image>
+		<view class="item" style="background-color: #FD5454;">
+			<label>
+				<text style="display: block;height: 100rpx;line-height: 100rpx;font-size: 26rpx;">提交订单</text>
+				<button hidden form-type="submit" class="upload" type="primary" style='height: 100rpx;line-height: 100rpx;font-size: 26rpx;'> 提交 </button>
+			</label>
+		</view>
+	</view>
+</view>
+</form>
+</block>
+</view>
+</block>
+</view>
+</view>
+<loading wx:if="{{loading}}"></loading>

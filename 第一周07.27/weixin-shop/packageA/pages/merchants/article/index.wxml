@@ -1,0 +1,13 @@
+<block wx:if="{{data.result.length}}">
+  <template  is="article" data="{{data:data.result}}"></template>
+</block>
+<template name="article">
+
+    <view wx:for="{{data}}" class="article_wrap" catchtap="getToPage" data-link="{{item.linkurl}}">
+      <image class="article_img" src="{{item.resp_img}}"></image>
+      <view class="article_title">
+        <view class="article_subtitle" style="color:{{data.style.titlecolor}}">{{item.article_title}}</view>
+        <text class="article_subdesc" style="color:{{data.style.desccolor}}">{{item.resp_desc}}</text>
+      </view>
+    </view>
+</template>

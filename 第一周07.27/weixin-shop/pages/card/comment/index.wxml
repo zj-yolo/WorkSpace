@@ -1,0 +1,19 @@
+<wxs  src="./format.wxs" module="format" />
+<view class="comment">
+  <view class="item" wx:for="{{list}}" wx:key="{{index}}">
+    <view class="avatarContainer">
+      <image class="avatar" src="{{item.avatar}}"></image>
+    </view>
+    <view class="content">
+      <view class="username">
+        <view class="name">{{item.nickname}}</view>
+        <view class="time">{{format.formatTime(item.createtime)}}</view>
+      </view>
+      <view class="commentContent">{{item.content}}</view>
+    </view>
+  </view>
+</view>
+<view class="newComment">
+  <open-data class="commentAvatar" type="userAvatarUrl"></open-data>
+  <input class="addComment" value="{{comment}}" bindtap="handleComment" bindconfirm="handleConfirm" placeholder="添加评论..."></input>
+</view>

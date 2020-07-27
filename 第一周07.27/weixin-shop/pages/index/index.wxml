@@ -1,0 +1,1978 @@
+<block wx:if="{{isCustomDecorate!=1}}">
+	<!-- 样式一 -->
+	<view class='allpage' wx:if='{{pageData.templeid == 3 && pageData.set}}'>
+		<view class='hahab'>
+			<image class='ihahamage' src='{{pageData.set.background[0]}}'></image>
+			<view class='indextop'>
+				<view style='width:100%;height:30rpx;'></view>
+				<view class='indexsreach' wx:if='{{pageData.search == 1}}'>
+					<icon type="search" class='iconsty' size="15" color="{{item}}" />
+					<view class='searchsty'>
+						<input bindconfirm="sreachinput" value='{{keyword}}' placeholder="搜索喜欢的内容" style='width:100%;height:60rpx;line-height:60rpx;' />
+					</view>
+				</view>
+				<view style='width:100%;height:30rpx;'></view>
+				<view class='store_name'>
+					<view class='store_img'>
+						<image src='{{pageData.shopinfo.base.logo}}'></image>
+					</view>
+					<view class='store_title'>
+						<view class='storename' style='color:white;'>{{pageData.shopinfo.base.shopname}}</view>
+					</view>
+					<view class='store_butt'>
+						<!-- <button class="{{isShopFavor? 'butt':'buttno'}}" bindtap="{{isShopFavor?'quxiaob':'guanzhu'}}">{{isShopFavor? '已关注':'关注'}}</button> -->
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 优惠券组件 -->
+		<couponcomponents />
+		<!-- 优惠券组件 -->
+		<block wx:if='{{pageData.set.banner_2}}'>
+			<view class='singleimg'>
+				<swiper class='swiper-box' autoplay='true' interval="3000" circular='true' indicator-dots='true' indicator-color='#e3e3e3' indicator-active-color='red' style='height:300rpx;width:100%;'>
+					<block wx:for='{{pageData.set.banner_2}}' wx:key>
+						<swiper-item>
+							<image src='{{item.img}}' catchtap='navigateToUrl' data-link="{{item.link}}" class='imgimg'></image>
+						</swiper-item>
+					</block>
+				</swiper>
+			</view>
+		</block>
+		<!-- 秒杀入口组件 -->
+		<skillcomponents />
+		<!-- 秒杀入口组件 -->
+		<!-- <block wx:if="{{couponList.length>0}}">
+      <scroll-view class="scroll-view_H" scroll-x>
+        <youhuijuan dataCoupon='{{couponList}}' bind:linqu="linquClick" bind:login="isLogin" class="zujian"></youhuijuan>
+      </scroll-view>
+    </block> -->
+		<block wx:if='{{pageData.items.team0}}'>
+			<view class='jingxuangoods'>
+				<image mode='widthFix' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-jxgoods.png'></image>
+			</view>
+			<view class='three_goods'>
+				<block wx:for='{{pageData.items.team0}}' wx:key>
+					<view class="{{index == 1? 'three_oneb': 'three_one'}}" wx:if='{{index <= 2}}' bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+						<image style='border-radius:0;' src='{{item.thumb}}'></image>
+						<view class='three_title'>{{item.title}}</view>
+						<block wx:if="{{is_mianyi == 1}}">
+							<view style='color:#656295;margin-top:10rpx;'>面议</view>
+						</block>
+						<block wx:else>
+							<view style='color:#656295;margin-top:10rpx;'>￥{{item.packageprice}}</view>
+						</block>
+					</view>
+				</block>
+			</view>
+			<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+			<!-- 直播组件 -->
+			<block wx:if="{{pageData.set.live}}">
+				<view class="liveStreaming">
+					<image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+				</view>
+				<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+			</block>
+			<!-- 直播组件 -->
+		</block>
+		<!-- 拼团入口组件 -->
+		<groupcomponents />
+		<!-- 拼团入口组件 -->
+		<block wx:if='{{pageData.items.team1}}'>
+			<view class='goods_leftriga'>
+				<view class='imgleft'>
+					<image class='imgleftimg' style='border-radius: 0;' src='{{pageData.items.team1[0].thumb}}'></image>
+				</view>
+				<view class='descrig'>
+					<view class='desc_text'>{{pageData.items.team1[0].title}}</view>
+					<view class='desc_price'>
+
+						<block wx:if="{{is_mianyi == 1}}">
+							<text style='font-size:28rpx;color:#656295;'>面议</text>
+						</block>
+						<block wx:else>
+							<text style='font-size:28rpx;color:#656295;'>￥{{pageData.items.team1[0].packageprice}}</text>
+						</block>
+
+						<text style='font-size:20rpx;margin-left:30rpx;'>{{pageData.items.team1[0].sales}}人付款</text>
+					</view>
+					<button class='click_look' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team1[0].goodsid}}'>点击查看</button>
+				</view>
+			</view>
+			<view class='goods_leftriga' style='margin-bottom:20rpx;'>
+				<view class='descrig' style='margin-left:0;'>
+					<view class='desc_text'>{{pageData.items.team1[1].title}}</view>
+					<view class='desc_price'>
+
+						<block wx:if="{{is_mianyi == 1}}">
+							<text style='font-size:28rpx;color:#656295;'>面议</text>
+						</block>
+						<block wx:else>
+							<text style='font-size:28rpx;color:#656295;'>￥{{pageData.items.team1[1].packageprice}}</text>
+						</block>
+
+						<text style='font-size:20rpx;margin-left:30rpx;'>{{pageData.items.team1[1].sales}}人付款</text>
+					</view>
+					<button class='click_look' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team1[1].goodsid}}'>点击查看</button>
+				</view>
+				<view class='imgleft' style='margin-left:5%;'>
+					<image class='imgleftimg' style='border-radius:0;' src='{{pageData.items.team1[1].thumb}}'></image>
+				</view>
+			</view>
+			<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+		</block>
+		<block wx:if='{{pageData.items.team2}}'>
+			<view class='jingxuangoods'>
+				<image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-store.png' mode='widthFix'></image>
+			</view>
+			<view class='goods_leftrig'>
+				<block wx:for='{{pageData.items.team2}}' wx:key>
+					<view class='goods_alone' bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+						<image class='goods_img' src='{{item.thumb}}'></image>
+						<view class='goods_text'>{{item.title}}</view>
+						<view class='goods_pricea'>
+							<block wx:if="{{is_mianyi == 1}}">
+								<view class='pricea'>面议</view>
+							</block>
+							<block wx:else>
+								<view class='pricea'>￥{{item.packageprice}}</view>
+							</block>
+							<view class='fukuan'>销量 {{item.sales}}</view>
+						</view>
+					</view>
+				</block>
+			</view>
+		</block>
+	</view>
+	<!-- 样式二 -->
+	<view class='allpage' wx:if='{{pageData.templeid == 4 && pageData.set}}'>
+		<view class='indextopb'>
+			<view style='width:100%;height:30rpx;'></view>
+			<view class='indexsreach' style='background-color:#eeeeee;color:#a1a1a1;' wx:if='{{pageData.search == 1}}'>
+				<icon type="search" class='iconsty' size="15" color="{{item}}" />
+				<view class='searchsty'>
+					<input bindconfirm="sreachinput" value='{{keyword}}' placeholder="搜索喜欢的内容" style='width:100%;height:60rpx;line-height:60rpx;' />
+				</view>
+			</view>
+			<view style='width:100%;height:30rpx;'></view>
+			<view class='store_name'>
+				<view class='store_img'>
+					<image src='{{pageData.shopinfo.base.logo}}'></image>
+				</view>
+				<view class='store_title'>
+					<view class='storename'>{{pageData.shopinfo.base.shopname}}</view>
+					<!-- <view style='display: flex;margin-top:10rpx;font-size:24rpx;'>
+            <score value="{{score}}"></score>
+            <view style='margin-left:10rpx;font-size:24rpx;color:#656295;'>{{score}}</view>
+          </view> -->
+				</view>
+				<view class='store_butt'>
+					<!-- <button class="{{isShopFavor? 'butt':'buttno'}}" bindtap="{{isShopFavor?'quxiaob':'guanzhu'}}">{{isShopFavor? '已关注':'关注'}}</button> -->
+				</view>
+			</view>
+			<block wx:if='{{pageData.set.banner_2}}'>
+				<view class='singleimg'>
+					<swiper autoplay='true' interval="3000" class='swiper-box' circular='true' indicator-dots='true' indicator-color='#e3e3e3' indicator-active-color='red' style='height:300rpx;width:100%;'>
+						<block wx:for='{{pageData.set.banner_2}}' wx:key>
+							<swiper-item>
+								<image src='{{item.img}}' catchtap='navigateToUrl' data-link="{{item.link}}" class='imgimg'></image>
+							</swiper-item>
+						</block>
+					</swiper>
+				</view>
+			</block>
+			<!-- <block wx:if="{{couponList.length>0}}">
+        <scroll-view class="scroll-view_H" scroll-x>
+          <youhuijuan dataCoupon='{{couponList}}' bind:linqu="linquClick" bind:login="isLogin" class="zujian"></youhuijuan>
+        </scroll-view>
+      </block> -->
+		</view>
+		<!-- 优惠券组件 -->
+		<couponcomponents />
+		<!-- 优惠券组件 -->
+		<block wx:if='{{pageData.items.team0}}'>
+			<view class='jingxuangoods'>
+				<image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-storeb.png' mode='widthFix'></image>
+			</view>
+			<view class='goodsthreeb'>
+				<block wx:for='{{pageData.items.team0}}' wx:key>
+					<view class="{{index == 1? 'three_oneb': 'three_one'}}" wx:if='{{index <= 2}}' bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+						<image src='{{item.thumb}}'></image>
+						<view class='three_title' style='margin-top:10rpx;'>{{item.title}}</view>
+
+						<block wx:if="{{is_mianyi == 1}}">
+							<view style='color:#656295;'>面议</view>
+						</block>
+						<block wx:else>
+							<view style='color:#656295;'>￥{{item.packageprice}}</view>
+						</block>
+
+					</view>
+				</block>
+			</view>
+			<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+			<!-- 直播组件 -->
+			<block wx:if="{{pageData.set.live}}">
+				<view class="liveStreaming">
+					<image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+				</view>
+				<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+			</block>
+			<!-- 直播组件 -->
+		</block>
+		<!-- 秒杀入口组件 -->
+		<skillcomponents />
+		<!-- 秒杀入口组件 -->
+		<view class='jingxuangoods'>
+			<image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-storec.png' mode='widthFix'></image>
+		</view>
+		<!-- 拼团入口组件 -->
+		<groupcomponents />
+		<!-- 拼团入口组件 -->
+		<view class='goodsfourb' style='background:url({{pageData.set.background[0]}});background-size:100%;'>
+			<view style='height:20rpx;width:100%;'></view>
+			<view class='simgimgandgoods' wx:if='{{pageData.set.picture[0] || pageData.items.team1}}'>
+				<view style='height:10rpx;width:100%;'></view>
+				<view class='white'>
+					<image class='singimg' wx:if='{{pageData.set.picture[0]}}' src='{{pageData.set.picture[0]}}' mode='widthFix'></image>
+					<view class='threegoodsc' wx:if='{{pageData.items.team1}}'>
+						<view wx:for='{{pageData.items.team1}}' wx:key class="{{index == 1? 'goodscaloneb': 'goodscalone'}}" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+							<image src='{{item.thumb}}'></image>
+							<view class='text'>{{item.title}}</view>
+						</view>
+					</view>
+				</view>
+				<view style='height:30rpx;width:100%;'></view>
+			</view>
+
+			<view style='height:20rpx;width:100%;' wx:if='{{pageData.items.team2}}'></view>
+			<view class='goodsgoodswhite' wx:if='{{pageData.items.team2}}'>
+				<view class='goodscontent'>
+					<view class='goodscontentgoods'>
+						<view class="{{(index+1)%2==0?'goodscontentaloneb':'goodscontentalone'}}" wx:for='{{pageData.items.team2}}' wx:key bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+							<image src='{{item.thumb}}'></image>
+							<view class='texttwo'>{{item.title}}</view>
+							<view class='left_righaha'>
+								<block wx:if="{{is_mianyi == 1}}">
+									<view class='t-left' style='color:#656295;'>面议</view>
+								</block>
+								<block wx:else>
+									<view class='t-left' style='color:#656295;'>￥{{item.packageprice}}</view>
+								</block>
+								<view class='t-right'>月销{{item.sales}}</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view style='height:20rpx;width:100%;background-color:transparent;opacity:0;'></view>
+			</view>
+			<view style='height:20rpx;width:100%;' wx:if='{{pageData.items.team2}}'></view>
+		</view>
+	</view>
+	<!-- 样式三 -->
+	<view class='styleFour' wx:if='{{pageData.templeid == 6 && pageData.set}}'>
+		<view class='indextopb' style='background-color:white;'>
+			<view style='width:100%;height:15px;'></view>
+			<view class='indexsreach' style='background-color:#eeeeee;color:#a1a1a1;height:30px;line-height:30px;;' wx:if='{{pageData.search == 1}}'>
+				<icon type="search" class='iconsty' size="15" color="{{item}}" />
+				<view class='searchsty' style='height:30px;line-height:30px;'>
+					<input bindconfirm="sreachinput" value='{{keyword}}' placeholder="搜索喜欢的内容" style='width:100%;height:30px;line-height:30px;' />
+				</view>
+			</view>
+			<view style='width:100%;height:15px;'></view>
+			<view class='store_name' style='margin: 5px 3%;'>
+				<view class='store_img' style='width:70px;height:70px;;'>
+					<image style='border-radius:20rpx;' src='{{pageData.shopinfo.base.logo}}'></image>
+				</view>
+				<view class='store_title'>
+					<view class='storename'>{{pageData.shopinfo.base.shopname}}</view>
+					<!-- <view style='display: flex;margin-top:10rpx;font-size:24rpx;'>
+            <score value="{{score}}"></score>
+            <view style='margin-left:10rpx;font-size:24rpx;color:#656295;'>{{score}}</view>
+          </view> -->
+				</view>
+				<view class='store_butt'>
+					<!-- <button class="{{isShopFavor? 'butt':'buttno'}}" bindtap="{{isShopFavor?'quxiaob':'guanzhu'}}">{{isShopFavor? '已关注':'关注'}}</button> -->
+				</view>
+			</view>
+			<block wx:if='{{pageData.set.banner_2}}'>
+				<view class='singleimg' style='width:100%;margin: 15px 0rpx 0rpx 0rpx;'>
+					<swiper autoplay='true' interval="3000" class='swiper-boxthree' style='height:300rpx;width:100%;'>
+						<!-- circular='true' indicator-dots='true' indicator-color='#' indicator-active-color='#656295'  -->
+						<block wx:for='{{pageData.set.banner_2}}' wx:key>
+							<swiper-item>
+								<image src='{{item.img}}' catchtap='navigateToUrl' data-link="{{item.link}}" style='border-radius:0;height:300rpx;' mode='widthFix' class='imgimg'></image>
+							</swiper-item>
+						</block>
+					</swiper>
+				</view>
+			</block>
+			<!-- <block wx:if="{{couponList.length>0}}">
+        <scroll-view class="scroll-view_H" scroll-x>
+          <youhuijuan dataCoupon='{{couponList}}' bind:linqu="linquClick" bind:login="isLogin" class="zujian"></youhuijuan>
+        </scroll-view>
+      </block> -->
+			<view class='dieqiimggoods' wx:if='{{pageData.items.team0}}'>
+				<view class='dieqitop' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team0[0].goodsid}}'>
+					<view class='dieqitopleft'>
+						<view style='display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden; width: 100%;'>{{pageData.items.team0[0].title}}</view>
+						<block wx:if="{{is_mianyi == 1}}">
+							<view style='margin-top:30rpx;'>
+								<text style='margin-left:20rpx;'>面议</text>
+							</view>
+						</block>
+						<block wx:else>
+							<view style='margin-top:30rpx;'>
+								<text style='font-size:22rpx;'>RMB</text>
+								<text style='margin-left:20rpx;'>{{pageData.items.team0[0].packageprice}}</text>
+							</view>
+						</block>
+					</view>
+					<view class='dieqitopright'>
+						<image src='{{pageData.items.team0[0].thumb}}' style='width:430rpx;height:430rpx;'></image>
+					</view>
+				</view>
+
+				<view class='fourleftandrig' wx:if='{{pageData.items.team0[1]}}'>
+					<view class='fourimageleft' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team0[1].goodsid}}'>
+						<image src='{{pageData.items.team0[1].thumb}}' style='width: 360rpx;height:360rpx;'></image>
+
+						<block wx:if="{{is_mianyi == 1}}">
+							<view class='fourtextprice'>
+								<text style='margin-left:20rpx;'>面议</text>
+							</view>
+						</block>
+						<block wx:else>
+							<view class='fourtextprice'>
+								<text style='font-size:22rpx;'>RMB</text>
+								<text style='margin-left:20rpx;'>{{pageData.items.team0[1].packageprice}}</text>
+							</view>
+						</block>
+
+					</view>
+					<view class='fourimagerig' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team0[2].goodsid}}'>
+						<image src='{{pageData.items.team0[2].thumb}}' style='width:250rpx;height:250rpx;'></image>
+						<block wx:if="{{is_mianyi == 1}}">
+							<view class='fourtextprice' style='margin-left:40rpx;width:250rpx;'>
+								<text style='margin-left:20rpx;'>面议</text>
+							</view>
+						</block>
+						<block wx:else>
+							<view class='fourtextprice' style='margin-left:40rpx;width:250rpx;'>
+								<text style='font-size:22rpx;'>RMB</text>
+								<text style='margin-left:20rpx;'>{{pageData.items.team0[2].packageprice}}</text>
+							</view>
+						</block>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 优惠券组件 -->
+		<couponcomponents />
+		<!-- 优惠券组件 -->
+		<!-- <view style='width:100%;height:20rpx;background-color:#eeeeee;'></view> -->
+		<!-- 直播组件 -->
+		<block wx:if="{{pageData.set.live}}">
+			<view class="liveStreaming">
+				<image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+			</view>
+			<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+		</block>
+		<!-- 直播组件 -->
+
+		<view class='holdgoods' wx:if='{{pageData.set.goodsid}}'>
+			<image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-holdsale.png' mode='widthFix' style='width:50%;'></image>
+		</view>
+		<view class='fourimg' wx:if='{{pageData.set.picture[0]}}'>
+			<image src='{{pageData.set.picture[0]}}' mode='widthFix'></image>
+		</view>
+		<!-- 秒杀入口组件 -->
+		<skillcomponents />
+		<!-- 秒杀入口组件 -->
+		<!-- 拼团入口组件 -->
+		<groupcomponents />
+		<!-- 拼团入口组件 -->
+
+		<view class='longgoods' wx:if='{{pageData.items.team1}}'>
+			<block wx:for='{{pageData.items.team1}}' wx:key>
+				<view class="{{(index+1)%2==0?'longgoodsaloneb':'longgoodsalone'}}" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+					<image src='{{item.thumb}}' mode='widthFix'></image>
+					<view class='desc_text' style='margin:10rpx 0;'>{{item.title}}</view>
+					<block wx:if="{{is_mianyi == 1}}">
+						<view style='color:#67658d;margin:10rpx 0 20rpx 0;'>面议</view>
+					</block>
+					<block wx:else>
+						<view style='color:#67658d;margin:10rpx 0 20rpx 0;'>￥{{item.packageprice}}</view>
+					</block>
+				</view>
+			</block>
+		</view>
+	</view>
+
+	<!-- 样式四 -->
+	<view class='stylethree' wx:if='{{pageData.templeid == 7 && pageData.set}}'>
+		<view class='indextopb' style='background-color:white;'>
+			<view style='width:100%;height:15px;'></view>
+			<view class='indexsreach' style='background-color:#eeeeee;color:#a1a1a1;height:30px;line-height:30px;;' wx:if='{{pageData.search == 1}}'>
+				<icon type="search" class='iconsty' size="15" color="{{item}}" />
+				<view class='searchsty' style='height:30px;line-height:30px;'>
+					<input bindconfirm="sreachinput" value='{{keyword}}' placeholder="搜索喜欢的内容" style='width:100%;height:30px;line-height:30px;' />
+				</view>
+			</view>
+			<view style='width:100%;height:15px;'></view>
+			<view class='store_name' style='margin: 5px 3%;'>
+				<view class='store_img' style='width:70px;height:70px;;'>
+					<image style='border-radius:20rpx;' src='{{pageData.shopinfo.base.logo}}'></image>
+				</view>
+				<view class='store_title'>
+					<view class='storename'>{{pageData.shopinfo.base.shopname}}</view>
+					<!-- <view style='display: flex;margin-top:10rpx;font-size:24rpx;'>
+            <score value="{{score}}"></score>
+            <view style='margin-left:10rpx;font-size:24rpx;color:#656295;'>{{score}}</view>
+          </view> -->
+				</view>
+				<view class='store_butt'>
+					<!-- <button class="{{isShopFavor? 'butt':'buttno'}}" bindtap="{{isShopFavor?'quxiaob':'guanzhu'}}">{{isShopFavor? '已关注':'关注'}}</button> -->
+				</view>
+			</view>
+			<block wx:if='{{pageData.set.banner_2}}'>
+				<view class='singleimg' style='width:94%; margin-top:15px;'>
+					<swiper autoplay='true' interval="3000" class='swiper-boxthree' circular='true' indicator-dots='true' indicator-color='#' indicator-active-color='#656295' style='height:150px;width:100%;'>
+						<block wx:for='{{pageData.set.banner_2}}' wx:key>
+							<swiper-item>
+								<image src='{{item.img}}' catchtap='navigateToUrl' data-link="{{item.link}}" style='border-radius:0;height:150px;' mode='widthFix' class='imgimg'></image>
+							</swiper-item>
+						</block>
+					</swiper>
+				</view>
+				<view style='height:15px;background-color:#f4f4f4;width:100%;'></view>
+				<!-- 直播组件 -->
+				<block wx:if="{{pageData.set.live}}">
+					<view class="liveStreaming">
+						<image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+					</view>
+					<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+				</block>
+				<!-- 直播组件 -->
+			</block>
+			<!-- <block wx:if="{{couponList.length>0}}">
+        <scroll-view class="scroll-view_H" scroll-x>
+          <youhuijuan dataCoupon='{{couponList}}' bind:linqu="linquClick" bind:login="isLogin" class="zujian"></youhuijuan>
+        </scroll-view>
+      </block> -->
+			<view style='height:15px;background-color:#f4f4f4;width:100%;' wx:if="{{couponList.length>0}}"></view>
+			<view class='wei_box'>
+				<view class='whiteposi'>
+					<block wx:if='{{pageData.items.team0[0]}}'>
+						<view class='lrthree' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team0[0].goodsid}}'>
+							<view class='leftthree'>
+								<image src='{{pageData.items.team0[0].thumb}}'></image>
+							</view>
+							<view class='rightthree'>
+								<view class='title_c'>{{pageData.items.team0[0].title}}</view>
+
+								<block wx:if="{{is_mianyi == 1}}">
+									<view style='margin:30rpx 0rpx 10rpx 0rpx;'>
+										<text>面议</text>
+									</view>
+								</block>
+								<block wx:else>
+									<view style='margin:30rpx 0rpx 10rpx 0rpx;'>
+										<text style='font-size:22rpx;'>￥</text>
+										<text>{{pageData.items.team0[0].packageprice}}</text>
+									</view>
+								</block>
+
+								<view class='buybuy'>BUY NOW</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if='{{pageData.items.team0[1]}}'>
+						<view class='lrthree' style='margin:0px 2% 10px 2%;' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team0[1].goodsid}}'>
+							<view class='rightthree' style='margin-left:0rpx;'>
+								<view class='title_c'>{{pageData.items.team0[1].title}}</view>
+								<block wx:if="{{is_mianyi == 1}}">
+									<view style='margin:30rpx 0rpx 10rpx 0rpx;'>
+										<text>面议</text>
+									</view>
+								</block>
+								<block wx:else>
+									<view style='margin:30rpx 0rpx 10rpx 0rpx;'>
+										<text style='font-size:22rpx;'>￥</text>
+										<text>{{pageData.items.team0[1].packageprice}}</text>
+									</view>
+								</block>
+								<view class='buybuy'>BUY NOW</view>
+							</view>
+							<view class='leftthree' style='margin-left:2%;text-align:right;'>
+								<image src='{{pageData.items.team0[1].thumb}}'></image>
+							</view>
+						</view>
+					</block>
+					<block wx:if='{{pageData.items.team1}}'>
+						<view class='threeline'>
+							<block wx:for='{{pageData.items.team1}}' wx:key>
+								<view class='threelineone' style="margin: 0px {{index == 1? '5' : ''}}%" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+									<image src='{{item.thumb}}'></image>
+
+									<block wx:if="{{is_mianyi == 1}}">
+										<view style='font-size:22rpx;margin-bottom:5px;'>面议</view>
+									</block>
+									<block wx:else>
+										<view style='font-size:22rpx;margin-bottom:5px;'>￥{{item.packageprice}}</view>
+									</block>
+
+								</view>
+							</block>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+		<!-- 优惠券组件 -->
+		<couponcomponents />
+		<!-- 优惠券组件 -->
+		<view style='width:100%;background-color:#f4f4f4;' wx:if='{{pageData.set != false}}'>
+			<!-- <view style='height:440px;width:100%;'></view> -->
+			<view class='holdgoods'>
+				<image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-holdsale.png' mode='widthFix' style='width:50%;'></image>
+			</view>
+			<view class='bottomwhite' wx:if='{{pageData.set.picture[0]}}'>
+				<image class='singlethreeimg' src='{{pageData.set.picture[0]}}' mode='widthFix'></image>
+			</view>
+			<!-- 秒杀入口组件 -->
+			<skillcomponents />
+			<!-- 秒杀入口组件 -->
+			<!-- 拼团入口组件 -->
+			<groupcomponents />
+			<!-- 拼团入口组件 -->
+			<block wx:if='{{pageData.items.team2}}'>
+				<view class='goodsthreeline'>
+					<block wx:for='{{pageData.items.team2}}' wx:key>
+						<view class='goodsthreelinealone' bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}' style="margin: 0 {{(index == 1 || index == 4 || index == 7)?'3':'' }}%">
+							<image src='{{item.thumb}}'></image>
+							<view class='goodstitle'>{{item.title}}</view>
+
+							<block wx:if="{{is_mianyi == 1}}">
+								<view style='margin:10rpx 0;'>面议</view>
+							</block>
+							<block wx:else>
+
+								<view style='margin:10rpx 0;'>￥{{item.packageprice}}</view>
+							</block>
+
+						</view>
+					</block>
+				</view>
+				<view style='height:20rpx;width:100%;background-color:#f4f4f4;'></view>
+			</block>
+		</view>
+	</view>
+
+	<!-- 样式五 多商户版-->
+	<view class='allpage' wx:if='{{pageData.templeid == 10 && pageData.set}}'>
+		<view class='hahab'>
+			<image class='ihahamage' src='{{pageData.set.background[0]}}'></image>
+			<view class='indextop'>
+				<view style='width:100%;height:30rpx;'></view>
+				<view class='indexsreach' wx:if='{{pageData.search == 1}}'>
+					<icon type="search" class='iconsty' size="15" color="{{item}}" />
+					<view class='searchsty'>
+						<input bindconfirm="sreachinput" value='{{keyword}}' placeholder="搜索喜欢的内容" style='width:100%;height:60rpx;line-height:60rpx;' />
+					</view>
+				</view>
+				<view style='width:100%;height:30rpx;'></view>
+				<view class='store_name'>
+					<view class='store_img'>
+						<image src='{{pageData.shopinfo.base.logo}}'></image>
+					</view>
+					<view class='store_title'>
+						<view class='storename' style='color:white;'>{{pageData.shopinfo.base.shopname}}</view>
+					</view>
+					<view class='store_butt'>
+						<!-- <button class="{{isShopFavor? 'butt':'buttno'}}" bindtap="{{isShopFavor?'quxiaob':'guanzhu'}}">{{isShopFavor? '已关注':'关注'}}</button> -->
+					</view>
+				</view>
+			</view>
+		</view>
+		<block wx:if='{{pageData.set.banner_2}}'>
+			<view class='singleimg'>
+				<swiper class='swiper-box' autoplay='true' interval="3000" circular='true' indicator-dots='true' indicator-color='#e3e3e3' indicator-active-color='red' style='height:300rpx;width:100%;'>
+					<block wx:for='{{pageData.set.banner_2}}' wx:key>
+						<swiper-item>
+							<image src='{{item.img}}' catchtap='navigateToUrl' data-link="{{item.link}}" class='imgimg'></image>
+						</swiper-item>
+					</block>
+				</swiper>
+			</view>
+		</block>
+		<!-- <block wx:if="{{couponList.length>0}}">
+      <scroll-view class="scroll-view_H" scroll-x>
+        <youhuijuan dataCoupon='{{couponList}}' bind:linqu="linquClick" bind:login="isLogin" class="zujian"></youhuijuan>
+      </scroll-view>
+    </block> -->
+
+		<!-- 优惠券组件 -->
+		<couponcomponents />
+		<!-- 优惠券组件 -->
+		<block wx:if='{{pageData.items.team0}}'>
+			<view class='jingxuangoods'>
+				<image mode='widthFix' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-jxgoods.png'></image>
+			</view>
+			<view class='three_goods'>
+				<block wx:for='{{pageData.items.team0}}' wx:key="index">
+					<view class="{{index == 1? 'three_oneb': 'three_one'}}" wx:if='{{index <= 2}}' bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+						<image style='border-radius:0;' src='{{item.thumb}}'></image>
+						<view class='three_title'>{{item.title}}</view>
+						<block wx:if="{{is_mianyi == 1}}">
+							<view style='color:#656295;margin-top:10rpx;'>面议</view>
+						</block>
+						<block wx:else>
+							<view style='color:#656295;margin-top:10rpx;'>￥{{item.packageprice}}</view>
+						</block>
+					</view>
+				</block>
+			</view>
+			<!-- <view style='height:20rpx;width:100%;background-color:#eeeeee;'></view> -->
+			<!-- 直播组件 -->
+			<block wx:if="{{pageData.set.live}}">
+				<view class="liveStreaming">
+					<image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+				</view>
+				<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+			</block>
+			<!-- 直播组件 -->
+		</block>
+
+		<block wx:if="{{storeList.length>0}}">
+			<view class="storeitem">
+				<image class="storeItem_left" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/boweisou/yy/images/into.png"></image>
+				<view class="storeItem_content">
+					<block wx:for="{{storeList}}" wx:key="index">
+						<image class="storeItem_contentIMG" bindtap="tostoreDetail" data-id="{{item.id}}" src="{{item.logo}}"></image>
+					</block>
+
+					<block wx:if="{{storeList.length == 1}}">
+						<view class="getstoreItem">诚招加盟</view>
+						<view class="getstoreItem">诚招加盟</view>
+					</block>
+
+					<block wx:if="{{storeList.length == 2}}">
+						<view class="getstoreItem">诚招加盟</view>
+					</block>
+
+				</view>
+				<view class="storeItem_right" bindtap="toSeemore">
+					<view class="item_text">
+						<view>查</view>
+						<view>看</view>
+						<view>更</view>
+						<view>多</view>
+					</view>
+					<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/boweisou/yy/images/right.png"></image>
+				</view>
+			</view>
+			<!-- <view style='height:20rpx;width:100%;background-color:#eeeeee;'></view> -->
+		</block>
+		<!-- 秒杀入口组件 -->
+		<skillcomponents />
+		<!-- 秒杀入口组件 -->
+
+		<block wx:if='{{pageData.items.team1}}'>
+			<view class='goods_leftriga'>
+				<view class='imgleft'>
+					<image class='imgleftimg' style='border-radius: 0;' src='{{pageData.items.team1[0].thumb}}'></image>
+				</view>
+				<view class='descrig'>
+					<view class='desc_text'>{{pageData.items.team1[0].title}}</view>
+					<view class='desc_price'>
+						<block wx:if="{{is_mianyi == 1}}">
+							<text style='font-size:28rpx;color:#656295;'>面议</text>
+						</block>
+						<block wx:else>
+							<text style='font-size:28rpx;color:#656295;'>￥{{pageData.items.team1[0].packageprice}}</text>
+						</block>
+						<text style='font-size:20rpx;margin-left:30rpx;' wx:if="{{pageData.items.team1[0].sales}}">{{pageData.items.team1[0].sales}}人付款</text>
+					</view>
+					<button class='click_look' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team1[0].goodsid}}'>点击查看</button>
+				</view>
+			</view>
+			<view class='goods_leftriga' style='margin-bottom:20rpx;'>
+				<view class='descrig' style='margin-left:0;'>
+					<view class='desc_text'>{{pageData.items.team1[1].title}}</view>
+					<view class='desc_price'>
+						<block wx:if="{{is_mianyi == 1}}">
+							<text style='font-size:28rpx;color:#656295;'>面议</text>
+						</block>
+						<block wx:else>
+							<text style='font-size:28rpx;color:#656295;'>￥{{pageData.items.team1[1].packageprice}}</text>
+						</block>
+						<text style='font-size:20rpx;margin-left:30rpx;' wx:if="{{pageData.items.team1[1].sales}}">{{pageData.items.team1[1].sales}}人付款</text>
+					</view>
+					<button class='click_look' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team1[1].goodsid}}'>点击查看</button>
+				</view>
+				<view class='imgleft' style='margin-left:5%;'>
+					<image class='imgleftimg' style='border-radius:0;' src='{{pageData.items.team1[1].thumb}}'></image>
+				</view>
+			</view>
+			<!-- <view style='height:20rpx;width:100%;background-color:#eeeeee;'></view> -->
+		</block>
+		<!-- 拼团入口组件 -->
+		<groupcomponents />
+		<!-- 拼团入口组件 -->
+
+		<!-- 所有商品分类 -->
+		<view class="c_goodsList">
+			<view class="allgoods">
+				<scroll-view scroll-x="true" scroll-into-view="{{'c_'+tabindex}}" scroll-with-animation="true">
+					<view class="c_goodsTab">
+						<block wx:for="{{cateList}}" wx:key="index">
+							<view class="{{tabindex == item.id ?'c_itemtab c_itemtabActive':'c_itemtab'}}" bindtap="handleTab" data-cateID="{{item.id}}" id="{{'c_'+item.id}}">{{item.name}}</view>
+						</block>
+					</view>
+				</scroll-view>
+				<view class="c_goodsTabcontent">
+					<block wx:if="{{allgoodsList.length > 0}}">
+						<view class="c_tabcontent" wx:for="{{allgoodsList}}" wx:key="index" bindtap="intogoodsdetail" data-goodsid="{{item.goodsid}}">
+							<image src="{{item.image}}" mode="widthFix" class="c_logoImg"></image>
+							<view class="c_tabcontentRight">
+								<view class="c_content">{{item.title}}</view>
+								<view class="c_money">
+									<block wx:if="{{is_mianyi == 1}}">
+										<view class="c_present">面议</view>
+									</block>
+									<block wx:else>
+										<view class="c_present">￥{{item.price}}</view>
+									</block>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:else>
+						<view class="c_nostates">
+							<image class="c_nostatesImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/hotgoods.png" mode="widthFix"></image>
+							<text>商品上架中</text>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!-- 样式七预约商户-->
+	<view class='allpage' wx:if='{{pageData.templeid == 12 && pageData.set}}'>
+		<view class='hahab'>
+			<image class='ihahamage' src='{{pageData.set.background[0]}}'></image>
+			<view class='indextop'>
+				<view style='width:100%;height:30rpx;'></view>
+				<view class='indexsreach' wx:if='{{pageData.search == 1}}'>
+					<icon type="search" class='iconsty' size="15" color="{{item}}" />
+					<view class='searchsty'>
+						<input bindconfirm="sreachinput" value='{{keyword}}' placeholder="搜索喜欢的内容" style='width:100%;height:60rpx;line-height:60rpx;' />
+					</view>
+				</view>
+				<view style='width:100%;height:30rpx;'></view>
+				<view class='store_name'>
+					<view class='store_img'>
+						<image src='{{pageData.shopinfo.base.logo}}'></image>
+					</view>
+					<view class='store_title'>
+						<view class='storename' style='color:white;'>{{pageData.shopinfo.base.shopname}}</view>
+					</view>
+					<view class='store_butt'>
+						<!-- <button class="{{isShopFavor? 'butt':'buttno'}}" bindtap="{{isShopFavor?'quxiaob':'guanzhu'}}">{{isShopFavor? '已关注':'关注'}}</button> -->
+					</view>
+				</view>
+			</view>
+		</view>
+		<block wx:if='{{pageData.set.banner_2}}'>
+			<view class='singleimg'>
+				<swiper class='swiper-box' autoplay='true' interval="3000" circular='true' indicator-dots='true' indicator-color='#e3e3e3' indicator-active-color='red' style='height:300rpx;width:100%;'>
+					<block wx:for='{{pageData.set.banner_2}}' wx:key="index">
+						<swiper-item>
+							<image src='{{item.img}}' catchtap='navigateToUrl' data-link="{{item.link}}" class='imgimg'></image>
+						</swiper-item>
+					</block>
+				</swiper>
+			</view>
+		</block>
+		<!-- <block wx:if="{{couponList.length>0}}">
+      <scroll-view class="scroll-view_H" scroll-x>
+        <youhuijuan dataCoupon='{{couponList}}' bind:linqu="linquClick" bind:login="isLogin" class="zujian"></youhuijuan>
+      </scroll-view>
+    </block> -->
+		<block wx:if='{{pageData.items.team0}}'>
+			<view class='jingxuangoods'>
+				<image mode='widthFix' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-jxgoods.png'></image>
+			</view>
+			<view class='three_goods'>
+				<block wx:for='{{pageData.items.team0}}' wx:key="index">
+					<view class="{{index == 1? 'three_oneb': 'three_one'}}" wx:if='{{index <= 2}}' bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+						<image style='border-radius:0;' src='{{item.thumb}}'></image>
+						<view class='three_title'>{{item.title}}</view>
+						<view style='color:#656295;margin-top:10rpx;'>￥{{item.packageprice}}</view>
+					</view>
+				</block>
+			</view>
+			<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+			<!-- 直播组件 -->
+			<block wx:if="{{pageData.set.live}}">
+				<view class="liveStreaming">
+					<image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+				</view>
+				<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+			</block>
+			<!-- 直播组件 -->
+		</block>
+
+		<block wx:if="{{storeList.length>0}}">
+			<view class="storeitem">
+				<image class="storeItem_left" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/boweisou/yy/images/into.png"></image>
+				<view class="storeItem_content">
+					<block wx:for="{{storeList}}">
+						<image class="storeItem_contentIMG" bindtap="tostoreDetail" data-index="reserve" data-id="{{item.id}}" src="{{item.logo}}"></image>
+					</block>
+
+					<block wx:if="{{storeList.length == 1}}">
+						<view class="getstoreItem">诚招加盟</view>
+						<view class="getstoreItem">诚招加盟</view>
+					</block>
+
+					<block wx:if="{{storeList.length == 2}}">
+						<view class="getstoreItem">诚招加盟</view>
+					</block>
+
+				</view>
+				<view class="storeItem_right" bindtap="toSeemore">
+					<view class="item_text">
+						<view>查</view>
+						<view>看</view>
+						<view>更</view>
+						<view>多</view>
+					</view>
+					<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/boweisou/yy/images/right.png"></image>
+				</view>
+			</view>
+			<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+		</block>
+
+		<block wx:if='{{pageData.items.team1}}'>
+			<view class='goods_leftriga'>
+				<view class='imgleft'>
+					<image class='imgleftimg' style='border-radius: 0;' src='{{pageData.items.team1[0].thumb}}'></image>
+				</view>
+				<view class='descrig'>
+					<view class='desc_text'>{{pageData.items.team1[0].title}}</view>
+					<view class='desc_price'>
+						<text style='font-size:28rpx;color:#656295;'>￥{{pageData.items.team1[0].packageprice}}</text>
+					</view>
+					<button class='click_look' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team1[0].goodsid}}'>点击查看</button>
+				</view>
+			</view>
+			<view class='goods_leftriga' style='margin-bottom:20rpx;'>
+				<view class='descrig' style='margin-left:0;'>
+					<view class='desc_text'>{{pageData.items.team1[1].title}}</view>
+					<view class='desc_price'>
+						<text style='font-size:28rpx;color:#656295;'>￥{{pageData.items.team1[1].packageprice}}</text>
+					</view>
+					<button class='click_look' bindtap='intogoodsdetail' data-goodsid='{{pageData.items.team1[1].goodsid}}'>点击查看</button>
+				</view>
+				<view class='imgleft' style='margin-left:5%;'>
+					<image class='imgleftimg' style='border-radius:0;' src='{{pageData.items.team1[1].thumb}}'></image>
+				</view>
+			</view>
+			<view style='height:20rpx;width:100%;background-color:#eeeeee;'></view>
+		</block>
+		<!-- 多个商品 -->
+		<view class='longgoods' wx:if='{{pageData.items.team2}}'>
+			<view class='jingxuangoods'>
+				<image src='../../images/store.png' mode='widthFix'></image>
+			</view>
+			<block wx:for='{{pageData.items.team2}}' wx:key="index">
+				<view class="{{(index+1)%2==0?'longgoodsaloneb':'longgoodsalone'}}" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+					<image src='{{item.thumb}}' mode='widthFix'></image>
+					<view class='desc_text' style='margin:10rpx 0;'>{{item.title}}</view>
+					<block wx:if="{{is_mianyi == 1}}">
+						<view style='color:#67658d;margin:10rpx 0 20rpx 0;'>面议</view>
+					</block>
+					<block wx:else>
+						<view style='color:#67658d;margin:10rpx 0 20rpx 0;'>￥{{item.packageprice}}</view>
+					</block>
+				</view>
+			</block>
+		</view>
+
+	</view>
+	<!-- 样式六官网版样式 -->
+	<websiteStore wx:if='{{pageData.templeid == 11 && pageData.set}}' pageData="{{pageData}}" richtextList="{{richtextList}}" acticleList="{{pageData.shopinfo.information}}" videos="{{pageData.shopinfo.base}}" storeList="{{pageData.shopinfo.merch}}"></websiteStore>
+	<!-- 样式六官网版样式 -->
+
+	<!-- 样式八门户版样式 -->
+	<gateWay wx:if='{{pageData.templeid == 13 && pageData.set}}' pageData="{{pageData}}" id="gateWay" allArticle="{{allArticle}}"></gateWay>
+	<!-- 样式八门户版样式 -->
+
+	<!-- 样式九个人投资版样式 -->
+	<personpay wx:if='{{pageData.templeid == 14 && pageData.set}}' pageData="{{pageData}}" allArticle="{{pageData.shopinfo.information}}"></personpay>
+	<!-- 样式九个人投资版样式 -->
+
+	<!-- 商家模板-电商模板1 -->
+	<newshoptemplate1 wx:if='{{pageData.templeid == 15 && pageData.set}}'  pageData="{{pageData}}" />
+	<!-- 商家模板-电商模板1 -->
+
+	<!-- 商家模板-电商模板2 -->
+	<newshoptemplate2 wx:if='{{pageData.templeid == 16 && pageData.set}}'  pageData="{{pageData}}" />
+	<!-- 商家模板-电商模板2 -->
+
+	<!-- 商家模板-电商模板3 -->
+	<newshoptemplate3 wx:if='{{pageData.templeid == 17 && pageData.set}}'  pageData="{{pageData}}" />
+	<!-- 商家模板-电商模板3 -->
+
+	<!-- 商家模板-官网版本 -->
+	<officialTemplate wx:if='{{pageData.templeid == 18 && pageData.set}}'  pageData="{{pageData}}" />
+	<!-- 商家模板-官网版本 -->
+
+	<!-- 商家模板-个人投资版本 -->
+	<investmentTemplate wx:if='{{pageData.templeid == 19 && pageData.set}}'  pageData="{{pageData}}" />
+	<!-- 商家模板-个人投资版本 -->
+
+
+
+
+
+	<block wx:if='{{!pageData.set}}'>
+		<view wx:if='{{pageData.status != -1}}' class='imgimgno'>
+			<image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index5g-pagehome.png'></image>
+		</view>
+	</block>
+</block>
+<block wx:else>
+	<!-- 自定义装修 -->
+	<import src="../../wxParse/wxParse.wxml" />
+	<template wx:if="{{statusRed == 1}}" is="redPackage" data="{{statusRed,redResult,redPrize}}"></template>
+	<view style="background-color:{{data.data.page.background}};width:100%;">
+		<!-- NEWS3的模板类型-->
+		<block wx:if="{{data.data.items}}">
+			<block wx:for="{{data.data.items}}" wx:key="index">
+				<template wx:if="{{item.id=='richtext' }}" is="richtext" data="{{data:item,width:width}}"></template>
+				<template wx:if="{{item.id=='banner' }}" is="wxapp_adv1" data="{{data:item,searchFixed:searchFixed,searchHeight:searchHeight}}"></template>
+				<template wx:if="{{item.id=='search' }}" is="wxapp_search1" data="{{search:search,data:item,address:address,windowWidthS:windowWidthS}}"></template>
+				<template wx:if="{{item.id=='title'  }}" is="wxapp_title1" data="{{data:item}}"></template>
+				<template wx:if="{{item.id=='menu' }}" is="wxapp_nav1" data="{{data:item}}"></template>
+				<template wx:if="{{item.id=='notice' }}" is="wxapp_notice1" data="{{data:item}}"></template>
+				<template wx:if="{{item.id=='picture'}}" is="wxapp_banner1" data="{{data:item}}"></template>
+				<template wx:if="{{item.id=='goods' || item.id=='diyordergoods'}}" is="wxapp_recommand1" data="{{data:item}}"></template>
+				<template wx:if="{{item.id=='line'}}" is="wxapp_line1" data="{{data:item}}"></template>
+				<template wx:if="{{item.id=='blank'}}" is="wxapp_blank1" data="{{data:item}}"></template>
+				<template wx:if="{{item.id=='article'}}" is="wxapp_article1" data="{{data:item, artData:artData, artDataB:artDataB,articleIndex:articleIndex,articleLen:articleLen}}"></template>
+				<template wx:if="{{item.id=='picturew'}}" is="wxapp_cube1" data="{{data:item}}"></template>
+				<template wx:if="{{item.id=='merchgroup'}}" is="wxapp_merchgroup" data="{{data:item,store:store,store_num:store_num}}"></template>
+				<template wx:if="{{item.id=='video'}}" is="wxapp_video" data="{{data:item.data}}"></template>
+				<template wx:if="{{item.id=='seckillgroup'}}" is="skillPrice" data="{{data:skillPriceList,seckillgroupList:seckillgroupList}}"></template>
+				<template wx:if="{{item.id=='vipcard'}}" is="openCard" data="{{data:item}}"></template>
+				<!-- <template wx:if="{{item.id=='audio'}}" is="audioView" data="{{data:item}}"></template> -->
+				<i-audio wx:if="{{item.id=='audio'}}" data="{{item.data[0]}}"></i-audio>
+				<template wx:if="{{item.id=='listmenu'}}" is="listmenuView" data="{{data:item}}"></template>
+				<!-- 团购组 -->
+				<template wx:if="{{item.id=='begroups'}}" is="begroups" data="{{dataList:groupRecgoods,dataGroup:item}}"></template>
+				<template wx:if="{{item.id=='coupon'}}" is="coupon" data='{{data:item}}'></template>
+				<!-- 预约 -->
+				<template wx:if="{{item.id=='diymodorder'}}" is="wxapp_res" data="{{data:item}}"></template>
+				<!-- 门店组 -->
+				<template wx:if="{{item.id=='store_list'}}" is="store_list" data="{{data:item}}"></template>
+				<!-- 定位 -->
+				<template wx:if="{{item.id=='position'}}" is="position" data="{{data:item,position:position,City:City}}"></template>
+				<template wx:if="{{item.id=='tabbar'}}" is="tabbar" data="{{data:item,abbarObj:abbarObj,tabbarfixed:tabbarfixed}}"></template>
+				<template wx:if="{{item.id=='map'}}" is="map" data="{{data:item,markers:markers,controls:controls}}"></template>
+			</block>
+			<block wx:if="{{abbarhas}}">
+				<template is="tabbarCont" data="{{GoodListData:GoodListData,activecolor:activecolor}}"></template>
+			</block>
+			<!-- 电话 -->
+			<block wx:if="{{data.data.page.phone!=''}}">
+				<template wx:if="{{data.data.page.phone}}" is="wxapp_phone" data="{{data:data.data.page}}"></template>
+			</block>
+			<block wx:if="{{data.wxapp_sign}}">
+				<template is="technology" data="{{data:data.wxapp_sign}}"></template>
+			</block>
+		</block>
+	</view>
+</block>
+<!-- 列表导航-->
+<template name='listmenuView'>
+	<view class="listmenuView" style="padding-top:{{data.style.margintop}}px;">
+		<view wx:for="{{data.data}}" class="listmenuItem" style="background:{{data.style.background}};" catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}">
+			<view class="listmenuItemLeft">
+				<text class='icon {{item.iconclass}}' style="font-size:38rpx;color:{{data.style.iconcolor}};margin:0rpx 20rpx;"></text>
+				<text style="color:{{data.style.textcolor}};">{{item.text}}</text>
+			</view>
+			<view class="listmenuItemRight">
+				<text style="color:{{data.style.remarkcolor}};">{{item.remark}}</text>
+				<text class='icon icon-right' style="font-size:32rpx;margin-left:10rpx;color:#ccc;"></text>
+			</view>
+		</view>
+	</view>
+</template>
+
+<!-- 定位 -->
+<template name='position'>
+	<view style='position:relative;border-top: 1rpx solid #ccc;width:100%;font-size: 31rpx;line-height: 70rpx;display: flex;flex-direction: row;justify-content: center;align-items: center;background-color: #FFF;'>
+		<image lazy-load="true" src="https://tws.cnweisou.com/images/position_1.png" style='width:40rpx;margin-right: 40rpx;' class="search_img"></image>
+		<text bindtap="position" data-addr="{{position.address}}" data-city='{{City}}' data-lat="{{position.lat}}" data-lng="{{position.lng}}" style='color:{{data.style.color}};'>{{position.address}}</text>
+		<view class='arrowTop'></view>
+		<!-- find_img.png -->
+		<image bindtap="joinSearch" class="rightPosition" lazy-load="true" src="https://tws.cnweisou.com/images/find_img.png" />
+	</view>
+</template>
+<!-- 预约 -->
+<template name='wxapp_res'>
+	<form bindsubmit="formSubmitX" class="test">
+		<view class="test_wrap" style='background-image: url({{data.params.goodsiconsrc}});'>
+			<block wx:for="{{data.data}}">
+				<text class="res_text">{{item.title}}</text>
+				<input type="text" placeholder="{{item.desc}}" name="{{item.title}}" class="res_input" />
+			</block>
+			<button formType="submit" type="primary" style="background-color: {{data.style.background}};color: {{data.style.background1}};" class="res_btn">确认提交</button>
+		</view>
+	</form>
+	<!-- </view> -->
+</template>
+<!-- 客服 -->
+<block wx:if="{{data.data.page.customerserver==1}}">
+	<template is="wxapp_customerserver" data="{{data:data.data.page}}"></template>
+</block>
+
+<!--NEWS4的模板类型-->
+<block wx:if="{{news}}">
+	<template is="new4" data="{{date:data,selectedTitle:selectedTitle,showView:showView,num:num,arr:arr,carts:carts,total:total,minusStatuses:minusStatuses,selectedAllStatus:selectedAllStatus,allCart:allCart,cartcount:cartcount,cart_price:cart_price,Allprice:Allprice,isClick:isClick,Allnum:Allnum,selectGoods:selectGoods,isSecond:isSecond,goods_spec_list:goods_spec_list,nowPrice:nowPrice,goods_name:goods_name}}"></template>
+</block>
+<!-- 优惠券 -->
+<template name="coupon">
+	<view class='coupon_wrap'>
+		<scroll-view scroll-x="true" class="sidebar sidebar4" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:100%;">
+			<block wx:for='{{data.data}}' wx:key="index">
+				<view class="coupon mr30" style="background: linear-gradient(to right ,{{item.couponcolor}},#CFE0E8);" data-id='{{item.couponid}}' bindtap='bindcoupon'>
+					<view style='padding-top: 20rpx;'>
+						<!-- ￥ -->
+						<view>
+							<text class='fs60' style=''>{{item.price}}</text>
+						</view>
+						<!-- <view class='lh50' style=''>{{item.name}}</view> -->
+						<view class='lh50' style=''>{{item.desc}}</view>
+					</view>
+					<view class='c_click' style=''>点击领取
+						<view class='c_circle' style=''></view>
+					</view>
+					<view class='c_lcircle' style=' '></view>
+					<view class='c_rcircle' style=' '></view>
+				</view>
+			</block>
+		</scroll-view>
+	</view>
+</template>
+<template name="richtext">
+	<view style="overflow: hidden;background-color:{{data.style.background}};padding:{{data.style.padding}}px;">
+		<rich-text nodes="{{data.params.content}}" bindtap="tap"></rich-text>
+	</view>
+</template>
+<!-- 技术支持 -->
+<template name="technology">
+	<view style="margin:30rpx auto;font-size: 24rpx;color: black;text-align: center;font-family: 'STHeiti';width:95%;">
+		<view class="bottomTip">
+			<text>{{data}}</text>
+		</view>
+	</view>
+</template>
+<!--红包  -->
+<template name="redPackage">
+	<view class="bgtypeListRed" wx:if="{{redResult.redPackage}}" style="overflow: hidden;" catchtap='receivePackageClose' catchtouchmove='noMove'>
+		<view wx:if="{{redPrize.topOPen == 0}}" class="redPackage {{redPrize.topOPen}}" style="background-image:url(https://tws.cnweisou.com/images/redPackageBg1.png);" catchtap='noClose'>
+			<view class="redClose" bindtap='receivePackageClose'>
+				<image src="https://tws.cnweisou.com/images/receivePackageClose.png"></image>
+			</view>
+			<view class="redPrizeStrat">
+				<view class="redTop">
+					<view class="redTopImg">
+						<image src="{{redResult.lottery.lottery_icon}}"></image>
+					</view>
+					<text class="redTopText">{{redResult.lottery.lottery_title}}</text>
+				</view>
+				<view class="clickBtn">
+					<image bindtap='receivePackage' src="https://tws.cnweisou.com/images/receivePackageBtn.png"></image>
+				</view>
+			</view>
+		</view>
+		<view wx:if="{{redPrize.topOPen ==2}}" class="redPackageOpen" style="background-image:url(https://tws.cnweisou.com/images/redPackageOpen.png);" catchtap='noClose'>
+			<view class="redClose" bindtap='receivePackageClose'>
+				<image src="https://tws.cnweisou.com/images/receivePackageCloseWhite.png"></image>
+			</view>
+			<view class="redPrize">
+				<text>{{redPrize.info}}</text>
+			</view>
+		</view>
+	</view>
+</template>
+<!-- NEWS3的模板-->
+<!-- 轮播图 -->
+<template name="wxapp_adv1">
+	<swiper indicator-dots="true" autoplay="true" duration="1000" circular="true" indicator-color="{{data.style.background}}" indicator-active-color="red" interval="3000" class="textRight">
+		<block wx:for="{{data.data}}" wx:key>
+			<swiper-item catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}">
+				<image src="{{item.imgurl}}" class="swiper-image" style="width:100%;" mode='widthFix' />
+			</swiper-item>
+		</block>
+	</swiper>
+</template>
+<!-- 搜索-->
+<template name="wxapp_search1">
+	<block wx:if="{{data.style.searchstyle==''}}">
+		<view class="view_search search_bg" style="padding: {{data.style.paddingtop*2}}rpx 0;background:#fff;" wx:if="{{data.style.fixed==1}}"></view>
+		<block wx:if="{{search!=undefined}}">
+			<view class="view_search" style="z-index:10;padding: {{data.style.paddingtop*2}}rpx 0;background-color: {{data.style.background}};{{data.style.fixed==1?'position:fixed;top:-5rpx;left:0rpx;margin-bottom:data.style.paddingtop*2;':''}}">
+				<view class='city' style="opacity:{{data.style.transp}}" data-addr="{{search.item.address}}" data-lat="{{search.item.lat}}" data-lng="{{search.item.lng}}" bindtap="address">
+					<image lazy-load="true" src="https://tws.cnweisou.com/images/position.png" class="search_img"></image>
+					<view class="search_text">{{address?address:search.item.address}}</view>
+				</view>
+				<form bindsubmit="formSubmit" report-submit="true">
+					<view class="view_searchbg" style="background-color: {{data.style.inputbackground}};opacity:{{data.style.transp}};border: 1rpx solid #ccc;">
+						<view class="view1" bindtap="search">
+							<image lazy-load="true" src="https://tws.cnweisou.com/images/indexSearch.png" style="background:{{data.style.iconcolor}};border-radius:50%;"></image>
+						</view>
+						<input form-type="submit" bindconfirm="formSubmit" bindinput="inputchange" type="text" name="keyword" style="color:{{data.style.color}};text-align: {{data.style.textalign}}; " class="input_search pr10" placeholder="{{data.params.placeholder}}" placeholder-style="color:{{data.style.color}};font-size:28rpx;" />
+					</view>
+				</form>
+			</view>
+		</block>
+		<block wx:else>
+			<view class="view_search3" style="padding: {{data.style.paddingtop*2}}rpx 0rpx;background-color: {{data.style.background}};{{data.style.fixed==1?'position:fixed;top:-5rpx;left:0rpx;':''}}">
+				<view class="view_searchbg3" style="width:{{windowWidthS}}rpx;background-color:{{data.style.inputbackground}};opacity:{{data.style.transp}};">
+					<view class="view3" bindtap="search">
+						<image lazy-load="true" src="https://tws.cnweisou.com/images/indexSearch.png" style="background:{{data.style.iconcolor}};border-radius:50%;"></image>
+					</view>
+					<form bindsubmit="formSubmit" class="view_searchbg3input" style="border: none;" report-submit="true">
+						<input form-type="submit" bindconfirm="formSubmit" bindinput="inputchange" type="text" name="keyword" style="color:{{data.style.color}};text-align: {{data.style.textalign}};width:95%;" class="input_search3" placeholder="{{data.params.placeholder}}" placeholder-style="color:{{data.style.color}};font-size:28rpx;" />
+					</form>
+				</view>
+			</view>
+		</block>
+	</block>
+	<block wx:if="{{data.style.searchstyle=='radius'}}">
+		<view class="view_search search_bg" style="padding: {{data.style.paddingtop*2}}rpx 0;background:#fff;" wx:if="{{data.style.fixed==1}}"></view>
+		<block wx:if="{{search!=undefined}}">
+			<view class="view_search search_bg" style="padding: {{data.style.paddingtop*2}}rpx 0rpx;background-color: {{data.style.background}};{{data.style.fixed==1?'position:fixed;top:-1rpx;left:-1rpx;':''}}">
+				<view class='city' style="opacity:{{data.style.transp}};" data-addr="{{search.item.address}}" data-lat="{{search.item.lat}}" data-lng="{{search.item.lng}}" bindtap="address">
+					<image lazy-load="true" src="https://tws.cnweisou.com/images/position.png" class="search_img"></image>
+					<text class="search_text">{{address?address:search.item.address}}</text>
+				</view>
+				<view class="view_searchbg" style="border: 1rpx solid #ccc; background-color: {{data.style.inputbackground}};border-radius: 6px;opacity:{{data.style.transp}};">
+					<view class="view1" bindtap="search">
+						<image lazy-load="true" src="https://tws.cnweisou.com/images/indexSearch.png" style="background:{{data.style.iconcolor}};border-radius:50%;"></image>
+					</view>
+					<form bindsubmit="formSubmit" class="view_searchbg" report-submit="true">
+						<input form-type="submit" bindconfirm="formSubmit" bindinput="inputchange" type="text" name="keyword" style="color:{{data.style.color}};text-align: {{data.style.textalign}};" class="input_search pr10" placeholder="{{data.params.placeholder}}" placeholder-style="color:{{data.style.color}};font-size:28rpx;" />
+					</form>
+				</view>
+			</view>
+		</block>
+		<block wx:else>
+			<view class="view_search3" style=" width:100%;padding:{{data.style.paddingtop*2}}rpx 0;background-color: {{data.style.background}};{{data.style.fixed==1?'position:fixed;top:-5rpx;left:0rpx;':''}}">
+				<view class="view_searchbg3" style="background-color: {{data.style.inputbackground}};border-radius: 6px;width:{{windowWidthS}}rpx;opacity:{{data.style.transp}};border:1rpx solid #cdcdcd;">
+					<form bindsubmit="formSubmit" class="view_searchbg3input" report-submit="true">
+						<input form-type="submit" bindconfirm="formSubmit" bindinput="inputchange" type="text" name="keyword" style="color:{{data.style.color}};text-align: {{data.style.textalign}};width:95%;" class="input_search3" placeholder="{{data.params.placeholder}}" placeholder-style="color:{{data.style.color}};font-size:28rpx;" />
+					</form>
+					<view class="view3" bindtap="search">
+						<image lazy-load="true" src="https://tws.cnweisou.com/images/indexSearch.png" style="background:{{data.style.iconcolor}};border-radius:50%;"></image>
+					</view>
+				</view>
+			</view>
+		</block>
+	</block>
+	<block wx:if="{{data.style.searchstyle=='round'}}">
+		<view class="view_search search_bg" style="padding: {{data.style.paddingtop*2}}rpx 0;background:#fff;" wx:if="{{data.style.fixed==1}}"></view>
+		<block wx:if="{{search!=undefined}}">
+			<view class="view_search search_bg" style="padding: {{data.style.paddingtop*2}}rpx 0rpx;background-color: {{data.style.background}};{{data.style.fixed==1?'position:fixed;top:-5rpx;left:0rpx;':''}}">
+				<view class='city' style="opacity:{{data.style.transp}};" data-addr="{{search.item.address}}" data-lat="{{search.item.lat}}" data-lng="{{search.item.lng}}" bindtap="address">
+					<image lazy-load="true" src="https://tws.cnweisou.com/images/position.png" class="search_img"></image>
+					<text class="search_text">{{address?address:search.item.address}}</text>
+				</view>
+				<view class="view_searchbg" style=" border: 1rpx solid #ccc;background-color: {{data.style.inputbackground}};border-radius: 15px;opacity:{{data.style.transp}};margin-top: 5rpx;">
+					<form bindsubmit="formSubmit" class="view_searchbg" report-submit="true">
+						<input form-type="submit" bindconfirm="formSubmit" bindinput="inputchange" type="text" name="keyword" style="color:{{data.style.color}};text-align: {{data.style.textalign}};" class="input_search pr10" placeholder="{{data.params.placeholder}}" placeholder-style="color:{{data.style.color}};font-size:28rpx;" />
+					</form>
+					<view class="view1" bindtap="search">
+						<image lazy-load="true" src="https://tws.cnweisou.com/images/indexSearch.png" style="background:{{data.style.iconcolor}};border-radius:50%;"></image>
+					</view>
+				</view>
+			</view>
+		</block>
+		<block wx:else>
+			<view class="view_search3" style="padding: {{data.style.paddingtop*2}}rpx 0rpx;background-color: {{data.style.background}};{{data.style.fixed==1?'position:fixed;top:-5rpx;left:0rpx;':''}}">
+				<view class="view_searchbg3" style="background-color: {{data.style.inputbackground}};border-radius: 15px;width:{{windowWidthS}}rpx;opacity:{{data.style.transp}};">
+					<form bindsubmit="formSubmit" class="view_searchbg3input" report-submit="true">
+						<input form-type="submit" bindconfirm="formSubmit" bindinput="inputchange" type="text" name="keyword" style="color:{{data.style.color}};text-align: {{data.style.textalign}};width:95%;" class="input_search pr10" placeholder="{{data.params.placeholder}}" placeholder-style="color:{{data.style.color}};font-size:28rpx;" />
+					</form>
+					<view class="view3" bindtap="search">
+						<image lazy-load="true" src="https://tws.cnweisou.com/images/indexSearch.png" style="background:{{data.style.iconcolor}};border-radius:50%;"></image>
+					</view>
+				</view>
+			</view>
+		</block>
+	</block>
+</template>
+<!-- 菜单 MENU -->
+<template name="wxapp_nav1">
+	<block wx:if="{{data.style.navstyle=='square'}}">
+		<view class="func-area" style="background-color:{{data.style.background}}">
+			<block wx:if="{{data.style.rownum==4}}">
+				<view class="menu_view" wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:25%;">
+					<!--   <view class="squareMenu" style="background-image:url({{item.imgurl}});">
+          </view> -->
+					<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" />
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+			<block wx:elif="{{data.style.rownum==3}}">
+				<view class="menu_view" wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:33.3%;">
+					<!--  <view class="squareMenu" style="background-image:url({{item.imgurl}});">
+          </view> -->
+					<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" />
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+			<block wx:elif="{{data.style.rownum==2}}">
+				<view id='r_row2'>
+					<view class='r_item' wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}">
+						<!--  <view class="squareMenu" style="background-image:url({{item.imgurl}});">
+            </view> -->
+						<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" />
+						<view class='r_wrap'>
+							<view class='r_h1' style="color:{{item.color}}">{{item.text}}</view>
+							<view class='r_title'>{{item.text1}}</view>
+						</view>
+					</view>
+				</view>
+			</block>
+			<block wx:else>
+				<view class="menu_view" wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:20%;">
+					<!--   <view class="squareMenu" style="background-image:url({{item.imgurl}});">
+          </view> -->
+					<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" />
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+		</view>
+	</block>
+	<block wx:elif="{{data.style.navstyle=='radius'}}">
+		<view class="func-area" style="background-color:{{data.style.background}}">
+			<block wx:if="{{data.style.rownum==4}}">
+				<view class="menu_view" wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:25%;">
+					<view class="radiusMenu" style="background-image:url({{item.imgurl}});">
+					</view>
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+			<block wx:elif="{{data.style.rownum==3}}">
+				<view class="menu_view" wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:33.3%;">
+					<!--      <view class="radiusMenu" style="background-image:url({{item.imgurl}});">
+          </view> -->
+					<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" />
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+			<block wx:elif="{{data.style.rownum==2}}">
+				<view id='r_row2'>
+					<view class='r_item' wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}">
+						<!-- <view class="radiusMenu" style="background-image:url({{item.imgurl}});">
+            </view> -->
+						<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" />
+						<view class='r_wrap'>
+							<view class='r_h1' style="color:{{item.color}}">{{item.text}}</view>
+							<view class='r_title'>{{item.text1}}</view>
+						</view>
+					</view>
+				</view>
+			</block>
+			<block wx:else>
+				<view class="menu_view" wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:20%;">
+					<!--  <view class="radiusMenu" style="background-image:url({{item.imgurl}});">
+          </view> -->
+					<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" />
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+		</view>
+	</block>
+	<block wx:elif="{{data.style.navstyle=='circle'}}">
+		<view class="func-area" style="background-color:{{data.style.background}}">
+			<block wx:if="{{data.style.rownum==4}}">
+				<view class="menu_view" wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:25%;">
+					<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" style="border-radius:50%;" />
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+			<block wx:elif="{{data.style.rownum==3}}">
+				<view class="menu_view" wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:33.33%;">
+					<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" style="border-radius:50%;" />
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+			<block wx:elif="{{data.style.rownum==2}}">
+				<view id='r_row2'>
+					<view class='r_item' wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}">
+						<image class='r_img' mode='widthFix' src="{{item.imgurl}}"></image>
+						<view class='r_wrap'>
+							<view class='r_h1' style="color:{{item.color}}">{{item.text}}</view>
+							<view class='r_title'>{{item.text1}}</view>
+						</view>
+					</view>
+				</view>
+			</block>
+			<block wx:else>
+				<view class="menu_view" wx:key wx:for="{{data.data}}" wx:key catchtap="getToPage" data-link="{{item.linkurl}}" style="width:20%;">
+					<image lazy-load="true" src="{{item.imgurl}}" mode="aspectFill" class="orange" style="border-radius:50%;" />
+					<text style="color:{{item.color}}">{{item.text}}</text>
+				</view>
+			</block>
+		</view>
+	</block>
+</template>
+<!-- 热点 notice -->
+<template name="wxapp_notice1">
+	<view style="width:100%;height:auto;background:{{data.style.background}}">
+		<image wx:if="{{data.params.iconurl}}" lazy-load="true" src="{{data.params.iconurl}}" class="notice_img"></image>
+		<view class="notice-image">
+			<!-- <image lazy-load="true" class="avatar" src="https://tws.cnweisou.com/images/hornIndex.png" style="background-color:{{data.style.iconcolor}};border-radius:50%;" mode="aspectFill" /> -->
+			<text class='icon icon-notification' style="font-size:30rpx;margin-top:0px;color:{{data.style.iconcolor}};"></text>
+		</view>
+		<swiper class="notice-message" indicator-dots="" vertical="vertical" autoplay="true" interval="{{data.params.speed*1000}}" duration="1000" circular="true" style="color:{{data.style.color}}">
+			<block wx:for="{{data.data}}" wx:key="index">
+				<swiper-item catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}">
+					{{item.title}}
+				</swiper-item>
+			</block>
+		</swiper>
+	</view>
+</template>
+<!-- 标题-->
+<template name="wxapp_title1">
+	<view style="background-color: {{data.style.background}};font-size: {{data.style.fontsize}}px;padding:{{data.style.paddingtop}}px {{data.style.paddingleft}}px;text-align:{{data.style.textalign}}" catchtap="getToPage" data-link="{{ data.params.link=='' ? 'index' : data.params.link}}">
+		<text class='icon {{data.params.icon}}'></text>
+		<text style="color:{{data.style.color}};">{{data.params.title}}</text>
+	</view>
+</template>
+<!--主体头部图片 img-->
+<template name="wxapp_banner1">
+	<block wx:if="{{data.id=='picture'}}">
+		<block wx:for="{{data.data}}" wx:key>
+			<view class="ad-footer">
+				<image lazy-load="true" class="t_img" src="{{item.imgurl}}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;width:100%;" catchtap="getToPage" mode="widthFix" data-preview="{{data.style.preview}}" data-groupImg="{{item.imgurl}}" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}" />
+			</view>
+		</block>
+	</block>
+</template>
+<!--主体图片  conImg-->
+<template name="wxapp_cube1">
+	<block wx:if="{{data.data.length==1}}">
+		<image lazy-load="true" class="ad-cube-header" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+	</block>
+	<!--两张图片的格式  格式一-->
+	<block wx:if="{{data.data.length ==2&&data.params.row==1}}">
+		<view style="height: 320rpx;width: 100%;display: flex;flex-direction: row;">
+			<image lazy-load="true" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%;height: 100%;box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%;height: 100%;box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==2&&data.params.row==2}}">
+		<view class="img_wrap" style="margin:0 auto;">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==2&&data.params.row==3}}">
+		<view class="img_wrap" style="width: 99.9%;">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==2&&data.params.row==4}}">
+		<view class="img_wrap">
+			<image lazy-load="true" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+		</view>
+	</block>
+	<!--三张图片的格式 格式一-->
+	<block wx:if="{{data.data.length ==3&&data.params.row==1}}">
+		<view style="width:100%;height: 320rpx;display:flex;flex-direction:row;">
+			<view style="width:50%;height: 100%;overflow: hidden;">
+				<image lazy-load="true" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:100%; height:100%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			</view>
+			<view style="width:50%;height: 100%;overflow: hidden;">
+				<image lazy-load="true" class="w10 h5 db" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:100%;height:50%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+				<image lazy-load="true" class="w10 h5 db" src="{{data.data[2].imgurl}}" catchtap="getToPage" data-link="{{data.data[2].linkurl =='' ? 'index' : data.data[2].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:100%;height:50%;box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[2].imgurl}}"></image>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==3&&data.params.row==2}}">
+		<view style="display: flex;flex-direction: row;font-size:0;">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;display:block;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;display:block;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+		</view>
+		<view style="display: flex;flex-direction: row;font-size:0;">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[2].imgurl}}" catchtap="getToPage" data-link="{{data.data[2].linkurl =='' ? 'index' : data.data[2].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;display:block;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[2].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==3&&data.params.row==3}}">
+		<view class="img_wrap" style="width: 99.9%;">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[2].imgurl}}" catchtap="getToPage" data-link="{{data.data[2].linkurl =='' ? 'index' : data.data[2].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[2].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==3&&data.params.row==4}}">
+		<view class="img_wrap">
+			<image lazy-load="true" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+			<image lazy-load="true" src="{{data.data[2].imgurl}}" catchtap="getToPage" data-link="{{data.data[2].linkurl =='' ? 'index' : data.data[2].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[2].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:else>
+	</block>
+	<!-- 四张图片的四个格式   -->
+	<block wx:if="{{data.data.length ==4&&data.params.row==1}}">
+		<view style="display:flex;flex-direction:row;">
+			<view class="ad-cube-left" style="height: 320rpx">
+				<image lazy-load="true" class="w10 h10 bs" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop*2}}rpx {{data.style.paddingleft*2}}rpx;background-color:{{data.style.background}};" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			</view>
+			<view class="ad-cube-right" style="height: 320rpx">
+				<view class="ad-cube-right1">
+					<image lazy-load="true" class="w10 h10 bs" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop*2}}rpx {{data.style.paddingleft*2}}rpx;background-color:{{data.style.background}};" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+				</view>
+				<view class="ad-cube-right2">
+					<image lazy-load="true" class="bs" src="{{data.data[2].imgurl}}" catchtap="getToPage" data-link="{{data.data[2].linkurl =='' ? 'index' : data.data[2].linkurl }}" style="padding: {{data.style.paddingtop*2}}rpx {{data.style.paddingleft*2}}rpx;background-color:{{data.style.background}};" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[2].imgurl}}"></image>
+					<image lazy-load="true" class="bs" src="{{data.data[3].imgurl}}" catchtap="getToPage" data-link="{{data.data[3].linkurl =='' ? 'index' : data.data[3].linkurl }}" style="padding: {{data.style.paddingtop*2}}rpx {{data.style.paddingleft*2}}rpx;background-color:{{data.style.background}};" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[3].imgurl}}"></image>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==4&&data.params.row==2}}">
+		<view style="display: flex;flex-direction: row;font-size:0;">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;display:block;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;display:block;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+		</view>
+		<view style="display: flex;flex-direction: row;font-size:0;">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[2].imgurl}}" catchtap="getToPage" data-link="{{data.data[2].linkurl =='' ? 'index' : data.data[2].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;display:block;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[2].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[3].imgurl}}" catchtap="getToPage" data-link="{{data.data[3].linkurl =='' ? 'index' : data.data[3].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:50%; box-sizing: border-box;display:block;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[3].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==4&&data.params.row==3}}">
+		<view class="img_wrap" style="width: 99.9%;">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+			<image lazy-load="true" mode="widthFix" src="{{data.data[2].imgurl}}" catchtap="getToPage" data-link="{{data.data[2].linkurl =='' ? 'index' : data.data[2].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[2].imgurl}}"></image>
+		</view>
+		<view class="img_wrap">
+			<image lazy-load="true" mode="widthFix" src="{{data.data[3].imgurl}}" catchtap="getToPage" data-link="{{data.data[3].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:33.3%; box-sizing: border-box;" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[3].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:if="{{data.data.length ==4&&data.params.row==4}}">
+		<view class="img_wrap">
+			<image lazy-load="true" src="{{data.data[0].imgurl}}" catchtap="getToPage" data-link="{{data.data[0].linkurl =='' ? 'index' : data.data[0].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[0].imgurl}}"></image>
+			<image lazy-load="true" src="{{data.data[1].imgurl}}" catchtap="getToPage" data-link="{{data.data[1].linkurl =='' ? 'index' : data.data[1].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[1].imgurl}}"></image>
+			<image lazy-load="true" src="{{data.data[2].imgurl}}" catchtap="getToPage" data-link="{{data.data[2].linkurl =='' ? 'index' : data.data[2].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[2].imgurl}}"></image>
+			<image lazy-load="true" src="{{data.data[3].imgurl}}" catchtap="getToPage" data-link="{{data.data[3].linkurl =='' ? 'index' : data.data[3].linkurl }}" style="padding: {{data.style.paddingtop}}px {{data.style.paddingleft}}px;background-color:{{data.style.background}};width:25%;box-sizing: border-box;" mode="widthFix" data-preview="{{data.params.preview}}" data-groupImg="{{data.data[3].imgurl}}"></image>
+		</view>
+	</block>
+	<block wx:else>
+	</block>
+</template>
+<!-- 货物 goods-->
+<template name="wxapp_recommand1">
+	<block wx:if="{{data.style.liststyle=='block one'}}">
+		<view class="container-class dib">
+			<view class="container-goods">
+				<view class="main-goods">
+					<view class="single-goods" wx:key wx:for="{{data.data}}" catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}" style="width:100%;box-sizing: border-box;">
+						<view class="goodsImg goodsImg1">
+							<image lazy-load="true" src="{{item.thumb}}" mode="widthFix" class="avatar" />
+							<view class="showIcon1 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'left top'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon2 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'right top'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon3 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'left bottom'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon4 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'right bottom'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+						</view>
+						<view style="display: flex;flex-direction: column;border-top: none;margin-bottom:30rpx;">
+							<text wx:if="{{data.params.showtitle=='1'}}" class="title title_one" style="color:{{data.style.titlecolor}}border:none;">{{item.title}}</text>
+							<view wx:if="{{data.params.showprice=='1'}}" class="summary" style="height:auto;margin-bottom:0rpx;">
+								<text class="price" style="color:{{data.style.pricecolor}}">￥{{item.price}}元</text>
+								<image wx:if="{{data.style.buystyle == 'buybtn-1'}}" class="priceImg" style="background:{{data.style.buybtncolor}}" src="https://tws.cnweisou.com/images/myCart.png"></image>
+								<image wx:if="{{data.style.buystyle == 'buybtn-2'}}" class="priceImg" style="background:{{data.style.buybtncolor}}" src="https://tws.cnweisou.com/images/myCart2.png"></image>
+								<text wx:if="{{data.style.buystyle == 'buybtn-3'}}" class="priceText" style="background:{{data.style.buybtncolor}}">购买</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{data.style.liststyle=='block'}}">
+		<view class="container-class">
+			<view class="container-goods">
+				<view class="main-goods main-goodsTow">
+					<view class="single-goods" wx:key wx:for="{{data.data}}" catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}" style="width: 47%;box-sizing: border-box;">
+						<view class="goodsImg">
+							<image lazy-load="true" class="avatar" src="{{item.thumb}}" style="width:100%;" />
+							<view class="showIcon1 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'left top'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon2 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'right top'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon3 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'left bottom'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon4 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'right bottom'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+						</view>
+						<view style="display: flex;flex-direction: column;border-top: none;overflow: hidden;">
+							<text wx:if="{{data.params.showtitle=='1'}}" class="title title_two" style="color:{{data.style.titlecolor}};margin-top:10rpx;">{{item.title}}</text>
+							<view wx:if="{{data.params.showprice=='1'}}" class="summary">
+								<text class="price" style="color:{{data.style.pricecolor}}">￥{{item.price}}元</text>
+								<image wx:if="{{data.style.buystyle == 'buybtn-1'}}" class="priceImg" style="background:{{data.style.buybtncolor}}" src="https://tws.cnweisou.com/images/myCart.png"></image>
+								<image wx:if="{{data.style.buystyle == 'buybtn-2'}}" class="priceImg" style="background:{{data.style.buybtncolor}}" src="https://tws.cnweisou.com/images/myCart2.png"></image>
+								<text wx:if="{{data.style.buystyle == 'buybtn-3'}}" class="priceText" style="background:{{data.style.buybtncolor}}">购买</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{data.style.liststyle=='block three'}}">
+		<view class="container-class">
+			<view class="container-goods">
+				<view class="main-goods main-goodsThree">
+					<view class="single-goods threeGoods" wx:key wx:for="{{data.data}}" catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}" style="width:30%;box-sizing:border-box;">
+						<view class="goodsImg" style="height: 220rpx;">
+							<image lazy-load="true" class="avatar" src="{{item.thumb}}" style="width:100%;height: 220rpx;" />
+							<view class="showIcon1 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'left top'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon2 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'right top'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon3 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'left bottom'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon4 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'right bottom'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+						</view>
+						<view style="display: flex;flex-direction: column;border-top: none;">
+							<text wx:if="{{data.params.showtitle=='1'}}" class="title title_three" style="color:{{data.style.titlecolor}}">{{item.title}}</text>
+							<view wx:if="{{data.params.showprice=='1'}}" class="summary">
+								<text class="price" style="color:{{data.style.pricecolor}}">￥{{item.price}}</text>
+								<image wx:if="{{data.style.buystyle == 'buybtn-1'}}" class="priceImg" style="background:{{data.style.buybtncolor}}" src="https://tws.cnweisou.com/images/myCart.png"></image>
+								<image wx:if="{{data.style.buystyle == 'buybtn-2'}}" class="priceImg" style="background:{{data.style.buybtncolor}}" src="https://tws.cnweisou.com/images/myCart2.png"></image>
+								<text wx:if="{{data.style.buystyle == 'buybtn-3'}}" class="priceText" style="background:{{data.style.buybtncolor}}">购买</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{data.style.liststyle==''}}">
+		<view class="container-class">
+			<view class="container-goods">
+				<view class="main-goods">
+					<view class="article_wrap" wx:key wx:for="{{data.data}}" catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}" style="width:100%;box-sizing: border-box;border-bottom: 2rpx solid #f0f0f0;display: flex;flex-direction: row;">
+						<view class="goodsImg" style="width: 160rpx;height: 160rpx;">
+							<image lazy-load="true" class="avatar" src="{{item.thumb}}" mode="aspectFill" style="display: block;float: left;width:160rpx;height: 160rpx;" />
+							<view class="showIcon1 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'left top'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon2 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'right top'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon3 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'left bottom'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+							<view class="showIcon4 showIcon" wx:if="{{data.params.showicon != 0 && data.params.iconposition == 'right bottom'}}">
+								<image lazy-load="true" class="iconMY" style="width:{{data.style.iconzoom}}%;height:{{data.style.iconzoom}}%;" src="{{data.params.goodsiconsrc}}"></image>
+							</view>
+						</view>
+						<view style="width: 100%;">
+							<view class="article_title" style="width:520rpx;height:auto;margin: 0;">
+								<text wx:if="{{data.params.showtitle=='1'}}" class="title_for" style="color:{{data.style.titlecolor}};width:100%;border:none;">{{item.title}}</text>
+								<view wx:if="{{data.params.showprice=='1'}}" class="summary4">
+									<text class="price" style="color:{{data.style.pricecolor}}">￥{{item.price}}元</text>
+									<image wx:if="{{data.style.buystyle == 'buybtn-1'}}" class="priceImg" style="background:{{data.style.buybtncolor}}" src="https://tws.cnweisou.com/images/myCart.png"></image>
+									<image wx:if="{{data.style.buystyle == 'buybtn-2'}}" class="priceImg" style="background:{{data.style.buybtncolor}}" src="https://tws.cnweisou.com/images/myCart2.png"></image>
+									<text wx:if="{{data.style.buystyle == 'buybtn-3'}}" class="priceText" style="background:{{data.style.buybtncolor}}">购买</text>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+</template>
+<!--line线-->
+<template name="wxapp_line1">
+	<view style="background:{{data.style.background}};padding:{{data.style.padding}}px 0px">
+		<view style="border-top:{{data.style.height}}px {{data.style.linestyle}} {{data.style.bordercolor}};"></view>
+	</view>
+</template>
+<!--blank线-->
+<template name="wxapp_blank1">
+	<view style="background:{{data.style.background}};height:{{data.style.height}}px"></view>
+</template>
+<!--文章-->
+<template name="wxapp_article1">
+	<!-- 样式一 -->
+	<block wx:if="{{data.style.liststyle=='block one'}}">
+		<view class="styleOne {{index == 0 ?'styleback':''}}" wx:for="{{data.data}}" data-index="{{index}}" wx:key catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}">
+			<view class='topArt' wx:if="{{index == 0}}">
+				<image src='{{item.thumb}}' mode='widthFix'></image>
+				<view class='topArtDes' wx:if="{{data.params.showtitle==1 || data.params.showdesc==1}}">
+					<text style='color:{{data.style.titlecolor}};margin-top:10rpx;' wx:if="{{data.params.showtitle==1}}">{{item.title}}</text>
+					<text style='color:#c9c9c9;' wx:if="{{data.params.showdesc==1}}">{{item.desc}}</text>
+				</view>
+			</view>
+			<view class='centerArt' wx:else>
+				<view class='centerArtLeft'>
+					<view wx:if="{{data.params.showtitle==1}}" class='danLine' style='color:{{data.style.titlecolor}};'>{{item.title}}</view>
+					<view wx:if="{{data.params.showdesc==1}}" class='duoLine'>{{item.desc}}</view>
+				</view>
+				<view class='centerArtRig'>
+					<image src='{{item.thumb}}'></image>
+				</view>
+			</view>
+		</view>
+	</block>
+	<!-- <样式2> -->
+	<block wx:if="{{data.style.liststyle==''}}">
+		<view clsss='styleTwo' wx:key wx:for="{{data.data}}" catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}">
+			<view class='centerArt'>
+				<view class='centerArtLeft'>
+					<view wx:if="{{data.params.showtitle==1}}" class='danLine' style='color:{{data.style.titlecolor}};'>{{item.title}}</view>
+					<view wx:if="{{data.params.showdesc==1}}" class='duoLine'>{{item.desc}}</view>
+				</view>
+				<view class='centerArtRig'>
+					<image src='{{item.thumb}}'></image>
+				</view>
+			</view>
+		</view>
+	</block>
+	<!-- 样式三 -->
+	<block wx:if="{{data.style.liststyle=='block two'}}">
+		<view class="styleOne {{index == 0?'styleback':''}}" wx:key="key" wx:for="{{artDataB}}" catchtap="getToPage" data-link="{{ item.linkurl=='' ? 'index' : item.linkurl}}">
+			<view class='topArt' wx:if="{{index == 0}}">
+				<image src='{{item.thumb}}' mode='widthFix'></image>
+				<view class='topArtDes'>
+					<text style='color:{{data.style.titlecolor}};margin-top:10rpx;' wx:if="{{data.params.showtitle==1}}">{{item.title}}</text>
+					<text style='color:{{data.style.desccolor}};' wx:if="{{data.params.showdesc==1}}">{{item.desc}}</text>
+				</view>
+			</view>
+			<view class='centerArt' wx:else>
+				<view class='centerArtRig' style='margin-left: 0;'>
+					<image src='{{item.thumb}}'></image>
+				</view>
+				<view class='centerArtLeft' style='margin-left:30rpx;'>
+					<view wx:if="{{data.params.showtitle==1}}" class='danLine' style='color:{{data.style.titlecolor}};'>{{item.title}}</view>
+					<view wx:if="{{data.params.showdesc==1}}" class='duoLine'>{{item.desc}}</view>
+				</view>
+			</view>
+		</view>
+	</block>
+</template>
+<!-- 电话 -->
+<template name="wxapp_phone">
+	<movable-area style="height: 100%;width: 100%;position: fixed;right: 0;top:0; pointer-events: none;z-index:10;">
+		<movable-view class="phone" inertia damping='30' friction='1' style="height: 50px; width: 50px; position: absolute;z-index: 100;top:70%;right:10rpx;pointer-events: auto;" x='325' direction="all">
+			<image wx:if='{{!data.phoneicon}}' lazy-load="true" src="https://tws.cnweisou.com/images/indexPhone.png" bindtap="call" style="position:absolute;top:0;margin-top:60rpx;width:74rpx;height:74rpx;right:0rpx;z-index:15;" id="{{data.phone}}"></image>
+			<image wx:if='{{data.phoneicon}}' lazy-load="true" src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/{{data.phoneicon}}' class="phone" bindtap="call" style="position:absolute;top:0;margin-top:60rpx;width:74rpx;height:74rpx;right:0rpx;z-index:15;" id="{{data.phone}}"></image>
+		</movable-view>
+	</movable-area>
+</template>
+<!-- 客服 -->
+<template name="wxapp_customerserver">
+	<movable-area style="height: 100%;width: 100%;position: fixed;right: 0;top:0; pointer-events: none;;z-index:10;">
+		<movable-view inertia damping='30' friction='1' style="height: 50px; width: 50px; position: absolute;z-index: 100;top:67%;right:10rpx;pointer-events: auto;" x='325' direction="all">
+			<button class="buttonContactIndex" open-type="contact" hover-class="none" bindcontact='joinGoods'></button>
+			<view wx:if="{{!data.icon}}" style="width:74rpx;height:74rpx;background-image:url(https://tws.cnweisou.com/images/kefu.png);background-size:cover;position:absolute;top:0;right:0rpx;z-index:15;">
+			</view>
+			<view wx:if="{{data.icon}}" data-icon="{{data.icon}}" style="width:74rpx;height:74rpx;background-image:url(http://boweisou.oss-cn-shenzhen.aliyuncs.com/{{data.icon}});background-size:cover;position:absolute;top:0;right:0rpx;border-radius:50%;z-index:15;">
+			</view>
+		</movable-view>
+	</movable-area>
+</template>
+<!-- 店铺商品  定位前效果 -->
+<template name="wxapp_merchgroup">
+	<!-- 此处修改店铺街 || -->
+	<block wx:if="{{data.params.openlocation!='1'&&!store&&!store_num}}">
+		<view style="line-height:80rpx;border-bottom: 1px solid {{data.style.titlecolor}};font-size:28rpx;color:{{data.style.titlecolor}};padding-left:20rpx;background:{{data.style.background}};">推荐商家</view>
+		<view wx:key wx:for="{{data.data}}" class="article_wrap" bindtap="storebtn" id="{{item.merchid}}" style="background:{{data.style.background}};">
+			<image lazy-load="true" class="article_img" src="{{item.thumb}}"></image>
+			<view class="article_title">
+				<view class="article_subtitle" style="color:{{data.style.titlecolor}}">{{item.name}}</view>
+				<text class="article_subdesc" style="color:{{data.style.desccolor}}">{{item.desc}}</text>
+			</view>
+		</view>
+	</block>
+	<block wx:else>
+		<block wx:if="{{store}}">
+			<view style="background:red;">
+				<view class="store_tp" bindtap="to_store" style="background:{{data.style.background}};color:{{data.style.titlecolor}};">
+					店铺街
+					<image lazy-load="true" src='https://tws.cnweisou.com/images/right.png' class="store_bd"> </image>
+				</view>
+				<!-- 如果有店铺列表 -->
+				<block wx:if='{{store_num>0}}'>
+					<scroll-view class="list_store" scroll-x="true" style="background:{{data.style.background}};">
+						<block wx:key wx:for="{{store.list}}">
+							<block wx:if="{{store_num==index+1}}">
+								<view class="item" id='{{item.id}}' bindtap="storebtn" style="margin-right: 0;padding-right: 0;">
+									<image lazy-load="true" src="{{item.logo}}" style="width: 100%;height: 100%;"></image>
+								</view>
+							</block>
+							<block wx:elif="{{store_num!=index+1}}">
+								<view class="item" id='{{item.id}}' bindtap="storebtn">
+									<image lazy-load="true" src="{{item.logo}}" style="width: 100%;height: 100%;"></image>
+									<view class="item_line"></view>
+								</view>
+							</block>
+						</block>
+					</scroll-view>
+				</block>
+				<block wx:else>
+					<view style="text-align: center;font-size: 28rpx;height: 44rpx;line-height: 28rpx;color: #d5d5d5;background-color: #fff">
+						该城市暂无入住的品牌，换个城市试试
+					</view>
+				</block>
+			</view>
+		</block>
+	</block>
+</template>
+<!-- 视频 -->
+<template name="wxapp_video">
+	<block wx:key wx:for="{{data}}">
+		<view class="video_wrap" data-link="{{item.linkurl}}">
+			<video custom-cache="{{false}}" src="{{item.imgurl}}" objectFit="contain" style="width:100%;height: 100%;display: block;" controls="true" poster="{{item.imgurl2}}"></video>
+		</view>
+	</block>
+</template>
+<!--开卡  -->
+<template name="openCard">
+	<block wx:key wx:for="{{data.data}}">
+		<view class="openCard" style="background:url({{item.imgurl}}) no-repeat center center;background-size:100% 100%;" bindtap='addcard'>
+		</view>
+	</block>
+</template>
+<template name="openCardCoupons">
+	<block wx:key wx:for="{{data.data}}">
+		<view class="openCard" style="background:url({{item.imgurl}}) no-repeat center center;background-size:contain;">
+			<view class="openCardLeft">
+				<image src="../../../images/memberIndex.png"></image>
+				<text>领取会员卡2</text>
+			</view>
+			<view class="openCardRight">
+				<text bindtap='addcard'>立即激活2</text>
+			</view>
+		</view>
+	</block>
+</template>
+<template name="audioView">
+	<view class="audioView">
+		<block wx:key wx:for="{{data.data}}">
+			<audio poster="{{item.linkurl}}" name="{{item.name}}" author="{{item.author}}" src="{{item.imgurl}}" id="myAudio" controls loop></audio>
+		</block>
+	</view>
+</template>
+<!--地图组件  -->
+<template name="map">
+	<view class="mapAssembly">
+		<map id="map" longitude="{{data.style.longitude}}" latitude="{{data.style.latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" data-longitude='{{data.style.longitude}}' data-latitude='{{data.style.latitude}}' markers="{{markers}}" show-location style="width: 100%; height: 300px;"></map>
+	</view>
+</template>
+<!-- 团购组 -->
+<template name="begroups">
+	<block wx:if="{{dataGroup.params.hideborder == 0}}">
+		<view style="background-color:{{dataGroup.style.background}};margin-top:{{dataGroup.style.margintop}}rpx;border:solid 1px {{dataGroup.style.timebordercolor}}">
+			<view style='margin:0 20rpx;display:flex;justify-content:space-between;align-items:center;text-align: center;height:100rpx;line-height:100rpx;' class='groupBe'>
+				<image src="{{dataGroup.params.iconurl}}" style='width:100rpx;height:30rpx;'></image>
+				<text style='font-size:30rpx;color:{{dataGroup.style.morecolor}};' bindtap='intoGroupList'>查看更多 》</text>
+			</view>
+			<scroll-view class="list_store" scroll-x="true">
+				<block wx:if="{{dataList}}">
+					<block wx:key wx:for="{{dataList}}">
+						<view class="itemTwo" id='{{item.id}}' bindtap="toGroupDetail" style="background-color:{{dataGroup.style.background}};">
+							<image lazy-load="true" src="{{item.thumb}}" style="width: 100%;height: 100%;"></image>
+							<view style='color:{{dataGroup.style.marketpricecolor}};' class='groupprice'>￥{{item.groupsprice}}</view>
+							<view style='color:{{dataGroup.style.productpricecolor}};' class='nowPrice'>￥{{item.price}}</view>
+						</view>
+					</block>
+				</block>
+				<block wx:else>
+					<view style='text-align: center;height:60rpx;line-height:60rpx;'>没有团购商品</view>
+				</block>
+			</scroll-view>
+		</view>
+	</block>
+	<block wx:else>
+		<view style="background-color:{{dataGroup.style.background}};margin-top:{{dataGroup.style.margintop}}rpx;">
+			<view style='margin:0 20rpx;display:flex;justify-content:space-between;align-items:center;text-align: center;height:100rpx;line-height:100rpx;' class='groupBe'>
+				<image src="{{dataGroup.params.iconurl}}" style='width:100rpx;height:30rpx;'></image>
+				<view bindtap='intoGroupList'>
+					<text style='font-size:30rpx;color:{{dataGroup.style.morecolor}};'>查看更多</text>
+					<image style='width:17rpx;height:20rpx;margin-left:10rpx;' src='http://tws.cnweisou.com/images/rightArrow.png'></image>
+				</view>
+			</view>
+			<scroll-view class="list_store" scroll-x="true">
+				<block wx:if="{{dataList}}">
+					<block wx:key wx:for="{{dataList}}">
+						<view class="itemTwo" id='{{item.id}}' bindtap="toGroupDetail" style="background-color:{{dataGroup.style.background}};">
+							<image lazy-load="true" src="{{item.thumb}}" style="width: 100%;height: 100%;"></image>
+							<view style='color:{{dataGroup.style.marketpricecolor}};' class='groupprice'>￥{{item.groupsprice}}</view>
+							<view style='color:{{dataGroup.style.productpricecolor}};' class='nowPrice'>￥{{item.price}}</view>
+						</view>
+					</block>
+				</block>
+				<block wx:else>
+					<view style='text-align: center;height:60rpx;line-height:60rpx;'>没有团购商品</view>
+				</block>
+			</scroll-view>
+		</view>
+	</block>
+</template>
+<!-- NEWS4的模板-->
+<template name="new4">
+	<view class="container">
+		<view class="top" style="height:{{date.topHeight}}px;line-height:{{date.topHeight}}px;">
+			<view class="cover {{isClick == true?'showcover':''}}">
+				<scroll-view scroll-y class="coverscro" bindtap="clickContAgain">
+					<text class="titleCover">
+					{{date.test.shopinfo.name}}
+					</text>
+					<text class="contCover">
+					{{date.test.shopinfo.description}}
+					</text>
+				</scroll-view>
+			</view>
+			<image class="brand" src="{{date.test.shopinfo.logo}}"></image>
+			<view class="info" bindtap="clickCont">
+				<view class="title1">
+					<text>{{date.test.shopinfo.name}}</text>
+				</view>
+				<view class="content">
+					<text>{{date.test.shopinfo.description}}</text>
+				</view>
+			</view>
+			<view class="phoneX" bindtap="click_phone">
+				<image src="https://tws.cnweisou.com/images/Phone3.png"></image>
+			</view>
+		</view>
+		<view class="body" style="height:{{date.swiperHeight}}px;padding-top:{{date.topHeight}}px;">
+			<scroll-view scroll-y style="height:{{date.swiperHeight}}px;">
+				<view class="titles" style="height:{{date.swiperHeight+300}}px;">
+					<block>
+						<view wx:if="{{date.test.category}}" wx:key wx:for="{{date.test.category}}" id="{{index}}" bindtap="show" class="title {{selectedTitle==index ? 'active' : ''}}">
+							<view>
+								<image style="width:42rpx;height:42rpx;border-radius:50%;margin:0px 10rpx;" src="{{item.advimg}}"></image>
+							</view>
+							<text>{{item.name}}</text>
+						</view>
+					</block>
+				</view>
+			</scroll-view>
+			<scroll-view scroll-y style="height:{{date.swiperHeight}}px;">
+				<view style="height:{{date.swiperHeight+300}}px;">
+					<block wx:if="{{date.arr}}">
+						<view class="right" wx:key wx:for="{{date.arr[selectedTitle]}}">
+							<image class="repast" src="{{item.thumb}}"></image>
+							<view class="descirbe" style="width:280rpx;height:180rpx;">
+								<view class="describe_one">
+									<text class="con_title">{{item.title}}</text>
+								</view>
+								<view class="describe_two">
+									<text class="amount">已售{{item.sales}}</text>
+								</view>
+								<view class="describe_three">
+									<text class="price">￥{{item.marketprice}}</text>
+								</view>
+							</view>
+							<view class="shopping">
+								<view class="circle add" bindtap="add" data-index="{{index}}" data-id="{{item.id}}">+</view>
+								<view class="selectnum" wx:if="{{item.mytotal && item.mytotal > 0}}">
+									<text class="selectNumber">{{item.mytotal}}</text>
+								</view>
+								<view class="circle delete circle1" bindtap="reduce" data-index="{{index}}" style="color:gray" wx:if="{{item.mytotal && item.mytotal > 0}}">-</view>
+							</view>
+						</view>
+					</block>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="shopCar" bindtap="getCarts">
+			<view wx:if="{{Allnum}}" class="circleNum  shopCartI">{{Allnum}}</view>
+			<text wx:if="{{Allnum}}">￥{{Allprice}}</text>
+			<image src="https://tws.cnweisou.com/images/cart1.png"></image>
+		</view>
+	</view>
+	<view class="orderForm dn {{showView?'db':''}} " style="z-index:100000;bottom:-30rpx;">
+		<view class="shadow " catchtap="topShow"></view>
+		<view class="formBox">
+			<view class="orderTop">
+				<image src="https://tws.cnweisou.com/images/delete.png"></image>
+				<text bindtap="deleteCart">清空购物车</text>
+			</view>
+			<scroll-view scroll-y style="height:380rpx;">
+				<block wx:key wx:for="{{selectGoods}}">
+					<view class="list">
+						<text class="listText">{{item.title}}</text>
+						<text class="listPrice">￥{{item.marketprice}}</text>
+						<view class="shopping listShopping">
+							<view class="box">
+								<view class="circle add" bindtap="allAdd" data-index="{{index}}">+</view>
+							</view>
+							<view class="numBox">
+								<text class="shopNumber">{{item.mytotal}}</text>
+							</view>
+							<view class="circle delete circle1 " bindtap="allDelete" data-index="{{index}}" style="color:gray">-</view>
+						</view>
+					</view>
+				</block>
+			</scroll-view>
+			<view class="listBottom">
+				<text class="totalPrice">￥{{Allprice}}</text>
+				<view class="btn" bindtap="bindCheckout">去下单</view>
+			</view>
+		</view>
+	</view>
+	<view class="bgtypeList" wx:if="{{isSecond}}">
+		<scroll-view scroll-y class="cardAgainType">
+			<view class="title">
+				<view class="left">{{goods_name}}</view>
+				<image src="https://tws.cnweisou.com/images/canyinError.png" bindtap="closeSecond"></image>
+			</view>
+			<view class="specifications" wx:key wx:for="{{goods_spec_list}}" data-myindex="{{index}}">
+				<view class="specificationsTitle">{{item[index].spec_name}}：</view>
+				<view class="specificationsCont" wx:for="{{item}}" wx:key data-index="{{index}}" data-spec_name="{{item.spec_name}}" bindtap="selectSpecif">
+					<text class="{{item.isClick == 1?'selected':''}}">{{item.item}}</text>
+				</view>
+			</view>
+			<view class="determineAgin">
+				<text class="money">￥{{nowPrice}}</text>
+				<text class="ok" bindtap="selectOk">选好了</text>
+			</view>
+		</scroll-view>
+	</view>
+</template>
+<loading wx:if="{{loading}}"></loading>

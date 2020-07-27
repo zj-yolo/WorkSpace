@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="menu">
+    <view class="{{cateid == item.id ?'menuActive menuItem' : 'menuItem'}}" wx:for="{{cateList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleCate">{{item.name}}</view>
+  </view>
+  <view class="list">
+    <block wx:if="{{companyList.length > 0}}">
+      <view class="ItemList" wx:for="{{companyList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="toActicle">
+        <image class="Imgs" src="{{item.logo}}" mode="aspectFit"></image>
+        <view class="content">
+          <view class="title">{{item.title}}</view>
+          <view class="subtitle">{{item.introduce}}</view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="noenterprise">
+        <image class="noImgs" src="https://tws.oss.cnweisou.com/images/170/2020/03/EIcc62iCpX8MKkbE9Xhz36x29X6Xkb.png" mode="widthFix"></image>
+        <view class="texts">企业入驻中...</view>
+      </view>
+    </block>
+  </view>
+</view>

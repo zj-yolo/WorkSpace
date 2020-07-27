@@ -1,0 +1,55 @@
+<import src="../../../../components/components.wxml" />
+<import src="../../../../wxParse/wxParse.wxml" />
+<view wx:if="{{scratchResult}}" class="scratchBg" style="background:url(https://tws.cnweisou.com/images/scratchBg.png) no-repeat center center;background-size:100% 100%;">
+    <view class="scratchTop">
+        <view class="countPrize">
+            还剩
+            <text>{{scratchResult.chance}}</text>
+            次刮奖喔
+        </view>
+    </view>
+    <template wx:if="{{noprize}}" is="scratch" data="{{scratch,isScroll,scratchResult}}"></template>
+    <button bindtap='onStart' wx:if="{{scratchResult.chance != 0 }}" class="{{btndisabled}}">
+        {{txt}}
+    </button>
+    <view class="scratchBottom" wx:if="{{scratchResult.lottery.lotteryinfo}}">
+        <view class="title">刮卡规则</view>
+        <scroll-view scroll-y class="cont">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+        </scroll-view>
+    </view>
+    <view class="priceDetail" bindtap='priceDetail'>
+        <image src="https://tws.cnweisou.com/images/game_detailScratch.png"></image>
+    </view>
+</view>
+<view class="bgtypeList" wx:if='{{cover}}'>
+    <view class="prizeCont">
+        <text class="close" bindtap='prizeOk'>X</text>
+        <view class="pirzeIcon">
+            <image wx:if="{{scratchPrize.icon}}" src="{{scratchPrize.icon}}" mode="widthFix" data-type="{{scratchPrize.type}}" data-logid="{{scratchPrize.logid}}" bindtap="joinPrice"></image>
+            <image wx:else src="https://tws.cnweisou.com/images/placeholder.png" mode="widthFix" data-type="{{scratchPrize.type}}" data-logid="{{scratchPrize.logid}}" bindtap="joinPrice"></image>
+        </view>
+        <view class="prizeDetail">{{scratchPrize.info}}</view>
+        <view class="prizeOk" bindtap='prizeOk'>确定</view>
+    </view>
+</view>
+<view class="bgtypeListDetail" wx:if='{{ispriceDetail}}'>
+    <scroll-view scroll-y class="detailCont" bindscrolltolower="detailBottom">
+        <view class="priceDetailTitle">
+            获奖详情
+            <image class="detailClose" bindtap='priceDetailClose' src="http://tws.cnweisou.com/images/detail_close.png"></image>
+        </view>
+        <view class="detailItem" wx:for="{{priceDetailList}}" wx:if="{{priceDetailList.length>0}}">
+            <view class="detailItemTop">
+                <span>抽奖时间：{{item.addtime}}</span>
+            </view>
+            <view class="detailItemBottom">
+                <span>{{item.desc}}</span>
+                <span wx:if="{{item.title!='other'}}" data-id="{{item.id}}" bindtap='joingoodsDetail'>
+                    {{item.title}}
+                </span>
+            </view>
+        </view>
+        <view wx:if="{{priceDetailList.length==0}}" class="detailItemNo">暂时没有获奖信息</view>
+    </scroll-view>
+</view>

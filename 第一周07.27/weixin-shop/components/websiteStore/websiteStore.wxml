@@ -1,0 +1,81 @@
+<import src="../../wxParse/wxParse.wxml" />
+<view class="styleWebsite">
+  <view class="bannerContent">
+    <image class="bannerImg" src='{{pageData.set.background[0]}}'></image>
+  </view>
+  <view class="btnList" wx:if="{{pageData.set.timage.length > 0 && btnList[0] && btnList[1] && btnList[2]}}">
+    <view class="btnItem">
+      <block wx:for="{{pageData.set.timage}}" wx:key="index">
+        <image class="icon" src="{{item}}" bindtap="gobtnURL" data-index="{{index}}"></image>
+      </block>
+    </view>
+    <view class="btnItem">
+      <block wx:for="{{btnList}}" wx:key="index">
+        <view class="btnName">{{item}}</view>
+      </block>
+    </view>
+  </view>
+  <!-- 直播组件 -->
+  <block wx:if="{{pageData.set.live}}">
+    <view class="liveStreaming">
+      <image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+    </view>
+  </block>
+  <!-- 直播组件 -->
+
+  <view class="richTextContent" wx:if="{{richtextList[3]}}">
+    <view class="richTextItem">
+      <view class="header">
+        <view class="circular"></view>
+        <view class="title">店铺介绍</view>
+      </view>
+      <view class="richText">
+        <template is="wxParse" data="{{wxParseData: introduce3.nodes}}" />
+      </view>
+    </view>
+  </view>
+  <block wx:if="{{allStatus}}">
+    <view class="storeContent" wx:if="{{storeList.length > 0}}">
+      <view class="header">
+        <view class="circular"></view>
+        <view class="title">合作品牌</view>
+      </view>
+      <view class="storeList">
+        <block wx:for="{{storeList}}" wx:key="{{index}}">
+          <view class="storeCard" data-id="{{item.id}}" bindtap="tostore" wx:if="{{item.status == 1}}">
+            <image class="storeLogo" src="{{item.logo}}"></image>
+            <view class="storeName">{{item.storename}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+
+  <view class="videoContent" wx:if="{{videos.videos}}">
+    <view class="header">
+      <view class="circular"></view>
+      <view class="title">公司视频</view>
+    </view>
+    <view class="videos">
+      <video objectFit="cover" style="width: 100%;height: 420rpx;background-color: #000000;" class="videocover" src="{{videos.videos}}" poster="{{videos.videos_link}}" controls></video>
+      <view class="videoTitle">
+        <text>{{videos.videos_title}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="actilceContent">
+    <view class="header">
+      <view class="circular"></view>
+      <view class="title">企业资讯</view>
+    </view>
+    <view class="acticleList">
+      <view class="articleCard" wx:for="{{acticleList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="toacticle">
+        <view class="leftArticle">
+          <view class="articleTitle">{{item.article_title}}</view>
+          <view class="artilceTime">{{item.article_date_v}}</view>
+        </view>
+        <image class="rightImg" src="{{item.resp_img}}"></image>
+      </view>
+    </view>
+  </view>
+</view>

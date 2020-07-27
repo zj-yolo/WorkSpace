@@ -1,0 +1,13 @@
+<!--components/audio/index.wxml-->
+
+<view class='audioView'>
+  <view class='audio'>
+    <view class='audioImg' data-src="{{data.imgurl}}" bindtap='playOrPause' style="background-image: url( {{data.linkurl}} );">
+        <image wx:if="{{playType == 'pause'}}" src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/audio5g-play.png'></image>
+        <image wx:if="{{playType == 'play'}}" src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/audio5g-pause.png'></image>        
+    </view>
+    <view class='name'>{{data.name}}</view>
+    <view class='author'>{{data.author}}</view>
+    <!-- <view class='time'>00:00</view> -->
+  </view>
+</view>

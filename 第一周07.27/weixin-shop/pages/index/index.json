@@ -1,0 +1,19 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "loading": "/components/loading/index",
+    "backToHome": "/components/backToHome/index",
+    "i-audio": "/components/audio/index",
+    "websiteStore": "/components/websiteStore/websiteStore",
+    "gateWay": "/components/gateWay/gateWay",
+    "personpay": "/components/personpay/index",
+    "couponcomponents": "/components/tools/couponTool/index",
+    "groupcomponents": "/components/tools/groupTool/index",
+    "skillcomponents": "/components/tools/skillTool/index",
+    "newshoptemplate1": "/components/newTemplate/shopTemplate1/index",
+    "newshoptemplate2": "/components/newTemplate/shopTemplate2/index",
+    "newshoptemplate3": "/components/newTemplate/shopTemplate3/index",
+    "officialTemplate": "/components/newTemplate/officialTemplate/index",
+    "investmentTemplate": "/components/newTemplate/investmentTemplate/index"
+  }
+}

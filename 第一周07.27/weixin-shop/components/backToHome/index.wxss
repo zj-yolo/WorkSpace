@@ -1,0 +1,15 @@
+.haha {
+  position: fixed;
+  width: 100rpx;
+  height: 100rpx;
+  z-index: 99999;
+  margin-left: 84%;
+  margin-top: 900rpx;
+  box-shadow: 0rpx 0rpx 10rpx 10rpx #e3e3e3;
+  border-radius: 50%;
+}
+
+.haha image {
+  width: 100rpx;
+  height: 100rpx;
+}

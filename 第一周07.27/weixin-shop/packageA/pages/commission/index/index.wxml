@@ -1,0 +1,58 @@
+<view class="wrapper">
+  <view class="cate">
+    <scroll-view scroll-x class="scrollView">
+      <view class="cate__item {{item.id==cateId?'cateActive':''}}" bindtap="handleCateClick" data-id="{{item.id}}" wx:for="{{cateList}}" wx:key="{{item.id}}">{{item.name}}</view>
+    </scroll-view>
+  </view>
+  <view class="goods__list">
+    <view class="list__item" wx:for="{{goodsList}}" wx:key="{{item.id}}" bindtap="handleSkip" data-id="{{item.goodsid}}">
+      <image class="item__image" src="{{item.image}}"></image>
+      <view class="list__content">
+        <view class="top">
+          <view class="title">{{item.title}}</view>
+          <view class="option" wx:if="{{item.option}}">规格：{{item.option.title}}</view>
+          <view class="price">￥{{item.price}}</view>
+        </view>
+        <view class="figure__wrapper">
+          <view class="label">预计推广佣金{{item.commission}}元</view>
+          <view class="item__btn" catchtap="handleShowModal" data-type="single" data-item="{{item}}">去推广</view>
+        </view>
+      </view>
+    </view>
+    <view class="noGoods" wx:if="{{!hasContent}}">
+      <image class="icon__no-goods" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/icon-no-distribution.png"></image>
+      <view class="noGoodsText">暂无相关商品</view>
+    </view>
+  </view>
+  <view class="operate">
+    <view class="rule" bindtap="handleShowRule">
+      <image class="icon__rule" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/icon-rule.png"></image>
+      <view class="rult__text">活动规则</view>
+    </view>
+    <view class="btn__all" bindtap="handleShowModal" data-type="all">一键全部推广</view>
+  </view>
+</view>
+<view class="custom__modal" wx:if="{{showModal}}" catchtouchmove="stopPropagation" bindtap="handleCloseModal">
+  <view class="wrapper__share" catchtap="stopPropagation">
+    <view class="title__share">分享赚返现</view>
+    <view class="modal__content">
+      <view class="label__share">任何人通过此链接成功购买商品都可以赚钱</view>
+      <view class="label__share">收益仅自己可见</view>
+      <view class="share__menu">
+        <view class="menu__item">
+          <button class="icon__container" open-type="share">
+            <image class="icon__menu" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/icon-wechat.png"></image>
+          </button>
+          <view class="text__menu">微信好友</view>
+        </view>
+        <view class="menu__item">
+          <view class="icon__container" catchtap="handleShare">
+            <image class="icon__menu" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/icon-friend.png"></image>        
+          </view>
+          <view class="text__menu">微信朋友圈</view>
+        </view>
+      </view>
+    </view>
+    <view class="btn__cancel" catchtap="handleCloseModal">取消</view>
+  </view>
+</view>

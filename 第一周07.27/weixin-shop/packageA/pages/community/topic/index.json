@@ -1,0 +1,5 @@
+{
+    "usingComponents": {
+      "backToHome": "/components/backToHome/index"
+    }
+}

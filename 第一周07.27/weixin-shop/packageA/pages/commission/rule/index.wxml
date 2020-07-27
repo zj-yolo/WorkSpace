@@ -1,0 +1,9 @@
+<view class="rule">
+  <view class="title">推广活动规则</view>
+  <view class="content">
+    <view class="ruleItem">1.通过推广页面的商品，可以分享转发给朋友，好友购买后，你将获得返现；</view>
+    <view class="ruleItem">2.显示的为预计返现，不含优惠部分，根据好友实际支付金额为准；</view>
+    <view class="ruleItem">3.推广的商品需要购买人确认收货后，你才可以获得返现，可在【我的】-【我的钱包】中进行提现；</view>
+    <view class="ruleItem">4.返现明细可以在【我的】-【我的钱包】-【返现明细】中查看。</view>
+  </view>
+</view>

@@ -1,0 +1,248 @@
+/* 官网版样式 */
+.liveStreaming {	margin-top: 40rpx;padding: 0 24rpx;width: 100%;box-sizing: border-box;}.liveImage {width: 100%;}
+.styleWebsite {
+  background-color: #f3f9fe;
+  width: 100%;
+  padding-bottom: 50rpx;
+}
+
+.bannerContent {
+  height: 417rpx;
+  width: 100%;
+}
+
+.bannerImg {
+  width: 100%;
+  height: 100%;
+}
+
+.richText {
+  width: 100%;
+  border-radius: 10rpx;
+}
+
+.header {
+  margin: 50rpx 0 35rpx;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.circular {
+  width: 26rpx;
+  height: 26rpx;
+  box-sizing: border-box;
+  border: 7rpx solid #000;
+  border-radius: 50%;
+  margin-right: 15rpx;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 30rpx;
+  vertical-align: text-top;
+}
+
+.richTextContent, .storeContent, .videoContent, .actilceContent {
+  padding: 0 30rpx;
+}
+
+.richTextItem {
+  overflow: hidden;
+}
+
+.setButton {
+  text-align: center;
+  width: 500rpx;
+  padding: 25rpx;
+  background-color: #df1b1b;
+  color: #fff;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  margin: 40rpx auto;
+  letter-spacing: 2rpx;
+}
+
+.storeList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.storeCard {
+  width: 330rpx;
+  height: 273rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30rpx;
+  margin-bottom: 30rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+
+.storeLogo {
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 50%;
+}
+
+.storeName {
+  box-sizing: border-box;
+  padding: 0 10rpx;
+  text-align: center;
+  margin-top: 10rpx;
+  font-weight: 700;
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.storeCard:nth-child(even) {
+  margin-right: 0;
+}
+
+.videoList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.videoCard {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  margin-right: 30rpx;
+  margin-bottom: 30rpx;
+  overflow: hidden;
+}
+
+.videoBanner {
+  display: inline-block;
+}
+
+.playBtn {
+  width: 57rpx;
+  height: 57rpx;
+  border-radius: 50%;
+  position: absolute;
+  left: 135rpx;
+  top: 75rpx;
+}
+
+.videocover {
+  width: 328rpx;
+  height: 210rpx;
+}
+
+.videoTitle text {
+  font-size: 25rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.videoTitle {
+  height: 98rpx;
+  width: 328rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 12rpx 20rpx 20rpx;
+}
+
+.videoCard:nth-child(even) {
+  margin-right: 0;
+}
+
+.articleCard {
+  display: flex;
+  background-color: #fff;
+  padding: 25rpx;
+  height: 210rpx;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 30rpx;
+  border-radius: 10rpx;
+}
+
+.leftArticle {
+  flex: 1;
+  margin-right: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.articleTitle {
+  margin-top: 5rpx;
+  width: 100%;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  font-size: 28rpx;
+}
+
+.artilceTime {
+  color: #8c8c8c;
+  font-size: 20rpx;
+}
+
+.rightImg {
+  width: 240rpx;
+  height: 158rpx;
+  border-radius: 10rpx;
+}
+
+.videos {
+  width: 100%;
+}
+
+.videoTitle {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 98rpx;
+  background-color: #fff;
+  font-size: 30rpx;
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.btnList {
+  margin-top: 50rpx;
+}
+
+.btnItem {
+  display: flex;
+  justify-content: space-around;
+}
+
+.icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 10rpx
+}
+
+.btnName {
+  width: 150rpx;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 10rpx;
+  font-size: 28rpx;
+}
+
+/* 官网版样式 */

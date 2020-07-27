@@ -1,0 +1,16 @@
+<!--pages/getAuth/index.wxml-->
+<view class='title'>快速安全登录</view>
+
+<view class='userInfo'>
+  <open-data class='avatar' type="userAvatarUrl"></open-data>
+  <open-data class='nickName' type="userNickName"></open-data>
+</view>
+
+<view class='text'>
+   点击授权登录按钮，一键登录本小程序 
+</view>
+
+<view class='btn'>
+  <view class="rejectLogin" bindtap="handleReject">拒绝授权</view>
+  <button type='primary' bindgetuserinfo="getUserInfo" open-type='getUserInfo'>授权登录</button>
+</view>

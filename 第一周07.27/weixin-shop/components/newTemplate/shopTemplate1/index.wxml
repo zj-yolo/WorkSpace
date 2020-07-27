@@ -1,0 +1,214 @@
+<wxs module="filter" src="../../../common/formatItem.wxs"></wxs>
+<view>
+	<view class="header">
+		<view class="search">
+			<view class="searchItem">
+				<image class="searchIcon" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-search.png"></image>
+				<input class="searchinput" placeholder="搜索你想要的" bindconfirm="handleconfirm" placeholder-style="font-size:25rpx"></input>
+			</view>
+			<view class="cateItem">
+				<image class="cateIcon" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-cate.png"></image>
+				<view class="cateText" bindtap="skipCate">分类</view>
+			</view>
+		</view>
+		<view class="nav">
+			<view class="{{viewtype == 'all'? 'navItemActive navItem':'navItem'}} " bindtap="handlecate" data-type="all">推荐</view>
+			<view class="{{viewtype == 'group'? 'navItemActive navItem':'navItem'}} " wx:if="{{groupCateList.length > 0}}" bindtap="handlecate" data-type="group">拼团</view>
+			<view class="{{viewtype == 'skill'? 'navItemActive navItem':'navItem'}} " wx:if="{{times.length > 0}}" bindtap="handlecate" data-type="skill">秒杀</view>
+			<view class="{{viewtype == 'storelist'? 'navItemActive navItem':'navItem'}} " wx:if="{{storeList.length  > 0}}" bindtap="handlecate" data-type="storelist">品牌商家</view>
+		</view>
+	</view>
+	<block wx:if="{{viewtype == 'all'}}">
+		<view class="live" wx:if="{{liveInfo &&liveInfo.length > 0}}">
+			<image class="liveImg" src="{{liveInfo[0].share_img}}" mode="aspectFill"></image>
+			<view class="liveRight">
+				<view class="liveTop">
+					<view class="liveAdd">{{liveInfo[0].name}}</view>
+					<view class="towatch" bindtap="skipLiveItem" data-roomid="{{liveInfo[0].roomid}}">立即观看</view>
+				</view>
+				<view class="livestatus">
+					<image class="livestatusIcon" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/template-livestatus.png"></image>
+					<block wx:if="{{liveInfo[0].live_status == '101'}}">直播中</block>
+					<block wx:if="{{liveInfo[0].live_status == '102'}}">未开始</block>
+					<block wx:if="{{liveInfo[0].live_status == '103'}}">已结束</block>
+					<block wx:if="{{liveInfo[0].live_status == '104'}}">禁播</block>
+					<block wx:if="{{liveInfo[0].live_status == '105'}}">暂停中</block>
+					<block wx:if="{{liveInfo[0].live_status == '106'}}">异常</block>
+					<block wx:if="{{liveInfo[0].live_status == '107'}}">已过期</block>
+				</view>
+				<view class="livegoods">
+					<view class="livegoodsItem" wx:for="{{liveInfo[0].goods}}">
+						<image class="livegoodsItemImg" src="{{item.cover_img}}"></image>
+						<view class="livegoodsItemText">￥{{item.price}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="coupon" wx:if="{{couponList && couponList.length > 0}}">
+			<scroll-view scroll-x="true" style="height:151rpx" class="couponScroll">
+				<view class="couponList">
+					<view class="couponItem" wx:for="{{couponList}}" wx:key="index">
+						<view class="topcircle circle"></view>
+						<view class="bottomcircle circle"></view>
+						<view class="whiteline">------</view>
+						<view class="couponcontent" wx:if="{{item.backtype == 0}}">
+							<view class="couponleft">
+								<view style="font-size:19rpx;line-height:40rpx">￥
+									<text style="font-size:38rpx;font-weight:600">{{item.deduct}}</text>
+								</view>
+								<view style="font-size:19rpx;line-height:30rpx">满{{item.enough}}元可用</view>
+								<view style="font-size:19rpx;line-height:30rpx">{{filter.filtertime(item.timestart)}}-{{filter.filtertime(item.timeend)}}</view>
+							</view>
+							<view style="font-size:22rpx" bindtap="handlegaveCoupon" data-id="{{item.id}}">领取</view>
+						</view>
+						<view class="couponcontent" wx:if="{{item.backtype == 1}}">
+							<view class="couponleft">
+								<view style="font-size:19rpx;line-height:40rpx">
+									<text style="font-size:38rpx;font-weight:600">{{item.discount}}</text>折
+								</view>
+								<view style="font-size:19rpx;line-height:30rpx">满{{item.enough}}元可用</view>
+								<view style="font-size:19rpx;line-height:30rpx">{{filter.filtertime(item.timestart)}}-{{filter.filtertime(item.timeend)}}</view>
+							</view>
+							<view style="font-size:22rpx" bindtap="handlegaveCoupon" data-id="{{item.id}}">领取</view>
+						</view>
+						<view class="couponcontent" wx:if="{{item.backtype == 2}}">
+							<view class="couponleft">
+								<view style="font-size:19rpx;line-height:40rpx">返
+									<text style="font-size:38rpx;font-weight:600">{{item.backredpack}}</text>
+								</view>
+								<view style="font-size:19rpx;line-height:30rpx">满{{item.enough}}元可用</view>
+								<view style="font-size:19rpx;line-height:30rpx">{{filter.filtertime(item.timestart)}}-{{filter.filtertime(item.timeend)}}</view>
+							</view>
+							<view style="font-size:22rpx" bindtap="handlegaveCoupon" data-id="{{item.id}}">领取</view>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="bannerwrap">
+		<swiper indicator-dots="{{false}}" autoplay>
+			<block wx:for="{{pageData.set.banner}}" wx:key="index">
+			  <swiper-item >
+				 <image class="fristImg" src="{{item}}"></image>
+			  </swiper-item>
+			</block>
+      </swiper>
+			<image class="secondImg" mode="widthFix" src="{{pageData.set.picture[0]}}"></image>
+		</view>
+		<view class="fristgoodsItem">
+			<view class="Itemtitle">
+				<view style="font-size: 34rpx;line-height: 48rpx;color: #212121;font-weight:700;">新品推荐</view>
+				<view style="font-size: 28rpx;line-height: 40rpx;letter-spacing: 2rpx;color: #212121">NEW PRODUCT LAUNCH</view>
+			</view>
+			<view class="Itemgoods">
+				<view class="goodsContent" wx:for="{{pageData.items.team0}}" wx:key="{{item.goodsid}}" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+					<image class="goodsImgs" src="{{item.thumb}}"></image>
+					<view class="goodsInfos">
+						<view class="goodsInfo-name">{{item.title}}</view>
+						<view class="goodsInfo-price">￥{{item.packageprice}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="secondgoodsItem">
+			<view class="Itemtitle">
+				<view style="font-size: 34rpx;line-height: 48rpx;color: #212121;font-weight:700;">精选优品</view>
+				<view style="font-size: 28rpx;line-height: 40rpx;letter-spacing: 2rpx;color: #212121">NEW PRODUCT LAUNCH</view>
+			</view>
+			<view class="Itemgoods">
+				<view class="goodsContent" wx:for="{{pageData.items.team1}}" wx:key="{{item.goodsid}}" bindtap='intogoodsdetail' data-goodsid='{{item.goodsid}}'>
+					<image class="goodsImgs" src="{{item.thumb}}"></image>
+					<view class="goodsInfos">
+						<view class="goodsInfo-name">{{item.title}}</view>
+						<view class="goodsInfo-price">￥{{item.packageprice}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{viewtype == 'group'}}">
+		<view class='topBar'>
+			<scroll-view scroll-x="true" class="sidebar sidebar4" style="display: inline-block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:100%;background-color: white;padding:20rpx 0;box-sizing:border-box;">
+				<text wx:for="{{groupCateList}}" wx:key="index"  bindtap="handlegroupCategory" data-id="{{item.id}}"  class="{{groupCate ==item.id ? 'cateitem cateactive':'cateitem'}}" style='font-size:28rpx;'>{{item.name}}</text>
+			</scroll-view>
+		</view>
+		<view class="Itemgoods" style="min-height:80vh">
+			<view class="goodsContent" wx:for="{{groupList}}" wx:key="{{item.id}}" bindtap='intogroupdetail' data-id='{{item.id}}'>
+				<image class="goodsImgs" src="{{item.thumb}}"></image>
+				<view class="goodsInfos">
+					<view class="goodsInfo-name">{{item.title}}</view>
+					<view class="goodsInfo-price">￥{{item.groupsprice}}</view>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{viewtype == 'skill'}}">
+		<scroll-view scroll-x="true" class="couponNum">
+			<view data-index="{{index}}" class="newTitle {{sub == index ?'active':''}}" data-id="{{item.id}}" bindtap="clickTitle" wx:for="{{times}}">
+				<text class="num">{{item.time}}:00</text>
+				<text class="type" wx:if="{{item.status == -1}}">已开抢</text>
+				<text class="type" wx:if="{{item.status == 0}}">抢购中</text>
+				<text class="type" wx:if="{{item.status == 1}}">即将开始</text>
+			</view>
+		</scroll-view>
+		<view class="shopList">
+			<view class="title">
+				<view class="titleContent">
+					<view class="titleLeft">
+						<view wx:if="{{buying == -1}}">
+							还可以继续抢购喔
+						</view>
+					</view>
+					<view class="titleRight" wx:if='{{nowShop}}'>
+						<text wx:if="{{buying == 1}}" class="isStart">距开始</text>
+						<text wx:else class="isStart">距结束</text>
+						<text class="hour">{{clock.clock_hour}}</text> :
+						<text class="hour">{{clock.clock_min}}</text> :
+						<text class="hour">{{clock.clock_sec}}</text>
+					</view>
+
+					<view class="titleRight" wx:else>
+						<view wx:if="{{buying == 0 ||  buying == 1}}">
+							<text wx:if="{{buying == 0}}" class="isStart">距结束</text>
+							<text wx:if="{{buying == 1}}" class="isStart">距开始</text>
+							<text class="hour">{{clock.clock_hour}}</text> :
+							<text class="hour">{{clock.clock_min}}</text> :
+							<text class="hour">{{clock.clock_sec}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="Itemgoods" style="min-height:70vh">
+				<view class="goodsContent" wx:for="{{goods}}" wx:key="{{item.goodsid}}" bindtap='joinDetail' data-goodsid='{{item.goodsid}}'>
+					<image class="goodsImgs" src="{{item.thumb}}"></image>
+					<view class="goodsInfos">
+						<view class="goodsInfo-name">{{item.title}}</view>
+						<view class="goodsInfo-price">￥{{item.marketprice}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+
+	</block>
+	<block wx:if="{{viewtype == 'storelist'}}">
+		<view class="c_brand">
+			<!-- <view class="storeTitle">推荐品牌</view> -->
+			<view class="c_tabcontent" wx:for="{{storeList}}" wx:key="{{index}}" bindtap="skipStoredetail" data-id="{{item.id}}">
+				<view class="logoImg">
+					<image src="{{item.logo}}"></image>
+				</view>
+				<view class="c_tabcontentRight">
+					<view class="c_content">
+						<view class="storeName">{{item.storename}}</view>
+						<view class="hasadd">
+						</view>
+						<view class="desc" wx:if="{{item.desc}}">{{item.desc}}</view>
+					</view>
+					<view class="contentRight">
+						<image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index-arrow.png" class="arrowImage" mode="widthFix"></image>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+</view>

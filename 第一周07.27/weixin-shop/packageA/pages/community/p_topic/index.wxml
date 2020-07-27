@@ -1,0 +1,36 @@
+<import src="../../../../WxEmojiView/WxEmojiView.wxml"/>
+
+<view class="section">
+  <form bindsubmit="bindFormSubmit">
+    <block wx:if="{{pid}}">
+    </block>
+    <block wx:else>
+      <input type="text" placeholder="标题3-25个字"  name="title" maxlength="25" class="title"/>
+    </block>
+  	<template is="WxEmojiTextarea" data="{{WxEmojiObjs}}" />
+    <view >
+    	<view class="select" >
+    		<view data-index="1" bindtap="show">表情</view>
+    		<view data-index="2" bindtap="show" style="margin-left: 30rpx;">图片</view>
+    	</view>
+    	 <block wx:if="{{show==1}}"> 
+    		<template is="WxEmojiChooseChooseView" data="{{WxEmojiObjs}}"></template>
+    	 </block> 
+    	<block wx:elif="{{show==2}}">
+    		<view style="height: 220rpx;margin:20rpx">
+    		<view class="gallery">
+				<view class="item" wx:for="{{images}}" wx:key="">
+					<image style="width: 100rpx; height: 100rpx" src=" {{item}}" bindtap="previewImage" mode="aspectFill" />
+					<view class="delete" bindtap="delete" data-index="{{index}}"><image style="left: 33%;" src="https://tws.cnweisou.com/images/icon_delete.png" /></view>
+				</view>
+				<view class="item">
+					<image style="" src="https://tws.cnweisou.com/images/icon_add.png" class="button-upload" bindtap="chooseImage" />
+				</view>
+			</view>
+    		</view>
+    	</block>
+    </view>
+    <button form-type="submit" class="upload" type="primary"> 提交 </button>
+  </form>
+</view>
+

@@ -1,0 +1,40 @@
+<import src="../../../../../wxParse/wxParse.wxml"/>
+<scroll-view style="height: {{height}}rpx;" scroll-y="true" bindscrolltolower="bottom">
+<block wx:if="{{list}}">
+<block wx:for="{{list}}" wx:key="">
+<view class="Social_commentary">
+	<view class="top">
+		<image class="img" src="{{item.avatar}}" data-id="{{item.id}}" bindtap="toPerson"></image>
+		<view class="top_wrap">
+			<view class="nickname" >{{item.nickname}}</view>
+			<view style="font-size: 27rpx;letter-spacing: 1rpx;">{{item.createtime}}</view>
+		</view>
+	</view>
+	<view class="body" data-pid="{{item.id}}" data-bid="{{bid}}" bindtap="toTopic">
+		<view class="title"><view class="jin">精</view>{{item.title}}</view>
+		<view class="content" style=""><template is="wxParse" data="{{wxParseData:replyTemArray[index]}}"/></view>
+		<block wx:if="{{item.images}}">
+		<view class="img_wrap" >
+			<block wx:for="{{item.images}}" wx:key="">
+				<image src="{{item}}" style="width: 33%;" mode="widthFix"></image>
+			</block>
+		</view>
+		</block>
+	</view>
+	<view class="footer">
+		<view class="goodcount" data-pid="{{item.id}}" data-bid="{{bid}}" bindtap="toTopic"><image class="icon" style="width:28rpx;height:28rpx;"  src='https://tws.cnweisou.com/images/yu.png'></image>({{item.postcount}})</view>
+		<view class="goodcount" data-pid="{{item.id}}" data-bid="{{bid}}" bindtap="toTopic"><image class="icon" src="https://tws.cnweisou.com/images/good2Z.png"></image>({{item.goodcount}})</view>
+	</view>
+</view>
+</block>
+</block>
+<block wx:else>
+<view  style="width:100%;height:{{height-200}}rpx;display:flex;flex-direction:row;justify-content:center;align-items:center">
+	<view class="no_comment">
+	<image style="width: 120rpx;height: 120rpx;margin: 30rpx 0;" src="https://tws.cnweisou.com/images/talk2Z.png"></image>
+	<view>暂时没有任何精华</view>
+	</view>
+</view>
+</block>
+
+</scroll-view>

@@ -1,0 +1,116 @@
+module.exports = {
+    getDate: function(time) {
+        if (!time) return '';
+        var date = getDate(time * 1000);
+        var M = date.getMonth() + 1;
+        var y = date.getFullYear();
+        var d = date.getDate();
+        var h = date.getHours();
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+
+        if (M < 10) M = "0" + M;
+        if (d < 10) d = "0" + d;
+        return y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s;
+    },
+    paseEmoji: function(str) {
+        var str = " " + str + " ";
+        var nodes = [];
+        // var emojiRegExp = getRegExp('\[\$[1-9][0-9]{0,1}\$\]');
+        var emojiRegExp = getRegExp('\/\:{0,2}[a-z]{0,5}[A-Z]{0,1}\,{0,1}\@{0,2}\-{0,1}\({0,1}\){0,1}\>{0,1}\<{0,1}\|{0,1}');
+        var emojiNumRegExp = getRegExp('[^0-9]', 'ig');
+        var emojiNum = null;
+        var arrxs = [
+            { 'src': '88_thumb.gif', 'content': '/88', 'value': '/:bye' },
+            { 'src': 'angrya_thumb.gif', 'content': '/angry', 'value': '/::@' },
+            { 'src': 'bba_thumb.gif', 'content': '/bba', 'value': '/:,@-D' },
+            { 'src': 'bs_thumb.gif', 'content': '/bs', 'value': '/::(' },
+            { 'src': 'bs2_thumb.gif', 'content': '/bs2', 'value': '/:>-|' },
+            { 'src': 'bz_thumb.gif', 'content': '/bz', 'value': '/::X' },
+            { 'src': 'cj_thumb.gif', 'content': '/cj', 'value': '/::O' },
+            { 'src': 'cool_thumb.gif', 'content': '/cool', 'value': '/::+' },
+            { 'src': 'crazya_thumb.gif', 'content': '/razya', 'value': '/::Q' },
+            { 'src': 'cry.gif', 'content': '/cry', 'value': '/:,@!' },
+            { 'src': 'cza_thumb.gif', 'content': '/cza', 'value': '/::g' },
+            { 'src': 'dizzya_thumb.gif', 'content': '/dizzya', 'value': '/:,@@' },
+            { 'src': 'gza_thumb.gif', 'content': '/gza', 'value': '/:handclap' },
+            { 'src': 'h_thumb.gif', 'content': '/cj', 'value': '/::L' },
+            { 'src': 'haqianv2_thumb.gif', 'content': '/haqianv2', 'value': '/::-O' },
+            { 'src': 'heia_thumb.gif', 'content': '/heia', 'value': '/:,@P' },
+            { 'src': 'huanglianse_thumb.gif', 'content': '/huanglianse', 'value': '/::B' },
+            { 'src': 'huanglianwx_thumb.gif', 'content': '/huanglianwx', 'value': '/::)' },
+            { 'src': 'kl_thumb.gif', 'content': '/kl', 'value': '/:8*' },
+            { 'src': 'landeln_thumb.gif', 'content': '/landeln', 'value': '/:,@o' },
+            { 'src': 'laugh.gif', 'content': '/laugh', 'value': '/::>' },
+            { 'src': 'mb_thumb.gif', 'content': '/mb', 'value': '/:,@-D' },
+            { 'src': 'moren_feijie_thumb.png', 'content': '/feijie', 'value': '/:?' },
+            { 'src': 'pcmoren_huaixiao_thumb.png', 'content': '/huaixiao', 'value': '/:B-)' },
+            { 'src': 'qq_thumb.gif', 'content': '/qq', 'value': '/::*' },
+            { 'src': 'sada_thumb.gif', 'content': '/sada', 'value': '/::<' },
+            { 'src': 'sb_thumb.gif', 'content': '/sbs', 'value': '/::T' },
+            { 'src': 'shamea_thumb.gif', 'content': '/shamea', 'value': '/::$' },
+            { 'src': 'sw_thumb.gif', 'content': '/sw', 'value': '/::(' },
+            { 'src': 'sweata_thumb.gif', 'content': '/sweata', 'value': '/:wipe' },
+            { 'src': 't_thumb.gif', 'content': '/t', 'value': '/::T' },
+            { 'src': 'tootha_thumb.gif', 'content': '/tootha', 'value': '/::D' },
+            { 'src': 'tza_thumb.gif', 'content': '/tza', 'value': '/:,@-D' },
+            { 'src': 'wabi_thumb.gif', 'content': '/wabi', 'value': '/:dig' },
+            { 'src': 'wq_thumb.gif', 'content': '/wq', 'value': '/:P-(' },
+            { 'src': 'x_thumb.gif', 'content': '/x', 'value': '/:,@x' },
+            { 'src': 'yhh_thumb.gif', 'content': '/yhh', 'value': '/:@>' },
+            { 'src': 'yw_thumb.gif', 'content': '/yw', 'value': '/:?' },
+            { 'src': 'yx_thumb.gif', 'content': '/yx', 'value': '/:X-)' },
+            { 'src': 'zhh_thumb.gif', 'content': '/zhh', 'value': '/:<@' },
+            { 'src': 'zy_thumb.gif', 'content': '/zy', 'value': '/::P' }
+        ];
+        emojis = [];
+
+
+        if (str == "") {
+            return;
+        }
+
+
+        for (var x = 0; x < arrxs.length; x++) {
+            while (str.indexOf(arrxs[x].value) > 0) {
+                if (str.indexOf(arrxs[x].value) > 0) {
+                    emojis.push(arrxs[x].src);
+                    str = str.replace(arrxs[x].value, '[$]-----[$]');
+                }
+            }
+
+        }
+
+ 
+        while (str.indexOf('<br />') > 0) {
+            if (str.indexOf('<br />') > 0) {
+                console.log(str);
+                str = str.replace('<br />', '\n');
+            }
+        }
+
+
+    
+
+        str = str.split('[$]');
+        var j = 0;
+        for (var i = 0; i < str.length; i++) {
+            if (str[i] == "") {
+                continue;
+            } else if (str[i] == "-----") {
+                nodes.push({
+                    type: "image",
+                    value: emojis[j]
+                });
+                j++
+            }
+          else {
+                nodes.push({
+                    type: "text",
+                    value: str[i]
+                });
+            }
+        }
+        return nodes;
+    },
+}

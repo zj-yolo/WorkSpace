@@ -1,0 +1,49 @@
+<view class="addAddress">
+	<view class='warntextbox'>
+		<image src='/images/shop/add/audio.png'></image>
+		<view class="warnText">即日起，快递单上禁止出现*先生，*女士等名字，为防止您的快递无法正常寄送，请务必填写真实姓名</view>
+	</view>
+	<view class="addressList">
+		<view class="listItem">
+			<view class="username userInfo">姓名</view>
+			<input class="inputName inputInfo" bindblur='inputName' value='{{addressInfo.realname}}' placeholder='填写收货人名字' placeholder-style="font-size:24rpx"></input>
+		</view>
+		<view class="listItem">
+			<view class="phone userInfo">手机</view>
+			<input class="inputPhone inputInfo" type='number' bindblur='inputMobile' value='{{addressInfo.mobile}}' placeholder='填写收货人手机号' placeholder-style="font-size:24rpx"></input>
+		</view>
+		<view class="listItem">
+			<view class="city userInfo">选择城市</view>
+			<!-- <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" class="selectCity">
+        <view class="picker">
+          {{addressInfo.province?addressInfo.province+"，"+addressInfo.city+"，"+addressInfo.areas:"点击选择地址"}}
+        </view>
+        <view class="arrows">
+          <image src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/xinyouxuan/arrows.png"></image>
+        </view>
+      </picker> -->
+			<picker mode="region" bindchange="bindRegionChange" value="{{region}}" >
+				<view class="picker">
+          {{addressInfo.province?addressInfo.province+"，"+addressInfo.city+"，"+addressInfo.areas:"点击选择地址"}}
+				</view>
+			</picker>
+		</view>
+		<view class="listItem detailAddressItem">
+			<view class="detailAddress">详细地址</view>
+			<input type='text' bindinput='inputDoorplate' value='{{addressInfo.address}}' placeholder='填写详细地址'></input>
+		</view>
+		<view class="setDefault" bindtap='isdefault'>
+			<view class="circle {{addressInfo.isdefault == 1?'circleActive':''}}">
+				<view wx:if="{{addressInfo.isdefault ==1}}" class="dot"></view>
+				<view wx:if="{{addressInfo.isdefault ==0}}" class="notdot dot"></view>
+			</view>
+			<text>设定为默认地址</text>
+		</view>
+	</view>
+	<view class='saveaddress'>
+		<view class="{{addressInfo.realname!='' && addressInfo.mobile!='' && multiIndex!=''?'operateBtn':' operateBtnBgc operateBtn'}}" bindtap='saveAddress'>
+			保存
+		</view>
+	</view>
+
+</view>

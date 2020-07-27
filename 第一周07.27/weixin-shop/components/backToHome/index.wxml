@@ -1,0 +1,3 @@
+<view class='haha' bindtap='backToIndex'>
+   <image src='../../images/ret.png'></image>
+</view>

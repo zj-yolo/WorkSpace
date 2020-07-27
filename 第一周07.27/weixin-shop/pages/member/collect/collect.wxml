@@ -1,0 +1,23 @@
+<view class="order-item" wx:for="{{collects}}" wx:key="" wx:if="{{!noInfo}}">
+  <view class="cartbox-item" bindtap="details" data-goods-id="{{item.goodsid}}">
+    <view>
+      <image class="carts-image" src="{{item.thumb}}" mode="aspectFill" />
+    </view>
+    <view class="carts-text">
+      <view class="carts-title">{{item.title}}</view>
+      <view class="price">
+        <block wx:if="{{is_mianyi == 1}}">
+          <text style="font-size:26rpx;color:red">面议</text>
+        </block>
+        <block wx:else>
+          <text>￥{{item.marketprice}}</text>
+        </block>
+        <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/collect5g-delete.png' class='deImg' catchtap="deleteGoods" data-goods-id="{{item.id}}"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="noData" wx:if="{{noInfo}}">
+  <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/collect5g-nocollect.png'></image>
+</view>
+<loading wx:if="{{loading}}"></loading>

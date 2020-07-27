@@ -1,0 +1,101 @@
+.withDraw{
+  font-size: 28rpx;
+}
+.item{
+  padding: 30rpx;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
+}
+.label{
+  margin-bottom: 32rpx;
+}
+.unit{
+  font-weight: 600;
+}
+.money{
+  font-size: 40rpx;
+  font-weight: 600;
+}
+.inputBox{
+  display: flex;
+  align-items: center;
+}
+.input{
+  flex: 1;
+  height: 70rpx;
+  background: #fff;
+  border: none;
+}
+.noCard{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.noCard__text{
+  color: #aaa;
+}
+.arrow__container{
+  display: flex;
+  width: 60rpx;
+  height: 60rpx;
+  justify-content: center;
+  align-items: center;
+}
+.arrow{
+  border: 14rpx solid transparent;
+  border-left-color: #000;
+}
+.promptText{
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+  font-size: 26rpx;
+}
+.btn{
+  display: flex;
+  margin-top: 110rpx;
+  width: 100%;
+  justify-content: center;
+}
+.btn__withDraw{
+  width: 470rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  border-radius: 34rpx;
+  background: #e50b0b;
+  color: rgba(255, 255, 255, .95);
+}
+.status{
+  margin-top: 130rpx;
+  text-align: center;
+}
+.icon__withDraw{
+  margin-bottom: 40rpx;
+  width: 119rpx;
+  height: 119rpx;
+  vertical-align: middle;
+}
+.info{
+  margin-bottom: 20rpx;
+  font-size: 38rpx;
+  font-weight: 600;
+}
+.info__gray{
+  font-size: 26rpx;
+  color: #757575;
+}
+.btn{
+  display: flex;
+  justify-content: center;
+}
+.btn__confirm{
+  width: 420rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  border-radius: 36rpx;
+  background: #e50b0b;
+  color: #fff;
+}

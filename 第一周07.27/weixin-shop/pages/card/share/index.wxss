@@ -1,0 +1,56 @@
+page{
+  background: #eee;
+}
+.sharelunbo {
+  width: 100%;
+}
+
+.imgshare {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* justify-content: center; */
+}
+
+.longsao {
+  font-size: 28rpx;
+  margin: 30rpx 0 50rpx 0;
+}
+.common{
+  width: 290rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  font-size: 34rpx;
+  border-radius: 60rpx;
+  text-align: center;
+}
+.share{
+  background: #fff;
+}
+.saveshare {
+  background-color: #1d4ce6;
+  color: white;
+}
+.dibu {
+  display: flex;
+  margin: 44rpx auto 0;
+  width: 640rpx;
+  justify-content: space-between;
+}
+
+.poster{
+  width: 340px;
+  min-height: 300px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 60px;
+  box-shadow: 0px 0px 15px 3px #eee;
+  position: relative;
+  background: #fff;
+  text-align: center;
+}
+
+.poster image{
+  width: 340px;
+}

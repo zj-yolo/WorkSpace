@@ -1,0 +1,24 @@
+<view class='top'>
+    <view class='wrap'>
+        <text bindtap='toCity'>{{city}}</text>
+        <view class='arrowTop'></view>
+        <image class='t_img' src="../../../images/icon_express.png"></image>
+    
+        <input style='width:65%;' type="text" bindinput='bindinput' placeholder="请输入您的地址" />
+ 
+    </view>
+</view>
+<view class='line'></view>
+<view class='a_addr' data-lat="{{CITY.lat}}" data-lng="{{CITY.lng}}" data-addr='{{CITY.address}}' bindtap='getAddr'>
+    <image class='a_img' src="https://tws.cnweisou.com/images/position_2.png" ></image>
+    <text>{{CITY.address}}</text>
+    <text class='a_addrs'>当前定位</text>
+</view>
+<view class='fj'>附近地址</view>
+<block wx:for='{{pois}}'>
+<view class='item' data-lat="{{item.location.lat}}" data-lng="{{item.location.lng}}" data-addr='{{item.title}}' bindtap='getAddr'>
+    <view class='i_view'>{{item.title}}</view>
+    <view>{{item.address}}</view>
+</view>
+
+</block>

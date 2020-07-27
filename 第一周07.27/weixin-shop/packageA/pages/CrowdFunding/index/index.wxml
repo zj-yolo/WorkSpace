@@ -1,0 +1,82 @@
+<view>
+  <loading wx:if="{{loading}}"></loading>
+  <block wx:if="{{indexData.banner.length > 0}}">
+    <swiper indicator-dots="true" circular="true" style='height: 320rpx;' autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{indexData.banner}}" wx:key='index'>
+        <swiper-item data-id='{{item.id}}' data-link='{{item.link}}' bindtap='isBanner'>
+          <image src="{{item.thumb}}" class="slide-image" style='width:100%;height: 320rpx;' />
+        </swiper-item>
+      </block>
+    </swiper>
+  </block>
+  <view class='xleng' wx:if="{{indexData.hotGoods.length > 0}}">
+    <view class='title'>热门推荐</view>
+    <scroll-view class="list_store" scroll-x="true">
+      <block wx:for='{{indexData.hotGoods}}' wx:key='index'>
+        <view class="itemTwo" data-id='{{item.id}}' bindtap='ishote'>
+          <view>
+            <image lazy-load="true" src='{{item.thumb}}'></image>
+            <view class="content-trigon-zhijiao">
+              <text>众筹中</text>
+            </view>
+          </view>
+          <view class='text'>{{item.title}}</view>
+          <view style='width:100%;height:10rpx;'></view>
+          <progress style='border-radius:10rpx;overflow:hidden;' percent="{{item.haha}}" activeColor='red' />
+          <view style='width:100%;height:20rpx;'></view>
+          <view class='bt'>
+            <view class='btleft'>￥{{item.price}}</view>
+            <view class='btrig'>{{item.haha}}%</view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{indexData.hotGoods.length > 0}}" style='width:100%;height:10rpx;background-color:#f6f6f6;margin-top:10rpx;'></view>
+
+  <view>
+    <!-- <view class='five'>
+      <block wx:for='{{indexData.category}}' wx:key wx:if='{{index <= 4}}'>
+        <view class="one {{index == colorIndex? 'colory':'color'}}" data-index='{{index}}' data-id='{{item.id}}' bindtap='updataColor'>{{item.name}}</view>
+      </block>
+    </view> -->
+    <block wx:if="{{indexData.category.length > 0}}">
+      <view class='five'>
+        <scroll-view scroll-x="true" class="sidebar sidebar4" style="display: inline-block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:100%;height:80rpx;line-height:80rpx;">
+          <block wx:for='{{indexData.category}}' wx:key='index'>
+            <text class="one {{index == colorIndex? 'colory':'color'}}" data-index='{{index}}' data-id='{{item.id}}' bindtap='updataColor'>{{item.name}}</text>
+            <text style='margin: 0rpx 20rpx;font-weight: bold'>|</text>
+          </block>
+          <view style='width:100%;height:2px;background-color:#f6f6f6;'></view>
+        </scroll-view>
+      </view>
+    </block>
+
+    <view class='two'>
+      <block wx:if='{{indexData.category[colorIndex]}}'>
+        <block wx:for="{{indexData.category[colorIndex].goods}}" wx:key="index">
+          <view class='two_left' data-id='{{item.id}}' bindtap='ishote'>
+            <view class="{{(index+1)%2==0? 'two_neiS':'two_neiD'}}">
+              <view style='position:relative;'>
+                <image class='img' src='{{item.thumb}}'></image>
+                <view class="content-trigon-zhijiaoB">
+                  <text>{{item.type}}</text>
+                </view>
+              </view>
+              <view class='text'>{{item.title}}</view>
+              <view style='width:100%;height:10rpx;'></view>
+              <progress style='border-radius:10rpx;overflow:hidden;' percent="{{item.hahab}}" activeColor='red' />
+              <view style='width:100%;height:20rpx;'></view>
+              <view class='bt'>
+                <view class='btleft'>￥{{item.price}}</view>
+                <view class='btrig'>{{item.hahab}}%</view>
+              </view>
+              <view style='width:100%;height:30rpx;'></view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+</view>

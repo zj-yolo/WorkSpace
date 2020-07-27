@@ -1,0 +1,76 @@
+.title {
+  font-weight: 700;
+  font-size: 30rpx;
+}
+
+.Item input {
+  margin-top: 20rpx;
+  height: 75rpx;
+  width: 645rpx;
+  border: 1rpx solid #e1e1e1;
+  padding-left: 25rpx;
+  box-sizing: border-box;
+}
+
+.cityview {
+  margin-top: 20rpx;
+  height: 75rpx;
+  line-height: 75rpx;
+  width: 645rpx;
+  border: 1rpx solid #e1e1e1;
+  padding-left: 25rpx;
+  color: #b1b1b1;
+  font-size: 25rpx;
+  box-sizing: border-box;
+}
+.cityviewfont{
+  color: #000;
+  font-size: 30rpx;
+}
+
+.citybox {
+  position: relative;
+}
+
+.righticon {
+  width: 0;
+  height: 0;
+  border-top: 10rpx solid transparent;
+  border-left: 17rpx solid #000;
+  border-bottom: 10rpx solid transparent;
+  position: absolute;
+  right: 93rpx;
+  top: 32rpx;
+}
+
+.Item {
+  margin-top: 52rpx;
+  margin-left: 52rpx;
+}
+
+.inputclass {
+  font-size: 25rpx;
+  color: #b1b1b1;
+}
+
+.addbutton {
+  font-size: 30rpx;
+  width: 100%;
+  height: 98rpx;
+  line-height: 98rpx;
+  text-align: center;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+}
+
+.sure {
+  width: 50%;
+  background-color: #e50b0b;
+  color: #fff;
+}
+
+.cancle {
+  width: 50%;
+  background-color: #f0f6ff;
+}

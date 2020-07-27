@@ -1,0 +1,27 @@
+<view class="numAll">
+    已报名：（
+    <text>{{allNum}}</text>）
+</view>
+<block wx:for="{{userList}}" wx:key='item'>
+    <view class="userList">
+        <view class="userListLeft">
+            <image class="avatar" src="{{item.avatar}}"></image>
+            <text>{{item.nickname}}</text>
+            <image wx:if="{{item.gender==0}}" class="sex" style="display:none;"></image>
+            <image wx:if="{{item.gender==1}}" class="sex" src="http://tws.cnweisou.com/images/manL.png"></image>
+            <image wx:if="{{item.gender==2}}" class="sex" src="http://tws.cnweisou.com/images/womanL.png"></image>
+        </view>
+        <view class="userListCenter" wx:if="{{item.mobile}}">
+            {{item.mobile}}
+        </view>
+        <view class="userListCenter" wx:else>
+        </view>
+        <view class="userListRight">
+            {{item.join_time}}
+        </view>
+    </view>
+</block>
+<view class="numAllBottom">
+    当前为
+    <text>{{allNum}}</text>人，最顶部用户为发起者
+</view>

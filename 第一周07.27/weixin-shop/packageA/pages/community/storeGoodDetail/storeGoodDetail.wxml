@@ -1,0 +1,284 @@
+<import src="../../../../wxParse/wxParse.wxml" />
+<backToHome wx:if="{{shareIcon}}"></backToHome>
+<loading wx:if="{{loading}}"></loading>
+<view style="overflow-x: hidden;" class='{{pf?"pf":""}}'>
+  <swiper class="images" indicator-dots="true" autoplay="true" interval="5000" duration="1000" circular="true" style="height:{{galleryHeight}}px;">
+    <!-- <swiper class="images" indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:700px;"> -->
+    <block wx:for="{{goods.gallery}}" wx:for-index="index" wx:key="index">
+      <swiper-item style="height:700rpx;">
+        <image src="{{item.image_url}}" mode="aspectFill" class="swiper-image" bindtap="previewImage" data-current="{{index}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="summary">
+    <view class="title">{{goods.goods.goods_name}}</view>
+    <view class='subhead'>{{goods.goods.goods_remark}}</view>
+  </view>
+  <view class="pirceKill" wx:if="{{isSkill}}">
+    <view class="left">
+      <image class="goodsShareSkill" src="http://tws.cnweisou.com/images/goodsShareSkill.png" bindtap="openShare"></image>
+      <view class="nowMoney">￥
+        <text class="nowPrice">{{skillGoods.cost_price}}</text>
+      </view>
+      <view class="agoMoney">
+        <text class="hall" bindtap="joinskillList">主会场</text>
+        <view class="agoPrice">￥{{skillGoods.market_price}}
+          <text class="line"></text>
+        </view>
+      </view>
+    </view>
+    <view class="right" wx:if="{{clock.clock_hasTime}}">
+      <view class="top">距结束还有</view>
+      <view class="bottomSkill">
+        <text class="hour">{{clock.clock_hour}}</text>:
+        <text class="hour">{{clock.clock_min}}</text>:
+        <text class="hour">{{clock.clock_sec}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="text-red" wx:else>
+    <view style="font-size: 26rpx">￥</view>
+    <text style="line-height: 45rpx;">{{cost_price}}</text>
+    <text style='font-size:26rpx;color:#999;margin-left: 25rpx;' wx:if="{{goods.goods.unit}}">元/{{goods.goods.unit}}</text>
+    <!-- <text class="text-price" wx:if="{{market_price!=0 && market_price>cost_price || goods.goods.market_price!=0 && goods.goods.market_price>cost_price}}">价格:￥{{market_price?market_price:goods.goods.market_price}}</text> -->
+    <text class="text-price" wx:if="{{goods.goods.market_price!=0 || goods.goods.market_price!=0}}">价格:￥{{market_price?market_price:goods.goods.market_price}}</text>
+    <text class="limitGood" wx:if="{{usermaxbuy>0}}">限购{{usermaxbuy}}{{goods.goods.unit}}</text>
+
+    <image class="goodsShare" src="http://tws.cnweisou.com/images/goodsShare.png" bindtap="openShare"></image>
+  </view>
+  <view class="view-other-info">
+    <text class="tl" wx:if="{{showtotal == 1}}">库存:{{store_count}}</text>
+    <text class="tc">销量:{{goods.goods.comment_count}}</text>
+    <text class="tr">热度:{{goods.goods.click_count}}</text>
+  </view>
+  <view class="after_sales">
+    <view class="afterSales" wx:if="{{cashD}}">
+      <image src="http://tws.cnweisou.com/images/finish2.png" class="afterSealeImg"></image>
+      <text class="afterSealeText">{{cashD}}</text>
+    </view>
+    <view wx:if="{{qualityD}}" class="afterSales">
+      <image src="http://tws.cnweisou.com/images/finish2.png" class="afterSealeImg"></image>
+      <text class="afterSealeText">{{qualityD}}</text>
+    </view>
+    <view class="afterSales" wx:if="{{sevenD}}">
+      <image src="http://tws.cnweisou.com/images/finish2.png" class="afterSealeImg"></image>
+      <text class="afterSealeText">{{sevenD}}</text>
+    </view>
+    <view wx:if="{{invoiceD}}" class="afterSales">
+      <image src="http://tws.cnweisou.com/images/finish2.png" class="afterSealeImg"></image>
+      <text class="afterSealeText">{{invoiceD}}</text>
+    </view>
+    <view wx:if="{{repairD}}" class="afterSales">
+      <image src="http://tws.cnweisou.com/images/finish2.png" class="afterSealeImg"></image>
+      <text class="afterSealeText">{{repairD}}</text>
+    </view>
+    <view wx:if="{{keywords}}" class="afterSales">
+      <image src="http://tws.cnweisou.com/images/finish2.png" class="afterSealeImg"></image>
+      <text class="afterSealeText">{{keywords}}</text>
+    </view>
+  </view>
+  <view wx:if="{{isclick}}" class="joinshop" bindtap="joinshop">
+    <view class="left">
+      <image src="{{logo_shop}}"></image>
+    </view>
+    <view class="right">
+      <text class="titleTop" wx:if="{{name_shop}}">{{name_shop}}</text>
+      <text class="titleTop" wx:else>没有店名喔</text>
+      <text class="titleBttom" wx:if="{{description_shop}}">{{description_shop}}</text>
+      <text class="titleBttom" wx:else>没有介绍喔</text>
+    </view>
+  </view>
+  <view class="rline"></view>
+  <view class='bgColor' style='width:100%;background:#e5e5e5;overflow: hidden;'>
+    <view class="class-tab">
+      <text bindtap="tabClick" data-index="0" class="{{tabClasss[0]}}">详情</text>
+      <text bindtap="tabClick" data-index="1" class="{{tabClasss[1]}}">参数</text>
+      <text bindtap="tabClick" data-index="2" class="{{tabClasss[2]}}">评价</text>
+    </view>
+  </view>
+  <view class="parent" wx:if="{{tab == 0}}">
+    <block wx:if="{{goods.goods.goods_content!=''}}">
+      <view style='text-align: center;margin:0 2.5%;width: 95%;'>
+        <template is="wxParse" data="{{wxParseData:contain.nodes}}"></template>
+      </view>
+    </block>
+    <view style="width:100%;height:90rpx;"></view>
+  </view>
+  <view class="parent" wx:if="{{tab == 1}}" style='padding:0 3%;width: 94%;'>
+    <block wx:for='{{goods_attr_list}}'>
+      <view style='font-size: 27rpx;line-height: 80rpx;border-bottom: 1rpx solid #ccc;display:flex;flex-direction: row;width: 100%;'>
+        <view style='width: 30%;color:#000;'>{{item.title}}</view>
+        <view style='width: 70%;color:gray;'>{{item.value}}</view>
+      </view>
+    </block>
+    <view style="width:100%;height:100rpx;"></view>
+  </view>
+  <block wx:if="{{tab == 2}}">
+    <!-- <scroll-view style="height: {{height}}rpx;" scroll-y="true" bindscrolltolower="bottom"> -->
+    <view class="parent pinglunBox">
+      <view class="container carts-list">
+        <view class="Evaluation_top">
+          <block wx:for="{{Evaluation.count}}">
+            <block wx:if="{{index=='all'}}">
+              <view class="item {{select=='all'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                <view>全部</view>
+                <view>{{item}}</view>
+              </view>
+            </block>
+            <block wx:if="{{index=='good'}}">
+              <view class="item {{select=='good'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                <view>好评</view>
+                <view>{{item}}</view>
+              </view>
+            </block>
+            <block wx:if="{{index=='normal'}}">
+              <view class="item {{select=='normal'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                <view>中评</view>
+                <view>{{item}}</view>
+              </view>
+            </block>
+            <block wx:if="{{index=='bad'}}">
+              <view class="item {{select=='bad'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                <view>差评</view>
+                <view>{{item}}</view>
+              </view>
+            </block>
+            <block wx:if="{{index=='pic'}}">
+              <view class="item {{select=='pic'? 'select':''}}" bindtap="select" data-index="{{index}}">
+                <view>晒图</view>
+                <view>{{item}}</view>
+              </view>
+            </block>
+          </block>
+        </view>
+        <template wx:if="{{select=='all'||select=='good'||select=='normal'||select=='bad'||select=='pic'}}" is="Evaluation" data="{{list:list}}"></template>
+        <view class='pinlunBox'>
+          <template name="Evaluation">
+            <block wx:for="{{list}}">
+              <view class='pinlun'>
+                <view style="display:flex;flex-direction: row;justify-content: space-between;line-height: 100rpx;margin-bottom: 20rpx;">
+                  <view style="display: flex;flex-direction: row;">
+                    <image src="{{item.headimgurl}}" style="width: 100rpx;height: 100rpx;border-radius: 50%;" />
+                    <view style="margin-left: 20rpx;">{{item.nickname}}</view>
+                  </view>
+                  <template is="wxParse" data="{{wxParseData:replyTemArray[index]}}" />
+                </view>
+                <view style="display: flex;justify-content: space-between;font-size: 25rpx;line-height: 50rpx;">
+                  <image wx:if="{{item.level ==   '0'}}" class="stars" src="http://tws.cnweisou.com/images/stars0.gif"></image>
+                  <image wx:elif="{{item.level == '1'}}" class="stars" src="http://tws.cnweisou.com/images/stars1.gif"></image>
+                  <image wx:elif="{{item.level == '2'}}" class="stars" src="http://tws.cnweisou.com/images/stars2.gif"></image>
+                  <image wx:elif="{{item.level == '3'}}" class="stars" src="http://tws.cnweisou.com/images/stars3.gif"></image>
+                  <image wx:elif="{{item.level == '4'}}" class="stars" src="http://tws.cnweisou.com/images/stars4.gif"></image>
+                  <image wx:elif="{{item.level == '5'}}" class="stars" src="http://tws.cnweisou.com/images/stars5.gif"></image>
+                  <view wx:if='{{item.createtime!=""}}'>{{item.createtime}}</view>
+                </view>
+                <view style="margin-bottom：10rpx;box-sizing: border-box;padding-left: 30rpx;">{{item.content}}</view>
+                <view style="width:100%;display: flex;flex-direction: row;align-items: flex-start;flex-wrap: nowrap;" bindtap="joinImage" data-img="{{item.images}}">
+                  <block wx:for="{{item.images}}">
+                    <view style='overflow:hidden;width:160rpx;height: 160rpx;margin: 10rpx;' data-index="{{index}}" bindtap='getImgIndex'>
+                      <image src="{{item}}" style='width: 160rpx;height: 160rpx;' mode='aspectFill' />
+                    </view>
+                  </block>
+                </view>
+                <!-- 客服回复 -->
+                <block wx:if='{{item.reply_content!=""}}'>
+                  <view class='kefu'>
+                    <view style='width: 19%;line-height: 37.5rpx;'>客服回复:</view>
+                    <view style='width: 80%;line-height:  37.5rpx;color: gray;'>
+                      <view>{{item.reply_content}}</view>
+                      <view wx:if='{{item.reply_images!=""}}' style="width:100%;display: flex;flex-direction: row;align-items: center;flex-wrap: nowrap;" bindtap="joinImage" data-img="{{item.reply_images}}">
+                        <block wx:for="{{item.reply_images}}">
+                          <view style='overflow:hidden;width:160rpx;height: 160rpx;margin: 10rpx;'>
+                            <image src="{{item}}" style='width: 160rpx;height: 160rpx;' mode='aspectFill' />
+                          </view>
+                        </block>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+                <view class='zhuijia' wx:if="{{item.append_content}}">
+                  <view style='color:red;'>追加评论：</view>
+                  <view style="box-sizing: border-box;padding-left: 30rpx;" wx:if="{{item.append_content}}">{{item.append_content}}</view>
+                  <view style="width:100%;display: flex;flex-direction: row;align-items: flex-start;flex-wrap: nowrap;" bindtap="joinImage" data-img="{{item.append_images}}" wx:if="{{item.append_content}}">
+                    <block wx:for="{{item.images}}" wx:if="{{item.images}}">
+                      <view style='overflow:hidden;width:160rpx;height: 160rpx;margin: 10rpx;' data-index="{{index}}" bindtap='getImgIndex'>
+                        <image src="{{item}}" style='width: 160rpx;height: 160rpx;' mode='aspectFill' />
+                      </view>
+                    </block>
+                  </view>
+                </view>
+                <!-- 客服回复追加 -->
+                <block wx:if='{{item.append_reply_content!=""}}'>
+                  <view class='kefu'>
+                    <view style='width: 19%;line-height: 37.5rpx;'>客服回复:</view>
+                    <view style='width: 80%;line-height:  37.5rpx;color: gray;'>
+                      <view>{{item.append_reply_content}}</view>
+                      <view wx:if='{{item.append_reply_images!=""}}' style="width:100%;display: flex;flex-direction: row;align-items: center;flex-wrap: nowrap;" bindtap="joinImage" data-img="{{item.append_reply_images}}">
+                        <block wx:for="{{item.append_reply_images}}">
+                          <view style='overflow:hidden;width:160rpx;height: 160rpx;margin: 10rpx;'>
+                            <image src="{{item}}" style='width: 160rpx;height: 160rpx;' mode='aspectFill' />
+                          </view>
+                        </block>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </block>
+          </template>
+        </view>
+      </view>
+    </view>
+    <!-- </scroll-view> -->
+  </block>
+  <view class="bgtypeList" wx:if="{{showImage}}" bindtap="showImages">
+    <view class="showImgTop">
+      <image class="closeShowImg" bindtap="showImages" src="http://tws.cnweisou.com/images/closeShowImg_detail.png"></image>
+      <view class="imagesNum">{{currIndex}}/{{imgLength}}</view>
+    </view>
+    <swiper autoplay="false" duration="500" class="slideImgs" bindchange="currChange" circular="true" current="{{imgUrlIndex}}">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item style="height:auto;display:flex;flex-direction:row;justify-content:center;align-items:center;">
+          <image src="{{item}}" class="slide-image" mode="widthFix" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</view>
+
+ <view class="bgtypeList1" wx:if="{{isShare}}" catchtap="closeShare">
+  <view class="generatePoster" wx:if="{{showPoster}}">
+    <view class="top" bindtap="closeTop">
+      <text>X</text>
+    </view>
+    <view class="middle">
+      <image wx:if="{{showPosterImg}}" src="{{posterImg}}" catchtap="previewImage"></image>
+      <image wx:else class="loadImg" src="https://tws.cnweisou.com/images/loadimg1.gif"></image>
+    </view>
+    <view class="bottomposter">
+      <button bindtap="saveImg" disabled="{{!showPosterImg}}">保存图片</button>
+      <!-- <view class="saveInfo">
+        保存至相册可以分享到朋友圈
+      </view> -->
+    </view>
+  </view>
+  <view class="bottom" wx:if="{{isbottom}}">
+    <view class="open">
+      <view class="openLeft">
+        <view class="cicle">
+          <image src="http://tws.cnweisou.com/images/shareWeixin.png"></image>
+        </view>
+        <button open-type="share">分享给朋友</button>
+      </view>
+      <view class="openRight">
+        <view class="cicle">
+          <image src="http://tws.cnweisou.com/images/sharePoster.png"></image>
+        </view>
+        <button catchtap="poster">商品海报</button>
+      </view>
+    </view>
+    <view class="close" bindtap="closeShare">
+      关闭
+    </view>
+  </view>
+</view> 

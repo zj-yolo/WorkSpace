@@ -1,0 +1,50 @@
+<import src="../../../../components/components.wxml" />
+<import src="../../../../wxParse/wxParse.wxml" />
+<view wx:if="{{prizeList}}" class="fruitMachineBg" style="background:url(https://tws.cnweisou.com/images/fruitMachine.png) no-repeat center center;background-size:100% 100%;">
+    <view class="fruitMachineTop">
+    </view>
+    <template is="fruitMachine" data="{{...machine,prizeList,prizeResult,myData}}">
+    </template>
+    <view class="countPrize">还剩
+        <text>{{prizeResult.chance}}</text>次抽奖喔</view>
+    <view class="rule" wx:if="{{prizeResult.lottery.lotteryinfo}}">
+        <text>活动规则</text>
+        <scroll-view scroll-y class="ruleCont">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+        </scroll-view>
+    </view>
+    <view class="priceDetail" bindtap='priceDetail'>
+        <image src="https://tws.cnweisou.com/images/game_detailFriut.png"></image>
+    </view>
+</view>
+<view class="bgtypeList" wx:if='{{myData.cover}}'>
+    <view class="prizeCont">
+        <text class="close" bindtap='prizeOk'>X</text>
+        <view class="pirzeIcon">
+            <image src="{{luckDraw.icon}}" mode="widthFix" data-type="{{luckDraw.type}}" data-logid="{{luckDraw.logid}}" bindtap="joinPrice"></image>
+        </view>
+        <view class="prizeDetail">{{luckDraw.info}}</view>
+        <view class="prizeOk" bindtap='prizeOk'>确定</view>
+    </view>
+</view>
+<view class="bgtypeListDetail" wx:if='{{ispriceDetail}}'>
+    <scroll-view scroll-y class="detailCont" bindscrolltolower="detailBottom">
+        <view class="priceDetailTitle">
+            获奖详情
+            <image class="detailClose" bindtap='priceDetailClose' src="http://tws.cnweisou.com/images/detail_close.png"></image>
+        </view>
+        <view class="detailItem" wx:for="{{priceDetailList}}" wx:if="{{priceDetailList.length>0}}">
+            <view class="detailItemTop">
+                <span>抽奖时间：{{item.addtime}}</span>
+            </view>
+            <view class="detailItemBottom">
+                <span>{{item.desc}}</span>
+                <span wx:if="{{item.title!='other' && item.title!='joinCoupon'}}" data-id="{{item.id}}" data-log_id="{{item.log_id}}" bindtap='joingoodsDetail'>{{item.title}}</span>
+                <span wx:if="{{item.title=='joinCoupon'}}" data-id="{{item.title}}" bindtap='joincoupon'>查看优惠券</span>
+            </view>
+        </view>
+        <view wx:if="{{priceDetailList.length==0}}" class="detailItemNo">
+            暂时没有获奖信息
+        </view>
+    </scroll-view>
+</view>

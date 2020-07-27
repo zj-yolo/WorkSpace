@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "load": "/components/loading/index"
+  },
+  "enablePullDownRefresh": false
+}

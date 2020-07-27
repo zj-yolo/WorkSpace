@@ -1,0 +1,61 @@
+<view class="orderList">
+  <view class="tabs">
+    <view class="tab" bindtap="tabClick" data-index="0"><text class="{{tabClasss[0]}}">全部</text></view>
+    <view class="tab" bindtap="tabClick" data-index="1"><text class="{{tabClasss[1]}}">待付款</text></view>
+    <view class="tab" bindtap="tabClick" data-index="2"><text class="{{tabClasss[2]}}">待发货</text></view>
+    <view class="tab" bindtap="tabClick" data-index="3"><text class="{{tabClasss[3]}}">待收货</text></view>
+    <view class="tab" bindtap="tabClick" data-index="4"><text class="{{tabClasss[4]}}">已完成</text></view>
+  </view>
+  <view class="list">
+    <block wx:if="{{total != '0'}}">
+      <block wx:for="{{orders}}" wx:key="{{item.id}}">
+        <view class="listItem" wx:if="{{item.refundstate==0}}">
+          <view class="orderStatus">{{item.statusstr}}</view>
+          <view class="commodity" bindtap="details" data-index="{{index}}">
+            <block wx:for="{{item.goods}}" wx:for-item="mapping" wx:for-index="ind">
+              <image class="commodityImg" src="{{mapping.thumb}}"></image>
+              <view class="info">
+                <view class="titleContainer">
+                  <view class="title">{{mapping.title}}</view>
+                  <view class="figure">x{{mapping.total}}</view>
+                </view>
+                <view class="priceInfo">
+                  <view class="standard">{{mapping.optiontitle}}</view>
+                  <view class="price">￥{{mapping.price}}</view>
+                </view>
+              </view>
+            </block>
+          </view>
+          <view class="operateContainer">
+            <block wx:if="{{item.status == 0}}">
+              <view class="operateItem common" bindtap="cancel" data-index="{{index}}">取消订单</view>
+              <view class="operateItem buy" wx:if="{{item.pay_code != 'cod'}}" data-index="{{index}}" bindtap="pay">立即付款</view>         
+            </block>
+            <block wx:elif="{{item.status == 1}}">
+              <view class="operateItem common" bindtap="details" data-index="{{index}}">查看订单</view>
+            </block>
+            <block wx:elif="{{item.status == 2}}">
+              <view class="operateItem common" data-index="{{index}}" bindtap="confirm">确认收货</view>
+              <view class="operateItem common" bindtap="details" data-index="{{index}}">查看订单</view>
+            </block>
+            <block wx:elif="{{item.status == 3}}">
+              <view class="operateItem common" bindtap="details" data-index="{{index}}">查看订单</view>
+              <block wx:if="{{item.iscomment=='0'}}">
+                <view class="operateItem comment" bindtap="evaluation" data-index="{{index}}">评价晒单</view>
+              </block>
+            </block>
+          </view>
+        </view>
+      </block>
+    </block>
+    <block wx:else>
+      <view class='noData'>
+        <image src='../../../images/noorder.png'></image>
+      </view>
+    </block>
+  </view>
+</view>
+<view class="scrollTop" bindtap='toTop' wx:if="{{scrollTopMy}}">
+  <image src="http://tws.cnweisou.com/images/toTopList.png"></image>
+</view>
+<loading wx:if="{{loading}}"></loading>

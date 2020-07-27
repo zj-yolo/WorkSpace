@@ -1,0 +1,26 @@
+<scroll-view scroll-y>
+    <view class="formList" wx:for="{{myList}}" wx:key="{{index}}">
+        <view class="detialInfo">{{title}}</view>
+        <view class="everyInputhbit" wx:for="{{item}}">
+            <text class="title">{{item.key}}</text>
+            <view class="contImg" wx:if="{{item.data_type == 5 }}">
+                <image wx:for="{{item.v}}" src="{{item}}" mode="widthFix"></image>
+            </view>
+            <view class="cont" wx:elif="{{item.data_type == 9 || item.data_type == 3}}">
+                <block wx:for="{{item.v}}" wx:key="{{index}}">
+                    {{item}}
+                </block>
+            </view>
+            <view class="cont" wx:elif="{{item.data_type == 8}}">
+                <block wx:for="{{item.v}}" wx:key="{{index}}">
+                    <view class="time" wx:if="{{item}}">
+                        {{item}}
+                    </view>
+                </block>
+            </view>
+            <view wx:else class="cont">
+                {{item.v}}
+            </view>
+        </view>
+    </view>
+</scroll-view>

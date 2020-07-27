@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "couponcomponents": "/components/tools/couponTool/index",  
+    "groupcomponents": "/components/tools/groupTool/index", 
+    "skillcomponents": "/components/tools/skillTool/index" 
+  }
+}

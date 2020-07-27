@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "loading": "/components/loading/index",
+    "backToHome": "/components/backToHome/index"
+  }
+}

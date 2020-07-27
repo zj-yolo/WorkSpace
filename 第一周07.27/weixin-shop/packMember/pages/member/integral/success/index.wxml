@@ -1,0 +1,5 @@
+<view class="contain">
+	<image class="img" src="http://tws.cnweisou.com/images/integralSuccess.png"></image>
+	<view class="text">恭喜您，兑换成功</view>
+	<view class="btn" bindtap="toReceived">确定</view>
+</view>

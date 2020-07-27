@@ -1,0 +1,26 @@
+<scroll-view scroll-x="true" class="couponNum">
+  <block wx:for="{{list}}" wx:key="{{index}}">
+    <view class="newTitle {{sub == item.numid ?'active':''}}" bindtap="clickTitle" data-id="{{item.id}}" data-index="{{index}}">{{item.category_name}}</view>
+  </block>
+</scroll-view>
+<block wx:if="{{sub==numid}}" wx:for="{{allNews}}" wx:key="{{index}}">
+  <view class="newCont" bindtap="joinDetail" data-index="{{index}}">
+    <view class="contLeft">
+      <view class="contLeftTitle">{{item.article_title}}
+      </view>
+      <view class="special">{{item.article_author}}</view>
+      <view>
+        <text class="specialTitle">{{item.article_date_v}}</text>
+        <text class="thumbs-up">{{item.article_report}}</text>
+        <image src="http://tws.cnweisou.com/images/talk2Z.png"></image>
+      </view>
+
+    </view>
+    <view class="contRight">
+      <image src="{{item.resp_img}}"></image>
+    </view>
+  </view>
+</block>
+<view class="noData" wx:if="{{allNews.length<=0}}">
+  <image class="" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/baiduapp/smartlist.gif" mode="widthFix" lazy-load="true"></image>
+</view>

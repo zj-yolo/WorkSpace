@@ -1,0 +1,83 @@
+<view class="container">
+  <swiper class='swiImgs' circular autoplay>
+    <swiper-item wx:for="{{pageData.set.rotation_chart}}" wx:key='{{index}}'>
+      <image class='swiImg' src="{{item}}"></image>
+    </swiper-item>
+  </swiper>
+  <!-- <view class='pagesreach'>
+    <icon type="search" class='iconsty' size="15" />
+    <view class='searchsty'>
+      <input bindconfirm="sreachinput" value='{{keyword}}' placeholder="请输入关键词进行搜索" style='width:100%;height:70rpx;line-height:70rpx;' />
+    </view>
+  </view> -->
+  <view class="content">
+    <view class="fristItem">
+      <image class="fristImg" src="{{pageData.set.picture[0]}}" mode="widthFix"></image>
+    </view>
+    <view class="secondItem">
+      <view class="ItemTitle">品牌企业</view>
+      <view class="companyList">
+        <view class="copanyItem" wx:for="{{pageData.set.brand_enterprise}}" wx:key='{{index}}' data-type="companyActicle" data-id="{{item.id}}" bindtap="toacticle">
+          <image class="companyLogo" src="{{item.logo}}" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>
+    <!-- 直播组件 -->
+    <block wx:if="{{pageData.set.live}}">
+      <view class="liveStreaming">
+        <image mode="widthFix" class="liveImage" bindtap="skipLiveStreaming" src="{{pageData.set.live}}"></image>
+      </view>
+    </block>
+    <!-- 直播组件 -->
+    <view class="secondItem">
+      <view class="ItemTitle">普通企业</view>
+      <view class="companyList">
+        <view class="copanyItem" wx:for="{{pageData.set.excellent_enterprise}}" wx:key='{{index}}' data-type="companyActicle" data-id="{{item.id}}" bindtap="toacticle">
+          <image class="companyLogo" src="{{item.logo}}" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>
+    <view class="fristItem">
+      <image class="fristImg" src="{{pageData.set.picture[1]}}" mode="widthFix"></image>
+    </view>
+
+    <view class="thirdItem">
+      <view class="ItemTitle" bindtap="toareaList">
+        <text>区域招商</text>
+        <image class="arrowRightImg" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/index-arrow.png" mode="widthFix"></image>
+      </view>
+      <view class="areaList">
+        <view class="areaItem" wx:for="{{pageData.enterprise_area}}" wx:key='{{index}}' bindtap="toareaList" data-type="{{item.id}}">{{item.name}}</view>
+      </view>
+    </view>
+    <view class="c_article" wx:if="{{allArticle.length > 0}}">
+      <view class="article">
+        <view class="ItemTitle">前沿资讯</view>
+        <view class="articleList">
+          <view class="artcle_content" wx:for="{{allArticle}}" wx:key="{{index}}" data-from="grabArticle" data-id="{{item.id}}" bindtap="toacticle">
+            <block wx:if="{{item.resp_img}}">
+              <image class="article_img" src="{{item.resp_img}}"></image>
+              <view class="article_right">
+                <view class="title">{{item.article_title}}</view>
+                <view class="article_time">
+                  <image class="timeIcon" src="https://tws.oss.cnweisou.com/images/0/2019/11/NSkgkTkZTSf9a9974AtVKaFKtTt2kf.png" mode="widthFix"></image>{{item.article_date_v}}
+                  <text style="margin-left: 10upx;">转载自网络</text>
+                </view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="article_right">
+                <view class="title">{{item.article_title}}</view>
+                <view class="article_time" style="margin-top: 20upx;">
+                  <image class="timeIcon" src="https://tws.oss.cnweisou.com/images/0/2019/11/NSkgkTkZTSf9a9974AtVKaFKtTt2kf.png" mode="widthFix"></image>{{item.article_date_v}}
+                  <text style="margin-left: 10upx;">转载自网络</text>
+                </view>
+              </view>
+            </block>
+
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,774 @@
+<import src="../../../wxParse/wxParse.wxml" />
+<wxs src="./money.wxs" module="money" />
+<block wx:if="{{!isGrogShop}}">
+  <block wx:if="{{templateID != '12'}}">
+    <view class="promptText">
+      <image class="audioImg" src="/images/shop/add/audio.png"></image>
+      <view class="content">即日起，快递单上禁止出现*先生，*女士等名字，为防止您 的快递无法正常寄送，请勿必填写真实姓名</view>
+    </view>
+    <view class="bgContainer">
+      <image src="/images/order-bg.png" mode="widthFix" class="orderBg"></image>
+    </view>
+  </block>
+  <!-- <block wx:if='{{createInfo.isverify || store_id}}'>
+      <block wx:if="{{!Data.time}}">
+          <view>
+              <view class="top_wrap">
+                  <view data-index="1" bindtap="active" class="top_item,{{active=='1'? 'active' :''}}">快递配送</view>
+                  <view data-index="2" bindtap="active" class="top_item,{{active=='2'? 'active' :''}}">上门自提</view>
+              </view>
+              <view class="class-line1"></view>
+          </view>
+      </block>
+  </block> -->
+  <form bindsubmit="formSubmit" report-submit="true">
+    <block wx:if="{{active=='1'}}">
+      <view class="parent">
+        <block wx:if="{{Data.time}}">
+          <view style='overflow: hidden;width: 100%;'>
+            <view class="addr" bindtap="addressSelect">
+              <view wx:if="{{address!=''}}">
+                <view style="font-size:28rpx;margin-bottom:10rpx;">服务对象：{{address.realname}}</view>
+                <view>服务地址：{{address.address}}</view>
+              </view>
+              <view wx:else bindtap="addressSelect">请填写收货地址</view>
+              <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 30rpx;height: 30rpx;transform:rotate(-90deg);"></image>
+            </view>
+            <!-- <view style='height:5rpx; width: 100%;padding:0;background-image:url(https://tws.cnweisou.com/images/blue_red.png);margin-bottom: 20rpx;'></view> -->
+            <view class='store'>
+              <view class='st_item'>
+                <image class='img' src="{{Data.img}}"></image>
+                <view class='view_td'>
+                  <view class='title'>{{Data.title}}</view>
+                  <view class='view_ps'>
+                    <view class='price'>￥
+                      <text style='font-size:32rpx;'> {{Data.price}}</text>
+                    </view>
+                    <view class='sum'>x {{Data.amount}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <block wx:if="{{enabled =='1'}}">
+              <view class="pickers" style="font-size:28rpx;">
+                <picker value="{{index}}" range="{{array}}" bindchange="bindTimeChange">
+                  <view class="picker" style="letter-spacing:4rpx;font-size:28rpx;">
+                    服务时间 : {{arrayValue ? arrayValue : "请点击选择服务时间"}}
+                  </view>
+                </picker>
+              </view>
+            </block>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="addr" bindtap="addressSelect" style="padding:20rpx">
+            <view wx:if="{{address}}">
+              <view style="font-size:28rpx;margin-bottom:10rpx;">收货人：{{address.realname}} {{address.mobile}}</view>
+              <view>收货地址： {{address.province}} {{address.city}} {{address.area}} {{address.address}}</view>
+            </view>
+            <view wx:else>请填写收货地址</view>
+            <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 30rpx;height: 30rpx;transform:rotate(-90deg);"></image>
+          </view>
+          <!-- <view style='height:5rpx; width: 100%;padding:0;background-image:url(https://tws.cnweisou.com/images/blue_red.png);'></view> -->
+          <view class="class-line1"></view>
+          <!-- 鲜花配送 -->
+          <block wx:if='{{createOrder.type=="flower"}}'>
+            <view class='peis'>
+              <view>
+                配送时间：
+              </view>
+              <view style='display: flex;flex-direction: row;'>
+                <picker mode="date" value="{{distributiontime}}" start="2018-11-01" end="2025-09-01" bindchange="bindDateChange">
+                  <view class="picker">
+                    {{distributiontime}}
+                  </view>
+                </picker>
+                <picker mode="time" value="{{date}}" start="00:00" end="23:59" bindchange="bindTimeChanges">
+                  <view class="picker">
+                    {{date}}
+                  </view>
+                </picker>
+              </view>
+            </view>
+            <view class='peil'>
+              <view class='peile'>卡片留言：</view>
+              <input class='peiln' name='cardmessage' placeholder-class='peils' type="text" placeholder='填写您最美好的祝福' />
+            </view>
+            <view class='peil'>
+              <view class='peile'>特殊要求：</view>
+              <input class='peiln' name='requirements' placeholder-class="peils" type="text" placeholder='填写特殊要求' />
+            </view>
+            <view class="class-line1"></view>
+            <view class='peid'>订购信息</view>
+            <view class='peil'>
+              <view class='peile'>订购人：</view>
+              <input class='peiln' name='subscribers' placeholder-class="peils" type="text" placeholder='请填写姓名' />
+            </view>
+            <view class='peil'>
+              <view class='peile'>订购人电话：</view>
+              <input class='peiln' name='subscriberscall' placeholder-class="peils" type="number" maxlength='11' placeholder='方便花店通知收花情况' />
+            </view>
+            <view class="class-line1"></view>
+          </block>
+          <!-- 鲜花配送 -->
+          <!-- 优惠券 -->
+          <view class="c_select" style="border-bottom:1rpx solid #eee" >
+            <view class='s_left' style="display: flex;width: 100%;color:#ea1414;font-size:28rpx"  bindtap="Tocoupon" wx:if='{{coupons.coupons.length>0}}'>
+              <text style="margin-right:10rpx"> 优惠券:</text>
+              <block wx:if='{{coupon_name!=""}}'>
+              <block wx:if='{{coupon_backstr == "折"}}'>
+                <text >{{coupon_name}}{{coupon_price}}{{coupon_backstr}}</text>
+              </block>
+              <block wx:else >
+                <text >{{coupon_name}} {{coupon_backstr}} {{coupon_price}}</text>
+              </block>
+              </block>
+              <block wx:else>
+                <view style="width:80%">请选择优惠券</view>
+              </block>
+            </view>
+            <view class='s_left' style="display: flex;width: 100%;color:#ea1414;font-size:28rpx" wx:else>
+              <text style="margin-right:10rpx"> 优惠券:</text>
+              <block wx:if='{{coupon_name!=""}}'>
+                <text >{{coupon_name}} {{coupon_backstr}} {{coupon_price}}</text>
+              </block>
+              <block wx:else>
+               <view >无可用优惠券</view>
+              </block>
+            </view>
+            <view class='s_right'  bindtap="Tocoupon" wx:if='{{coupons.coupons.length>0}}'>
+              <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 25rpx;height: 25rpx;transform:rotate(-90deg);margin-left: 10rpx;"></image>
+            </view>
+          </view>
+          <!-- 优惠券 -->
+          <view class='store' wx:for="{{cartList}}" wx:key="{{index}}" data-idx="{{index}}">
+            <view class='sotre_name' wx:if="{{item.show == 1}}">
+              <image class='store_img' src="http://tws.cnweisou.com/images/shopPn.png"></image>
+              <view>{{item.store_name}}</view>
+            </view>
+            <view class='st_item'>
+              <image class='img' src="{{item.thumb}}"></image>
+              <view class='view_td'>
+                <view class='title'>{{item.title}}</view>
+                <block wx:if="{{item.optiontitle}}">
+                  <view class='desc'>{{item.optiontitle}}</view>
+                </block>
+                <view class='view_ps'>
+                  <view class='price'>￥
+                    <text style='font-size:32rpx;' wx:if="{{item.isdiscount == '0'}}"> {{item.marketprice}}</text>
+                    <text style='font-size:32rpx;' wx:else> {{item.unitprice}}</text>
+                  </view>
+                  <view class='sum'>x {{item.total}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <!-- 门店信息 -->
+          <!-- <block wx:if='{{merch}}'>
+                      <view class="class-line1"></view>
+                      <view class='wrap'>
+                          <view class='w_item'>
+                              <view class='w_left'>门店名称：</view>
+                              <view class='w_right'>{{merch.storename}}</view>
+                          </view>
+                          <view class='w_item'>
+                              <view class='w_left'>门店地址：</view>
+                              <view class='w_right'>{{merch.address}}</view>
+                          </view>
+                          <view class='w_item'>
+                              <view class='w_left'>配送人员：</view>
+                              <view class='w_right'>{{merch.realname}}</view>
+                          </view>
+                          <view class='w_item'>
+                              <view class='w_left'>联系电话：</view>
+                              <view class='w_right'>{{merch.mobile}}</view>
+                          </view>
+                      </view>
+                      <view class="class-line1"></view>
+                  </block> -->
+        </block>
+        <!-- 优惠券 -->
+        <!-- <view class="c_select">
+            <view class='s_left'>优惠</view>
+            <view class='s_right'>
+                <block wx:if='{{coupon_name!=""}}'>
+                    <text bindtap="Tocoupon">{{coupon_name}} {{coupon_backstr}} {{coupon_price}}</text>
+                </block>
+                <block wx:else>
+                    <view wx:if='{{coupons.coupons.length==0}}'>无可用优惠券</view>
+                    <view wx:else bindtap="Tocoupon">请选择优惠券</view>
+                </block>
+                <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 25rpx;height: 25rpx;transform:rotate(-90deg);margin-left: 10rpx;"></image>
+            </view>
+        </view> -->
+        <!-- <view class="class-line1"></view> -->
+        <view class='Subtotal'>
+          <!-- 满减 -->
+          <block wx:if='{{totalPrice.enoughmoney&&totalPrice.enoughdeduct}}'>
+              <view class='Sub_item'>
+                  <view>满减优惠</view>
+                  <view class='red'>
+                      <text> 满{{totalPrice.enoughmoney}}减{{totalPrice.enoughdeduct}}</text>
+                  </view>
+              </view>
+          </block>
+          <block wx:if="{{!Data.time}}">
+            <!-- 会员卡 -->
+            <!-- <block wx:if="{{credit3!='0.00'}}">
+                          <view class='Sub_item'>
+                              <view>会员卡余额</view>
+                              <view class='red'>
+                                  <block wx:if="{{credit3=='null'||credit3=='0.00'}}">
+                                      <text>会员卡余额不足</text>
+                                  </block>
+                                  <block wx:else>
+                                      <text>￥{{credit3}}</text>
+                                  </block>
+                              </view>
+                          </view>
+                          <block wx:if="{{credit3=='null'||credit3=='0.00'}}">
+                          </block>
+                          <block wx:else>
+                              <view class='Sub_item' wx:if="{{totalPrice.discountvipcard != null && totalPrice.discountvipcard != ''}}">
+                                  <view>会员卡折扣</view>
+                                  <view class='red'>
+                                      <text>{{totalPrice.discountvipcard}}折</text>
+                                  </view>
+                              </view>
+                          </block>
+                      </block> -->
+            <!-- 会员优惠 -->
+            <!-- <view class='Sub_item' wx:if="{{discountprice != 0 && discountprice != '' && discountprice != null}}">
+                          <view>商品优惠</view>
+                          <view class='red'>
+                              <text>-￥{{discountprice}}</text>
+                          </view>
+                      </view> -->
+            <!-- 邮费 -->
+            <!-- <view class='Sub_item'>
+                          <view>邮费</view>
+                          <view class='red'>
+                              <block wx:if="{{dispatch_price=='0'}}">
+                                  <text>包邮</text>
+                              </block>
+                              <block wx:else>
+                                  <text>￥{{dispatch_price}}</text>
+                              </block>
+                          </view>
+                      </view> -->
+          </block>
+          <!-- 商品总额 -->
+          <view class='Sub_item'>
+            <view>商品金额</view>
+            <view>
+              <block wx:if="{{Data.time}}">
+                <text>￥{{Data.amount*Data.price}}</text>
+              </block>
+              <block wx:else>
+                <text>￥{{totalPrice.total_fee}}</text>
+              </block>
+            </view>
+          </view>
+          <view class='Sub_item'>
+            <view>运费</view>
+            <view>
+              <block wx:if="{{dispatch_price=='0'}}">
+                <text>包邮</text>
+              </block>
+              <block wx:else>
+                <text>￥{{dispatch_price}}</text>
+              </block>
+            </view>
+          </view>
+          <!-- 优惠券优惠 -->
+          <block wx:if='{{coupon_price}}'>
+              <view class='Sub_item'>
+                  <view>优惠券优惠</view>
+                  <view class='red'>
+                      <block wx:if="{{coupon_price}}">
+                          <text>-￥{{sub_couponprice}}</text>
+                      </block>
+                  </view>
+              </view>
+          </block>
+          <!-- <block wx:if="{{store_id && active == 1}}">
+              <view class="icon_list" bindtap="givemodeOne" data-dispatch_status="0">
+                  <view class="myicon">
+                      <icon type="{{dispatch_status == 0 ? 'success' : 'circle'}}" size="18" />
+                      <text>快递配送</text>
+                  </view>
+              </view>
+              <view class="icon_list" bindtap="givemodeOne" data-dispatch_status="1">
+                  <view class="myicon">
+                      <icon type="{{dispatch_status == 1 ? 'success' : 'circle'}}" size="18" />
+                      <text>同城配送</text>
+                  </view>
+              </view>
+          </block> -->
+          <block wx:if='{{createOrder.type!="flower"}}'>
+            <view style='display: flex;flex-direction: row;padding-right: 20rpx;font-size: 25rpx;line-height: 60rpx;vertical-align: bottom;background-color: #fff; '>
+              <text>备注:</text>
+              <input name="beihzu" style="margin-left: 40rpx;line-height: 60rpx;width:500rpx;height: 60rpx; z-index:10;" type="text" placeholder="请输入备注..." />
+            </view>
+          </block>
+          <!-- <block wx:if='{{result.showDudect=="1"}}'>
+                      <view class='Sub_item'>
+                          <checkbox-group bindchange="checkboxChange">
+                              <label class="checkbox">
+                                  <block wx:if='{{couponprice<=totalPrice.deductmoney}}'>
+                                      <checkbox value="{{checkbox}}" checked="{{false}}" disabled />
+                                  </block>
+                                  <block wx:else>
+                                      <checkbox value="{{checkbox}}" checked="{{false}}" />
+                                  </block>
+                              </label>
+                          </checkbox-group>
+                          <view class='red'>是否开启积分抵扣</view>
+                      </view>
+                  </block> -->
+          <!-- <view class="class='total'" wx:if="{{credit3!='0' && credit3 != null && credit3 != '' && credit3!='0.00'}}">
+                      会员卡支付:
+                      <block wx:if="{{credit3 >= selfTotalPrice}}">
+                          <text class="red">￥{{money.fixed(selfTotalPrice)}}</text>
+                      </block>
+                      <block wx:else>
+                          <text class="red">￥{{credit3}}</text>
+                      </block>
+                  </view> -->
+          <!-- <view class='total'>
+                      实付金额：
+                      <text class='red'>￥{{realPay}}</text>
+                  </view> -->
+          <view class="bottomBtn">
+            <!-- <button formType="submit" type='primary' class='pay'>立即支付</button> -->
+            <!-- <movable-area wx:if="{{customerserver}}" style="height: 100%;width: 100%;position: fixed;right: 0;top:0; pointer-events: none;">
+                          <movable-view inertia damping='30' friction='1' style="height: 50px; width: 50px; position: absolute;z-index: 100;top:55%;right:20rpx;pointer-events: auto;" x='325' y="-255" direction="all">
+                              <contact-button size="80" type="default-light" session-from="weapp" style="opacity:0;">
+                              </contact-button>
+                              <view style="width:74rpx;height:74rpx;background-image:url({{customerserver}});background-size:cover;position:absolute;top:0;left:0;z-index:115;">
+                              </view>
+                          </movable-view>
+                      </movable-area> -->
+          </view>
+          <view class="payNow">
+            <view class="figure">应付：{{realPay}}
+              <!-- <block wx:if="{{Data.time}}">
+                <text>￥{{Data.amount*Data.price}}</text>
+              </block>
+              <block wx:else>
+                <text>￥{{totalPrice.realprice}}</text>
+              </block> -->
+            </view>
+            <button formType="submit" class='payBtn'>去付款</button>
+          </view>
+        </view>
+      </view>
+      <block wx:if="{{coupon_paper==1}}">
+              <template is="coupon" data="{{data:coupons,select_coupon:select_coupon}}"></template>
+          </block>
+    </block>
+    <block wx:elif="{{active=='2'}}">
+      <view class="parent">
+        <block wx:if="{{Data.time}}">
+          <view class="class-line1"></view>
+          <!-- bindtap="tomendian" -->
+          <view class="addr" bindtap="tomendian">
+            <view style='width:100%;'>
+              <block wx:if="{{carrierData.storename}}">
+                <view class='icon_store'>预约门店</view>
+                <view class='sadd' style='font-size:27rpx;font-weight:bold;'>
+                  <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 30rpx;height: 30rpx;transform:rotate(-90deg);margin-left:30rpx;position:absolute;right:5rpx;"></image>{{carrierData.storename}}
+                </view>
+                <view class='sadd'>{{carrierData.address}}</view>
+              </block>
+              <block wx:else>
+                <image src='https://tws.cnweisou.com/images//tj_addr.png' style='width:25px;height:24px;margin:157px'></image>
+              </block>
+            </view>
+            <div style="width: 30rpx;height: 30rpx;transform:rotate(-90deg);"></div>
+          </view>
+          <view class="pickers" style="font-size:28rpx;border-top:1rpx solid #EDEDED;line-height:100rpx;height:100rpx;">
+            <picker value="{{index}}" range="{{array}}" bindchange="bindTimeChange">
+              <view class="picker" style="letter-spacing:4rpx;font-size:25rpx;">
+                <text style='width:200rpx;'>预计到店时间:</text>
+                <text style='color:#7F7F7F;'>{{arrayValue ? arrayValue :"请点击选择预计到店时间"}}</text>
+              </view>
+            </picker>
+          </view>
+          <view style='display: flex;flex-direction: row;padding:0 20rpx;font-size: 25rpx;vertical-align: bottom;background-color: #fff;border-top:1rpx solid #EDEDED;line-height:100rpx;height:100rpx; '>
+            <text style='width:200rpx;'>预约人:</text>
+            <input name="realname" style="line-height: 60rpx;width:500rpx;height: 60rpx; z-index:10;padding:20rpx 0;" type="text" placeholder="请输入姓名..." />
+          </view>
+          <view style='display: flex;flex-direction: row;padding:0 20rpx;font-size: 25rpx;vertical-align: bottom;background-color: #fff;border-top:1rpx solid #EDEDED;line-height:100rpx;height:100rpx; '>
+            <text style='width:200rpx;'>预约电话:</text>
+            <input name="mobile" style="line-height: 60rpx;width:500rpx;height: 60rpx; z-index:10;padding:20rpx 0;" type="text" placeholder="请输入电话..." />
+          </view>
+          <view class="class-line1"></view>
+          <view class='store'>
+            <view class='st_item'>
+              <image class='img' src="{{Data.img}}"></image>
+              <view class='view_td'>
+                <view class='title' style='line-height:70rpx;height:70rpx;'>{{Data.title}}</view>
+                <!--  <block wx:if='{{Data.name_arr!="" && Data.name_arr!="undefined"}}'>
+                                    <view class='title' style='color:#ccc;'>{{Data.name_arr}}</view>
+                                </block> -->
+                <view class='view_ps'>
+                  <view class='price' style='line-height:70rpx;height:70rpx;text-align: right;width: 100%;'>￥
+                    <text style='font-size:32rpx;'> {{Data.price}}</text>
+                  </view>
+                  <!-- <view class='sum'>x {{Data.amount}}</view> -->
+                </view>
+              </view>
+            </view>
+            <view class='Sub_item' >
+              <view>商品数量</view>
+              <view class='red'>x {{Data.amount}}</view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <block wx:if="{{carrier!=''}}">
+            <view class="addr" bindtap="{{store_id ? '' : 'tomendian'}}">
+              <view>
+                <block wx:if="{{carrierData.storename}}">
+                  <view style="font-size:28rpx;margin-bottom:10rpx;">门店名称：{{carrierData.storename}}</view>
+                  <view>门店地址：{{carrierData.address}}</view>
+                </block>
+                <block wx:else>
+                  <view style="font-size:28rpx;margin-bottom:10rpx;">门店名称：{{carrier[0].storename}}</view>
+                  <view>门店地址：{{carrier[0].address}}</view>
+                </block>
+              </view>
+              <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 30rpx;height: 30rpx;transform:rotate(-90deg);"></image>
+            </view>
+            <view style='height:5rpx; width: 100%;padding:0;background-image:url(https://tws.cnweisou.com/images/blue_red.png);'></view>
+            <view class="class-line1"></view>
+          </block>
+          <view class='store' wx:for="{{cartList}}">
+            <view class='sotre_name' wx:if="{{item.show == 1}}">
+              <image class='store_img' src="http://tws.cnweisou.com/images/shopPn.png"></image>
+              <view>{{item.store_name}}</view>
+            </view>
+            <view class='st_item'>
+              <image class='img' src="{{item.thumb}}"></image>
+              <view class='view_td'>
+                <view class='title'>{{item.title}}</view>
+                <block wx:if="{{item.optiontitle}}">
+                  <view class='desc'>{{item.optiontitle}}</view>
+                </block>
+                <view class='view_ps'>
+                  <view class='price'>￥
+                    <text style='font-size:32rpx;'> {{item.marketprice}}</text>
+                  </view>
+                  <view class='sum'>x {{item.total}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="lianxi">
+            <view class="person">
+              <view class="p1">联系人</view>
+              <input value='{{carrier_user.carrier_realname}}' class="p2" type='text' name="person" placeholder="联系人" />
+            </view>
+            <view class="person">
+              <view class="p1">联系电话</view>
+              <input value='{{carrier_user.carrier_mobile}}' class="p2" type='number' name="phone" placeholder="联系电话" />
+            </view>
+          </view>
+        </block>
+        <!-- <view class="class-line1"></view> -->
+        <!-- 优惠券 -->
+        <!-- <view class="c_select">
+          <view class='s_left'>优惠</view>
+          <view class='s_right'>
+            <block wx:if='{{coupon_name!=""}}'>
+              <text bindtap="Tocoupon">{{coupon_name}} {{coupon_backstr}} {{coupon_price}}</text>
+            </block>
+            <block wx:else>
+              <view wx:if='{{coupons.coupons.length==0}}'>无可用优惠券</view>
+              <view wx:if='{{coupons.coupons.length>0}}' bindtap="Tocoupon">请选择优惠券</view>
+            </block>
+            <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 25rpx;height: 25rpx;transform:rotate(-90deg);margin-left: 10rpx;"></image>
+          </view>
+        </view> -->
+        <!-- <view class="class-line1"></view> -->
+        <view class='Subtotal'>
+          <!-- 满减 -->
+          <block wx:if='{{totalPrice.enoughmoney&&totalPrice.enoughdeduct}}'>
+            <view class='Sub_item'>
+              <view>满减优惠</view>
+              <view class='red'>
+                <text> 满{{totalPrice.enoughmoney}}减{{totalPrice.enoughdeduct}}</text>
+              </view>
+            </view>
+          </block>
+          <block wx:if="{{!Data.time}}">
+            <!-- 会员卡 -->
+            <block wx:if="{{credit3!='0.00'}}">
+              <view class='Sub_item'>
+                <view>会员卡金额</view>
+                <view class='red'>
+                  <block wx:if="{{credit3=='null'||credit3=='0.00'}}">
+                    <text>会员卡余额不足</text>
+                  </block>
+                  <block wx:else>
+                    <text>￥{{credit3}}</text>
+                  </block>
+                </view>
+              </view>
+              <block wx:if="{{credit3=='null'||credit3=='0.00'}}">
+              </block>
+              <block wx:else>
+                <view class='Sub_item' wx:if="{{totalPrice.discountvipcard != null && totalPrice.discountvipcard != ''}}">
+                  <view>会员卡折扣</view>
+                  <view class='red'>
+                    <text>{{totalPrice.discountvipcard}}折</text>
+                  </view>
+                </view>
+              </block>
+            </block>
+            <!-- 会员优惠 -->
+            <view class='Sub_item' wx:if="{{discountprice != 0 && discountprice != '' && discountprice != null}}">
+              <view>商品优惠</view>
+              <view class='red'>
+                <text>-￥{{discountprice}}</text>
+              </view>
+            </view>
+          </block>
+          <!-- 商品总额 -->
+          <view class='Sub_item'>
+            <view>支付总额</view>
+            <view class='red'>
+              <block wx:if="{{Data.time}}">
+                <text class="red">￥{{Data.amount*Data.price}}</text>
+              </block>
+              <block wx:else>
+                <text class="red">￥{{totalPrice.total_fee}}</text>
+              </block>
+            </view>
+          </view>
+          <!-- 优惠券优惠 -->
+          <block wx:if='{{coupon_price}}'>
+            <view class='Sub_item'>
+              <view>优惠券优惠</view>
+              <view class='red'>
+                <block wx:if="{{coupon_price}}">
+                  <text class="red">-￥{{sub_couponprice}}</text>
+                </block>
+              </view>
+            </view>
+          </block>
+          <view style='display: flex;flex-direction: row;padding-right: 20rpx;font-size: 25rpx;line-height: 60rpx;vertical-align: bottom;background-color: #fff; '>
+            <text>备注:</text>
+            <input name="beihzu" style="margin-left: 40rpx;line-height: 60rpx;width:500rpx;height: 60rpx; z-index:10;" type="text" placeholder="请输入备注..." />
+          </view>
+          <block wx:if='{{result.showDudect=="1"}}'>
+            <view class='Sub_item'>
+              <checkbox-group bindchange="checkboxChange">
+                <label class="checkbox">
+                  <block wx:if='{{couponprice<=totalPrice.deductmoney}}'>
+                    <checkbox value="{{checkbox}}" checked="{{false}}" disabled />
+                  </block>
+                  <block wx:else>
+                    <checkbox value="{{checkbox}}" checked="{{false}}" />
+                  </block>
+                </label>
+              </checkbox-group>
+              <view class='red'>是否开启积分抵扣</view>
+            </view>
+          </block>
+          <view class="class='total'" wx:if="{{credit3!='0' && credit3 != null && credit3 != '' && credit3!='0.00'}}">
+            会员卡支付:
+            <block wx:if="{{credit3 >= selfTotalPrice}}">
+              <text class="red">￥{{money.fixed(selfTotalPrice)}}</text>
+            </block>
+            <block wx:else>
+              <text class="red">￥{{credit3}}</text>
+            </block>
+          </view>
+          <view class="bottomBtn">
+          </view>
+          <view style='width:100%;display:flex;flex-direction:row;position:fixed;bottom:0;height:100rpx;line-height:100rpx;'>
+            <view class='total' style='width:60%;line-height:100rpx;'>
+              实付金额：
+              <text class='red'>￥{{realPay}}</text>
+            </view>
+            <button style='width:40%;background-color:#E50B0B;color:#fff;border-radius:0;line-height:100rpx;height:100rpx;' formType="submit" type='primary' class='pay'>立即支付</button>
+          </view>
+          <movable-area wx:if="{{customerserver}}" style="height: 100%;width: 100%;position: fixed;right: 0;top:0; pointer-events: none;">
+            <movable-view inertia damping='30' friction='1' style="height: 50px; width: 50px; position: absolute;z-index: 100;top:55%;right:20rpx;pointer-events: auto;" x='325' y="-255" direction="all">
+              <contact-button size="80" type="default-light" session-from="weapp" style="opacity:0;">
+              </contact-button>
+              <view style="width:74rpx;height:74rpx;background-image:url({{customerserver}});background-size:cover;position:absolute;top:0rpx;left:0rpx;border-radius:50%;z-index:115;">
+              </view>
+            </movable-view>
+          </movable-area>
+        </view>
+      </view>
+      <block wx:if="{{coupon_paper==1}}">
+        <template is="coupon" data="{{data:coupons,select_coupon:select_coupon}}"></template>
+      </block>
+    </block>
+  </form>
+</block>
+<block wx:else>
+  <!-- 酒店版 -->
+  <form bindsubmit="formSubmit" report-submit="true" class="grogshop">
+    <view class="submitContent">
+      <view class="shopInfo" wx:for="{{cartList}}" wx:key="{{index}}">
+        <view class="shopImageContainer">
+          <image src="{{item.thumb}}" class="shopImage"></image>
+        </view>
+        <view class="shopContainer">
+          <view class="shopName">{{item.title}}</view>
+          <view class="priceInfo">
+            <view class="shopLabel">{{item.optiontitle?item.optiontitle:''}}</view>
+            <view class="shopPrice">￥{{item.marketprice}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="enterInfo">
+        <view class="enterItem">
+          <view class="selectDate">
+            <view class="selectDateItem">
+              <picker mode="date" bindchange="handleEnterTimeChange" start="{{currentTime}}">
+                <view class="picker">
+                  <view class="selectedNum">{{enterTime?enterTime:'入住时间'}}</view>
+                  <view class="decorateText">
+                    <text>入住</text>
+                  </view>
+                </view>
+              </picker>
+            </view>
+            <view class="selectDateItem">
+              <picker mode="date" disabled="{{isDisable}}" bindchange="handleLeaveTimeChange" start="{{currentTime}}">
+                <view class="picker">
+                  <view class="selectedNum">{{leaveTime?leaveTime:'离店时间'}}</view>
+                  <view class="decorateText">
+                    <text>离店</text>
+                  </view>
+                </view>
+              </picker>
+            </view>
+          </view>
+          <view class="enterTime">{{timeSpace?'住'+timeSpace+'晚':''}}</view>
+        </view>
+        <view class="enterItem">
+          <view class="label">预定房间</view>
+          <picker bindchange="handleRoomChange" range="{{numArray}}" style="width: 70%">
+            <view class="selectBox">
+              <view class="selectedNum">{{selectedNum}}间</view>
+              <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 30rpx;height: 30rpx;transform:rotate(-90deg);"></image>
+            </view>
+          </picker>
+        </view>
+        <view class="enterItem">
+          <view class="label">到店时间</view>
+          <picker bindchange="handleArriveTimeChange" mode="time" style="width: 70%">
+            <view class="selectBox">
+              <view class="selectedNum">{{arriveTime?arriveTime+'之前':'请选择到店时间'}}</view>
+              <image src='https://tws.cnweisou.com/images/bottomHotel.png' style="width: 30rpx;height: 30rpx;transform:rotate(-90deg);"></image>
+            </view>
+          </picker>
+        </view>
+        <view class="enterItem" wx:for="{{selectedNum}}" wx:key="{{index}}">
+          <view class="label">入住人(房间{{index+1}})</view>
+          <view class="inputContainer">
+            <input class="username" placeholder="每间填1位入住人姓名" bindinput="handleInput" value="{{username[index]}}" data-index="{{index}}"></input>
+          </view>
+        </view>
+        <view class="enterItem">
+          <view class="label">联系手机</view>
+          <view class="inputContainer">
+            <input class="username" bindinput="handleMobileInput" value="{{userMobile}}"></input>
+          </view>
+        </view>
+      </view>
+      <view class="promptContent">
+        <view class="textContent">
+          <view class="textTitle">温馨提示</view>
+          <view class="textFigure">1.房源紧张，请尽快提交订单，以免售空</view>
+          <view class="textFigure">2.成功预定后，您可以入住当日中午14点后入住</view>
+          <view class="textFigure">3.请次日十二点钟办理退房/续房手续</view>
+        </view>
+      </view>
+    </view>
+    <view class="payNow">
+      <view class="figure">应付：{{realPay}}
+        <!-- <block wx:if="{{Data.time}}">
+          <text>￥{{Data.amount*Data.price}}</text>
+        </block>
+        <block wx:else>
+          <text>￥{{totalPrice.realprice}}</text>
+        </block> -->
+      </view>
+      <button formType="submit" class='payBtn'>去付款</button>
+    </view>
+  </form>
+</block>
+<template name="coupon">
+  <view style="height: {{Height}}rpx; background-color: rgba(0,0,0,.4);overflow: hidden;top: 0;left: 0;right: 0;bottom: 0;position: fixed;z-index: 3" bindtap="getunCoupon">
+  </view>
+  <view class="contain">
+    <view class="top">
+      请选择优惠券
+    </view>
+    <scroll-view scroll-y="true" style="  width: 100%;  height: 732rpx;  margin-right: 24rpx;  display: inline-block;padding-bottom:80rpx">
+      <block wx:for="{{data.coupons}}">
+        <view class="c_couponItem">
+          <view class="c_couonLeft">
+           <block wx:if="{{item.backtype == 0}}">
+          <view class="c_couponContent">
+          {{item.deduct}}
+              <text style="font-size:30rpx">元</text>
+            </view>
+          </block>
+            <block wx:if="{{item.backtype == 1}}">
+          <view class="c_couponContent">
+          {{item.discount}}
+              <text style="font-size:30rpx">折</text>
+            </view>
+          </block>
+            <block wx:if="{{item.backtype == 2}}">
+          <view class="c_couponContent">
+          <text style="font-size:30rpx">元</text>
+          {{item.backredpack}}
+            </view>
+          </block>
+            <view class="c_couonCenter">
+              <view style="font-size:28rpx;">{{item.couponname}}</view>
+              <view style="font-size:23rpx;margin-top:10rpx">
+                <block wx:if="{{item.timestr==0}}">
+                  永久有效
+                </block>
+                <block wx:if="{{item.timestr==1}}">
+                  即{{item.gettypestr}}日内{{item.timedays}}天有效
+                </block>
+                <block wx:else>
+                  {{item.timestr}}
+                </block>
+              </view>
+            </view>
+          </view>
+          <block wx:if="{{select_coupon != index}}">
+            <view class="c_couonRight" style="font-size:25rpx" data-index="{{index}}" data-name='{{item.couponname}}' data-backtype="{{item.backtype}}" data-price="{{item.backmoney}}" data-couponid="{{item.couponid}}" data-id="{{item.id}}" data-backstr="{{item.backstr}}"
+              bindtap="Select">使用</view>
+          </block>
+          <block wx:else>
+            <view class="c_couonRight" style="font-size:25rpx;background:#8a8a8a;color:#5e5a5a">使用中</view>
+            <image class="checks" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/images/check.png"></image>
+          </block>
+        </view>
+      </block>
+    </scroll-view>
+
+  </view>
+
+</template>
+<view class="bgtypeList" wx:if="{{noorder}}">
+  <view class="box">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+    <view class="isOK" bindtap="isOK">确定</view>
+  </view>
+</view>
+<loading wx:if="{{loading}}"></loading>

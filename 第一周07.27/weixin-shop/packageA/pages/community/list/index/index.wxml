@@ -1,0 +1,78 @@
+<import src="../../../../../WxEmojiView/WxEmojiView.wxml"/>
+<view class='haha' bindtap='backToIndex' wx:if='{{shareIcon}}'>
+   <image src='../../../../images/ret.png'></image>
+</view>
+<view style="background-color:#e5e5e5">
+<view class="banner"  style="background-image:url({{data.board.banner}})">
+		<view class="item">
+		<view class="left">
+			<image class="img" src="{{data.board.logo}}"></image>
+			<view class='lineAll'>
+				<view class="line" style="margin-bottom: 25rpx;">{{data.board.title}}</view>
+				<view class="line">话题数：{{data.postcount}} 关注数：{{followcount}}</view>
+			</view>
+		</view>
+		<block wx:if="{{isfollow}}">
+		<view class="right"> <view class="attention" style="background-color:#ccc;" bindtap="follow" ><image class="icon" src="https://tws.cnweisou.com/images/guanzhu.png"></image>已关注</view></view>
+		</block>
+		<block wx:else>
+			<view class="right "><view class="attention" bindtap="follow"  ><image class="icon" src="https://tws.cnweisou.com/images/jiaguanzhu.png"></image>关注</view></view>
+		</block>
+	</view>
+</view>
+<view class="Tab">
+	<view class="item active" ><image class="icon" src="https://tws.cnweisou.com/images/menu_1.png"></image>首页</view>
+	<view class="item uactive" bindtap="essencearea" data-bid="{{data.board.id}}" ><image class="icon" src="https://tws.cnweisou.com/images/jinh.png"></image>精华区</view>
+	<view class="item uactive" bindtap="relatedsections" data-id="{{data.board.id}}"><image class="icon" src="https://tws.cnweisou.com/images/bankuan.png"></image>相关板块</view>
+</view>
+<block wx:if="{{data.tops}}">
+	<block wx:for="{{data.tops}}" wx:key=''>
+<view style="display: flex;flex-direction:row;justify-content:space-between;width:100%;line-height: 80rpx;background-color:#fff" data-pid="{{item.id}}" data-bid="{{data.board.id}}" bindtap="toTopic">
+	<view style="font-weight: bolder;font-size: 32rpx;padding: 20rpx 0;height: 40rpx;line-height: 40rpx;display: flex;flex-direction: row;">
+		<view class="jin" style="margin-left:20rpx;">置顶</view>
+		<view style="padding-right: 20rpx;">{{item.title}}</view>
+	</view>
+	<view  style="margin-right: 20rpx;display: flex;flex-direction: row;justify-content: space-between;align-items:center;" ><image src="http://tws.cnweisou.com/images/rightArrow.png" style="width:18rpx;height:26rpx;"></image></view>
+</view>
+</block>
+</block>
+<!-- view -->
+<import src="../../../../../wxParse/wxParse.wxml"/>
+<block wx:if="{{list}}">
+<block wx:for="{{list}}" wx:key="">
+<view class="Social_commentary">
+	<view class="top">
+		<image class="img" src="{{item.avatar}}" data-pid="{{item.id}}" data-bid="{{data.board.id}}" bindtap="toTopic"></image>
+		<view class="top_wrap">
+			<view class="nickname" > {{item.nickname}}</view>
+			<view style="font-size: 27rpx;letter-spacing: 1rpx;">{{item.createtime}}</view>
+		</view>
+	</view>
+	<view class="body" data-pid="{{item.id}}" data-bid="{{data.board.id}}" bindtap="toTopic">
+		<view class="title"><block wx:if="{{item.isbest=='1'}}"><view class="jin">精</view></block> {{item.title}}</view>
+		<view class="content" style=""><template is="wxParse" data="{{wxParseData:replyTemArray[index]}}"/>
+		<template is="WxEmojiViewContainer" data="{{WxEmojiObjs:replyArr[index]}}"></template>
+		</view>
+		<block wx:if="{{item.images}}">
+		<view class="img_wrap" >
+
+			<block wx:for="{{item.images}}" wx:key="">
+				<image src="{{item}}" style="width: 160rpx;height: 160rpx;margin-right: 20rpx;" mode="aspectFit"></image>
+			</block>
+		</view>
+
+		</block>
+	</view>
+	<view class="footer">
+		<view class="postcount" data-pid="{{item.id}}" data-bid="{{data.board.id}}" bindtap="toTopic"><image class="icon" style="width:28rpx;height:28rpx;"  src='https://tws.cnweisou.com/images/yu.png'></image>({{item.postcount}})</view>
+		<view class="goodcount" data-pid="{{item.id}}" data-bid="{{data.board.id}}" bindtap="toTopic"><image class="icon" src="https://tws.cnweisou.com/images/good2Z.png"></image>({{item.goodcount}})</view>
+	</view>
+</view>
+</block>
+</block>
+<!-- </scroll-view> -->
+</view>
+
+<view bindtap="to_post" data-id="{{data.board.id}}" style="border-radius:50%;background-color: skyblue;position: fixed;bottom: 100rpx;right: 80rpx;width: 100rpx;height: 100rpx;background-image:url(https://tws.cnweisou.com/images/fatie.png);background-size:50rpx 50rpx;background-repeat:no-repeat;background-position:57% 40%"></view>
+
+<view bindtap="to_index" data-id="{{data.board.id}}" style="border-radius:50%;background-color: skyblue;position: fixed;bottom: 270rpx;right: 80rpx;width: 100rpx;height: 100rpx;background-image:url(https://tws.cnweisou.com/images/lt_fh.png);background-size:60rpx 50rpx;background-repeat:no-repeat;background-position:57% 40%"></view>

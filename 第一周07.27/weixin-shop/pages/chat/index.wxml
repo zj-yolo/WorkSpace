@@ -1,0 +1,76 @@
+<!--pages/chat/index.wxml-->
+<wxs module="filter" src="./filter.wxs"></wxs>
+<view class='chatbox'>
+    <scroll-view scroll-y="true" upper-threshold="50" scroll-top="{{scrolltop}}">
+
+
+        <view class='nomore'>{{name}}店铺为您服务</view>
+        
+        <view class='nomore' wx:if='{{nomore==true}}'>没有更多消息了</view>
+
+        <view id="scroll">
+            <block wx:for="{{chatlog}}">
+                <!-- toUserInfo.id||item.mid==selfInfo.id -->
+                <view wx:if='{{item.FromUserName==openid}}' class='user'>
+                    <view class='avatar'>
+                        <image src='{{selfInfo.avatar}}'></image>
+                    </view>
+                    <!-- <text class='time'>{{selfInfo.nickname}} {{filter.getDate(item.CreateTime)}}</text> -->
+                    <!-- wx:if='{{item.type=="text"}}' -->
+                    <view wx:if='{{item.MsgType=="text"}}'  class='message'>
+                        <template is="EmojiView" data="{{text:filter.paseEmoji(item.Content)}}"></template>
+                    </view>
+                    <view wx:if='{{item.MsgType=="image"}}' class='image-message'>
+                        <image mode="widthFix" bindtap='previewImage' data-image="{{item.PicUrl}}" src='{{item.PicUrl}}'></image>
+                    </view>
+                </view>
+                <!-- toUserInfo.id||(item.mid!=selfInfo.id&&item.fromUser==undefine) -->
+                <view wx:if='{{item.ToUserName==openid}}' class='other'>
+                    <!-- 222 -->
+                    <view class='avatar'>
+                        <image src='{{toUserInfo.avatar}}'></image>
+                    </view>
+                    <!-- <text class='time'>{{item.nickname}} {{filter.getDate(item.CreateTime)}}</text> -->
+                    <!-- wx:if='{{item.type=="text"}}' -->
+                    <view wx:if='{{item.MsgType=="text"}}'  class='message'>
+                        <template is="EmojiView" data="{{text:filter.paseEmoji(item.Content)}}"></template>
+                    </view>
+                    <view wx:if='{{item.MsgType=="image"}}' class='image-message'>
+                        <image mode="widthFix" bindtap='previewImage' data-image="{{item.Content}}" src='{{item.Content}}'></image>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </scroll-view>
+    <!-- 底部输入框 -->
+    <view class='inputbox'>
+        <view class='input-btn'>
+
+            <input type='text' confirm-type='send' bindconfirm="sendMessage" value='{{inputValue}}' bindinput='inputData'></input>
+            <image bindtap='showOrCloseEmjoy' class='smile' src='/images/smile.png'></image>
+            <!-- <block wx:if='{{inputValue==""}}'> -->
+                <image class='add' bindtap='sendImage' src="/images/add_1.png"></image>
+            <!-- </block> -->
+            <!-- <view class='send-btn' bindtap='sendMessage' wx:if='{{inputValue!=""}}'>发送</view> -->
+        </view>
+        <scroll-view scroll-y class='emjoy {{showEmjoy&&"active"}}'>
+            <block wx:for='{{emjoy}}'>
+                <view bindtap='inputEmjoy' data-emjoy="{{item.value}}">
+                    <!-- http://newkf.cnweisou.net/statics/emjoy/88_thumb.gif -->
+                    <!-- <image mode="widthFix" src='/images/emjoy/qq/{{item}}.gif'></image> -->
+                    <image mode="widthFix" src='http://newkf.cnweisou.net/statics/emjoy/{{item.src}}'></image>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+</view>
+<!--  表情模板  -->
+<template name="EmojiView">
+    <block wx:for="{{text}}" wx:key="">
+        <block wx:if="{{item.type == 'text'}}"><text>{{item.value}}</text></block>
+        <block wx:elif="{{item.type == 'image'}}">
+            <!-- <image mode="widthFix" class="wxEmoji" src="/images/emjoy/qq/{{item.value}}.gif" /> -->
+            <image mode="widthFix" class="wxEmoji" src='http://newkf.cnweisou.net/statics/emjoy/{{item.value}}'></image>
+        </block>
+    </block>
+</template>

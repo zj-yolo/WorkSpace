@@ -1,0 +1,22 @@
+<view class='addBox'>
+  <view class='Item'>
+    <view class='title'>*银行卡卡号</view>
+    <input type="number" value="{{card}}" bindinput="handleInput" data-type="card" placeholder='输入银行卡号' placeholder-class='inputclass' />
+  </view>
+  <view class='Item'>
+    <view class='title'>*开户行名称</view>
+    <input type="text " value="{{bank}}" bindinput="handleInput" data-type="bank" placeholder='请尽量填写具体支行,以确保您准确无误收到资金' placeholder-class='inputclass' />
+  </view>
+  <view class='Item'>
+    <view class='title'>*姓名</view>
+    <input type="text " value="{{realname}}" bindinput="handleInput" data-type="realname" placeholder='姓名' placeholder-class='inputclass' />
+  </view>
+  <view class='Item'>
+    <view class='title'>*手机号</view>
+    <input type="text " value="{{phone}}" bindinput="handleInput" data-type="phone" placeholder='手机号' placeholder-class='inputclass' />
+  </view>
+  <view class='addbutton'>
+    <view class='cancle' bindtap="handleCancel">取消</view>
+    <view class='sure' bindtap="handleConfirm">确定</view>
+  </view>
+</view>

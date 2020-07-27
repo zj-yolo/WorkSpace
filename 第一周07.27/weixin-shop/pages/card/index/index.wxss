@@ -1,0 +1,270 @@
+page{
+  background-color: #f7f7f7;
+}
+button{
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  /* all: unset; */
+  text-align: left;
+  line-height: normal;
+  border-radius: 0;
+  height: auto;
+}
+button::after{
+  display: none;
+}
+.top{
+  padding-bottom: 28rpx;
+  background-color: #fff;
+}
+.cardContainer{
+  position: relative;
+  padding: 34rpx 30rpx 0;
+  width: 100%;
+  height: 426rpx;
+  box-sizing: border-box;
+  background: url('http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/5gcardbackgroup.png');
+  background-size: 100% 426rpx;
+}
+.cardQrcode{
+  position: absolute;
+  right: 30rpx;
+  bottom: 0rpx;
+  width: 88rpx;
+  height: 88rpx;
+}
+.card{
+  display: flex;
+  padding: 0 80rpx;
+  width: 100%;
+  height: 392rpx;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  background: url('http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/5gcard.png');
+  background-size: 100% 392rpx;
+}
+.userInfo{
+  display: flex;
+  align-items: center;
+}
+.avatar{
+  margin-right: 22rpx;
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+}
+.username{
+  margin-bottom: 12rpx;
+  font-size: 32rpx;
+  color: #fff;
+}
+.role{
+  font-size: 28rpx;
+  color: #f2f2f2;
+}
+.contactItem{
+  display: flex;
+  margin-top: 32rpx;
+  align-items: center;
+  font-size: 30rpx;
+  color: #888787;
+}
+.itemImg{
+  margin-right: 22rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.num{
+  margin-right: 20rpx;
+  min-width: 190rpx;
+}
+.operateBtn{
+  padding: 6rpx 16rpx;
+  box-sizing: border-box;
+  background: #51aa37;
+  font-size: 24rpx;
+  border-radius: 3px;
+  color: #fff;
+}
+.btns{
+  display: flex;
+  margin-top: 38rpx;
+  padding: 0 30rpx;
+  width: 100%;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.btnItem{
+  width: 316rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 600;
+  border: 1px solid #1d4ce6;
+  border-radius: 4px;
+}
+.cardBtn{
+  color: #1d4ce6;
+}
+.changeBtn{
+  color: #fff;
+  box-sizing: content-box;
+  background: #1d4ce6;
+}
+.visitBox{
+  display: flex;
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+  width: 100%;
+  font-size: 26rpx;
+  justify-content: space-between;
+  box-sizing: border-box;
+  color: #4c4c4c;
+}
+.visitUser{
+  display: flex;
+  align-items: center;
+}
+.visitAvatar{
+  margin-right: 8rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 3px;
+}
+.hot{
+  display: flex;
+  align-items: center;
+}
+.likeImg{
+  margin-left: 10rpx;
+  width: 35rpx;
+  height: 31rpx;
+}
+.bottom{
+  padding: 38rpx 30rpx 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+.itemTitle{
+  display: flex;
+  margin-bottom: 32rpx;
+}
+.titleImg{
+  margin-right: 20rpx;
+  width: 46rpx;
+  height: 46rpx;
+}
+.title{
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.itemContent{
+  padding: 36rpx 24rpx;
+  width: 100%;
+  font-size: 30rpx;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 0 10px #ecebeb;
+}
+.comment{
+  margin-top: 36rpx;
+  padding: 22rpx;
+  width: 100%;
+  box-sizing: border-box;
+  background: #f7f7f7;
+  border-radius: 4px;
+}
+.commentItem{
+  display: flex;
+}
+.nickname, .commentContent{
+  font-weight: 600;
+}
+.nickname{
+  /* min-width: 156rpx; */
+}
+.commentContent{
+  /* width: calc(100% - 156rpx); */
+  flex: 1
+}
+.timeInfo{
+  margin-top: 24rpx;
+  font-size: 28rpx;
+  color: #636363;
+  justify-content: space-between;
+}
+.newComment{
+  display: flex;
+  margin-top: 50rpx;
+  align-items: center;
+}
+.commentAvatar{
+  overflow: hidden;
+  margin-right: 24rpx;
+  width: 82rpx;
+  height: 82rpx;
+  border-radius: 50%;
+}
+.addComment{
+  padding-left: 20rpx;
+  width: calc(100% - 106rpx);
+  height: 82rpx;
+  line-height: 82rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  color: #7b7b7b;
+  background: #f7f7f7;
+}
+.item{
+  margin-bottom: 48rpx;
+}
+.item:last-child{
+  margin: 0;
+}
+.videoBox{
+  width: 100%;
+  height: 340rpx;
+}
+.myVideo{
+  width: 100%;
+  height: 340rpx;
+  border-radius: 4px;
+}
+.bottomPicture{
+  margin-bottom: 24rpx;
+  width: 100%;
+  border-radius: 4px;
+}
+.bottomPicture:last-child{
+  margin: 0;
+}
+.chat{
+  position: fixed;
+  right: 20rpx;
+  bottom: 60rpx;
+  width: 100rpx;
+}
+.chatImg{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  vertical-align: middle;
+  box-shadow: 0 0 5px #edecec;
+}
+.chatText{
+  position: absolute;
+  left: 0;
+  bottom: -18rpx;
+  width: 100%;
+  font-size: 28rpx;
+  text-align: center;
+  border: 1px solid #eee;
+  border-radius: 26rpx;
+  background: #fff;
+}

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "loading": "/components/loading/index",
+    "skipHome": "/components/skipHome/skipHome",
+    "backToHome": "/components/backToHome/index"
+  },
+  "enablePullDownRefresh": false
+}

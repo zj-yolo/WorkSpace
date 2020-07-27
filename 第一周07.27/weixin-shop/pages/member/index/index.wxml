@@ -1,0 +1,155 @@
+<view class='memeber'>
+    <view class='top' style="background:url('http://boweisou.oss-cn-shenzhen.aliyuncs.com/images/0/2019/07/RESyyhVQSHpS0bLQvTV4Qk0muts0Q8.png')">
+        <view class='head'>
+            <block wx:if='{{!userInfo.avatar}}'>
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-noavatar.png' class='headimg' bindtap='loginb'></image>
+            </block>
+            <block wx:else>
+                <image src="{{userInfo.avatar}}" class='headimg'></image>
+            </block>
+        </view>
+        <view class='top_name'>
+            <block wx:if='{{!userInfo.nickname}}'>
+                <view class='name' bindtap='loginb'>未登录</view>
+            </block>
+            <block wx:else>
+                <view class='name'>{{userInfo.nickname}}</view>
+            </block>
+            <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-sign-vip.png' class='vipimg'></image>
+        </view>
+    </view>
+    <block wx:if='{{templeid==12}}'>
+        <view class='order'>
+            <view class='order_title' bindtap="yu_list" style="{{isGrogShop?'border: none':''}}">
+                <view class='order_left'>我的预约</view>
+                <view class='order_right'>
+                    <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-arrow-right.png'></image>
+                </view>
+            </view>
+            <view class='orderlist' wx:if="{{!isGrogShop}}">
+
+                <view class='orderitem orderitem1' bindtap="navigateToOrder" id="0">
+                    <block wx:if="{{order_0!=0 }}">
+                        <view class="label">{{order_0}}</view>
+                    </block>
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-paying.png'></image>
+                    <view class='ordertext'>待支付</view>
+                </view>
+
+                <view class='orderitem orderitem1' bindtap="navigateToOrder" id="1">
+                    <block wx:if="{{order_1!=0 }}">
+                        <view class="label">{{order_1}}</view>
+                    </block>
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-deliver.png'></image>
+                    <view class='ordertext'>待服务</view>
+                </view>
+
+                <view class='orderitem orderitem1' bindtap="navigateToOrder" id="3">
+                   <block wx:if="{{order_2 !=0 }}">
+                        <view class="label lastlabel">{{order_2}}</view>
+                    </block>
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-finish.png'></image>
+                    <view class='ordertext'>待评价</view>
+                </view>
+
+                <view class='orderitem orderitem1' bindtap="refundGoods">
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-comment.png'></image>
+                    <view class='ordertext'>已取消</view>
+                </view>
+            </view>
+        </view>
+        <view class='toolList'>
+            <view class='tool' bindtap="navigateToAddress" wx:if="{{!isGrogShop}}">
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-menu-address.png' class='toolimg'></image>
+                <text>我的地址</text>
+            </view>
+            <view class='tool'>
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-menu-service.png' class='toolimg'></image>
+                <!-- <text>我的客服</text> -->
+                <button open-type="contact">我的客服</button>
+            </view>
+        </view>
+    </block>
+    <block wx:else>
+        <view class='order' wx:if="{{is_mianyi == 0}}">
+            <view class='order_title' bindtap="navigateToOrderMore" style="{{isGrogShop?'border: none':''}}">
+                <view class='order_left'>我的订单</view>
+                <view class='order_right'>
+                    <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-arrow-right.png'></image>
+                </view>
+            </view>
+            <view class='orderlist' wx:if="{{!isGrogShop}}">
+                <view class='orderitem' bindtap="navigateToOrder" id="0">
+                    <block wx:if="{{order_0!=0 && userInfo.nickname}}">
+                        <view class="label">{{order_0}}</view>
+                    </block>
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-paying.png'></image>
+                    <view class='ordertext'>待付款</view>
+                </view>
+                <view class='orderitem' bindtap="navigateToOrder" id="1">
+                    <block wx:if="{{order_1!=0 && userInfo.nickname}}">
+                        <view class="label">{{order_1}}</view>
+                    </block>
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-deliver.png'></image>
+                    <view class='ordertext'>待发货</view>
+                </view>
+                <view class='orderitem' bindtap="navigateToOrder" id="2">
+                    <block wx:if="{{order_2!=0 && userInfo.nickname}}">
+                        <view class="label">{{order_2}}</view>
+                    </block>
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-gain.png'></image>
+                    <view class='ordertext'>待收货</view>
+                </view>
+                <view class='orderitem' bindtap="navigateToOrder" id="3">
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-finish.png'></image>
+                    <view class='ordertext'>已完成</view>
+                </view>
+                <view class='orderitem' bindtap="refundGoods">
+                    <!-- <block wx:if="{{order_4 !=0 && userInfo.nickname}}">
+                        <view class="label lastlabel">{{order_4}}</view>
+                    </block> -->
+                    <image class='orderimg' src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-order-comment.png'></image>
+                    <view class='ordertext'>退换/售后</view>
+                </view>
+            </view>
+        </view>
+        <view class='toolList' wx:if="{{is_mianyi == 0}}">
+            <view class='tool' bindtap="navigateToAddress" wx:if="{{!isGrogShop}}">
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-menu-address.png' class='toolimg'></image>
+                <text>我的地址</text>
+            </view>
+            <view class='tool' bindtap="navigateToCollect">
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-menu-collect.png' class='toolimg'></image>
+                <text>我的收藏</text>
+            </view>
+            <view class='tool'>
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-menu-service.png' class='toolimg'></image>
+                <!-- <text>我的客服</text> -->
+                <button open-type="contact">我的客服</button>
+            </view>
+            <view class='tool' bindtap="navigateToCoupon">
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member-coupon.png' class='toolimg'></image>
+                <text>我的优惠券</text>
+            </view>
+            <view class='tool' wx:if="{{toolList.distribution == 1}}" bindtap="navigateToWallet">
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member-wallet.png' class='toolimg'></image>
+                <text>我的钱包</text>
+            </view>
+            <view class='tool' bindtap="navigateTogroup">
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/fiveg/images/member-group.png' class='toolimg'></image>
+                <text>我的拼团</text>
+            </view>
+            <image wx:if="{{toolList.distribution == 1}}" class="icon__deliver" bindtap="handleDeliver" src="http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member-distribution.png" mode="widthFix"></image>
+        </view>
+          <view class='toolList' wx:if="{{is_mianyi == 1}}">
+            <view class='tool' bindtap="navigateToCollect">
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-menu-collect.png' class='toolimg'></image>
+                <text>我的收藏</text>
+            </view>
+            <view class='tool'>
+                <image src='http://boweisou.oss-cn-shenzhen.aliyuncs.com/5G/member5g-menu-service.png' class='toolimg'></image>
+                <button open-type="contact">我的客服</button>
+            </view>
+        </view>
+    </block>
+</view>

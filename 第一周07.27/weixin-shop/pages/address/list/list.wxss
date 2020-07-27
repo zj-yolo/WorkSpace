@@ -1,0 +1,177 @@
+page {
+  background: #eee;
+}
+
+.addressItem {
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  background: #fff;
+}
+
+.itemContainer {
+  padding: 25rpx 20rpx 15rpx;
+  border: 1px solid #eee;
+}
+
+/* 收货人 */
+
+.username {
+  display: flex;
+  margin-bottom: 10rpx;
+}
+
+.username .labelName {
+  width: 16%;
+}
+
+.rightInfo text {
+  margin-right: 15rpx;
+}
+
+.rightInfo text:nth-child(2) {
+  margin-right: 0;
+}
+
+/* 地址 */
+
+.address {
+  display: flex;
+}
+
+.address .a_labelName {
+  width: 20%;
+}
+
+.address .addressContent {
+  line-height: 1.5;
+  width: 80%;
+}
+
+.addressOperate {
+  display: flex;
+  padding: 20rpx;
+}
+
+/* 默认地址设置 */
+
+.addressOperate .setDefault {
+  width: 50%;
+}
+
+.setDefault .circle {
+  display: inline-block;
+  position: relative;
+  margin-right: 15rpx;
+  width: 30rpx;
+  height: 30rpx;
+  border: 2px solid #444;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.setDefault .circleActive {
+  border: 2px solid #8e4054;
+}
+
+.dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16rpx;
+  height: 16rpx;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #8e4054;
+}
+
+/* 右边操作 */
+
+.addressOperate .rightEdit {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+}
+
+.edit {
+  display: flex;
+  margin-right: 40rpx;
+}
+
+.edit:last-child {
+  margin: 0;
+}
+
+.edit image {
+  margin-right: 15rpx;
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+}
+
+.addAddress {
+  position: fixed;
+  bottom: 0;
+  padding: 25rpx 0;
+  width: 100%;
+  text-align: center;
+
+  font-size: 28rpx;
+  /* background: #8e4054; */
+}
+
+.addHover {
+  background-color: #8e4054;
+}
+
+.noAddress {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f4f4f4;
+}
+
+.centerAddr {
+  margin: 40% auto;
+  text-align: center;
+}
+
+.centerAddr image {
+  width: 193rpx;
+  height: 262rpx;
+}
+
+.pading-kong {
+  height: 110rpx;
+  width: 100%;
+}
+
+
+
+
+.addAddress {
+  display: flex;flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  padding: 20rpx 0;
+  width: 100%;
+  text-align: center;
+  /* color: #fff; */
+  font-size: 28rpx;
+  /* background: #cf090a; */
+  }
+.weixinaddress{
+  width: 45%;text-align: center;line-height: 50rpx;padding: 10rpx 0; display: flex;flex-direction: row;justify-content: center;align-items: center;
+  margin: 0 2.5%;border-radius: 35rpx;background-color: white;box-shadow:2rpx 5rpx 10rpx #ccc;
+}
+.newaddress{
+   background: #cf090a; color:#fff;box-shadow:2rpx 5rpx 10rpx #cf090a;
+}
+
+.addHovers {
+  background-color: #e2e2e2;
+}
+
+.addHover {
+  background-color: #5e5c8b;
+}
+

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "skipHome": "/components/skipHome/skipHome"
+  },
+  "enablePullDownRefresh": true
+}
